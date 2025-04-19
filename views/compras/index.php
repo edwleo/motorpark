@@ -20,100 +20,96 @@
     </div>
   </div>
 
-  <div class="card">
-    <div class="card-body">
-      <div class="table-responsive">
-        <table class="table table-bordered table-striped" id="tabla-compras">
-          <thead>
-            <tr>
-              <th>#</th>
-              <th>Proveedor</th>
-              <th>Solicitado</th>
-              <th>Enviado</th>
-              <th>Recepcionado</th>
-              <th>Importe</th>
-              <th>Estado</th>
-              <th>Operaciones</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td>1</td>
-              <td>Autos Perú</td>
-              <td>15-02-2025</td>
-              <td>10-03-2025</td>
-              <td>08-04-2025</td>
-              <td>85000</td>
-              <td>Pendiente</td>
-              <td>
-                <a href="#">Agregar</a>
-              </td>
-            </tr>
-            <tr>
-              <td>1</td>
-              <td>Autos Perú</td>
-              <td>15-02-2025</td>
-              <td>10-03-2025</td>
-              <td>08-04-2025</td>
-              <td>8000</td>
-              <td>Pendiente</td>
-              <td>
-                <a href="#">Agregar</a>
-              </td>
-            </tr>
-            <tr>
-              <td>1</td>
-              <td>Autos Perú</td>
-              <td>15-02-2025</td>
-              <td>10-03-2025</td>
-              <td>08-04-2025</td>
-              <td>85000</td>
-              <td>Pendiente</td>
-              <td>
-                <a href="#">Agregar</a>
-              </td>
-            </tr>
-  
-            <tr>
-              <td>1</td>
-              <td>Autos Perú</td>
-              <td>15-02-2025</td>
-              <td>10-03-2025</td>
-              <td>08-04-2025</td>
-              <td>85000</td>
-              <td>Pendiente</td>
-              <td>
-                <a href="#">Agregar</a>
-              </td>
-            </tr>
-            <tr>
-              <td>1</td>
-              <td>Autos Perú</td>
-              <td>15-02-2025</td>
-              <td>10-03-2025</td>
-              <td>08-04-2025</td>
-              <td>85000</td>
-              <td>Pendiente</td>
-              <td>
-                <a href="#">Agregar</a>
-              </td>
-            </tr>
-            <tr>
-              <td>1</td>
-              <td>Autos Perú</td>
-              <td>15-02-2025</td>
-              <td>10-03-2025</td>
-              <td>08-04-2025</td>
-              <td>85000</td>
-              <td>Pendiente</td>
-              <td>
-                <a href="#">Agregar</a>
-              </td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
-    </div>
+  <div class="table-responsive">
+    <table class="table table-bordered table-striped" id="tabla-compras">
+      <thead>
+        <tr>
+          <th>#</th>
+          <th>Proveedor</th>
+          <th>Solicitado</th>
+          <th>Enviado</th>
+          <th>Recepcionado</th>
+          <th>Importe</th>
+          <th>Estado</th>
+          <th>Operaciones</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>1</td>
+          <td>Autos Perú</td>
+          <td>15-02-2025</td>
+          <td>10-03-2025</td>
+          <td>08-04-2025</td>
+          <td>85000</td>
+          <td>Pendiente</td>
+          <td>
+            <a href="#">Agregar</a>
+          </td>
+        </tr>
+        <tr>
+          <td>1</td>
+          <td>Autos Perú</td>
+          <td>15-02-2025</td>
+          <td>10-03-2025</td>
+          <td>08-04-2025</td>
+          <td>8000</td>
+          <td>Pendiente</td>
+          <td>
+            <a href="#">Agregar</a>
+          </td>
+        </tr>
+        <tr>
+          <td>1</td>
+          <td>Autos Perú</td>
+          <td>15-02-2025</td>
+          <td>10-03-2025</td>
+          <td>08-04-2025</td>
+          <td>85000</td>
+          <td>Pendiente</td>
+          <td>
+            <a href="#">Agregar</a>
+          </td>
+        </tr>
+
+        <tr>
+          <td>1</td>
+          <td>Autos Perú</td>
+          <td>15-02-2025</td>
+          <td>10-03-2025</td>
+          <td>08-04-2025</td>
+          <td>85000</td>
+          <td>Pendiente</td>
+          <td>
+            <a href="#">Agregar</a>
+          </td>
+        </tr>
+        <tr>
+          <td>1</td>
+          <td>Autos Perú</td>
+          <td>15-02-2025</td>
+          <td>10-03-2025</td>
+          <td>08-04-2025</td>
+          <td>85000</td>
+          <td>Pendiente</td>
+          <td>
+            <a href="#">Agregar</a>
+          </td>
+        </tr>
+        <tr>
+          <td>1</td>
+          <td>Autos Perú</td>
+          <td>15-02-2025</td>
+          <td>10-03-2025</td>
+          <td>08-04-2025</td>
+          <td>85000</td>
+          <td>Pendiente</td>
+          <td>
+            <a href="#">Agregar</a>
+          </td>
+        </tr>
+      </tbody>
+    </table>
   </div>
 
 <script>
