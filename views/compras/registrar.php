@@ -97,11 +97,8 @@
           </div>
           <div class="col-md-3">
             <div class="form-floating">
-              <select name="" id="" class="form-select">
-                <option value="" selected>Compra directa</option>
-                <option value="">Separación</option>
-              </select>
-              <label for="form-label">Condición</label>
+              <input type="text" class="form-control text-center" id="ordencompra">
+              <label for="form-label">Orden de compra</label>
             </div>
           </div>
         </div> <!-- ./row -->

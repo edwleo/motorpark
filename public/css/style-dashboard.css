@@ -1,5 +1,5 @@
-/* @import url('https://fonts.googleapis.com/css2?family=Poppins&display=swap'); */
-@import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:ital,wght@0,100..700;1,100..700&family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Manrope:wght@200..800&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Poppins&display=swap');
+/* @import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:ital,wght@0,100..700;1,100..700&family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Manrope:wght@200..800&display=swap'); */
 
 *,
 ::after,
@@ -8,8 +8,8 @@
 }
 
 body {
-    /* font-family: 'Poppins', sans-serif; */
-    font-family: "Manrope", sans-serif;
+    font-family: 'Poppins', sans-serif;
+    /* font-family: "Manrope", sans-serif; */
     font-size: 0.875rem;
     opacity: 1;
     overflow-y: scroll;
@@ -19,8 +19,8 @@ body {
 a {
     cursor: pointer;
     text-decoration: none;
-    /* font-family: 'Poppins', sans-serif; */
-    font-family: "Manrope", sans-serif;
+    font-family: 'Poppins', sans-serif;
+    /* font-family: "Manrope", sans-serif; */
 }
 
 li {
@@ -28,8 +28,8 @@ li {
 }
 
 h4 {
-    /* font-family: 'Poppins', sans-serif; */
-    font-family: "Manrope", sans-serif;
+    font-family: 'Poppins', sans-serif;
+    /* font-family: "Manrope", sans-serif; */
     font-size: 1.275rem;
     color: var(--bs-emphasis-color);
 }
