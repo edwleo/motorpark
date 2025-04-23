@@ -3,6 +3,7 @@ USE motorpark;
 
 -- Necesitaremos de una función que calcula la hora actual, esto será 
 -- útil cuando la aplicación se aloje en un servidor remoto
+/*
 DELIMITER $$
 CREATE FUNCTION GETDATE()
 RETURNS DATETIME
@@ -11,6 +12,7 @@ BEGIN
     RETURN NOW() - INTERVAL 5 HOUR;
 END $$
 DELIMITER ;
+*/
 
 -- Tabla controlar los de las personas y su acceso al sistema
 CREATE TABLE departamentos
@@ -52,8 +54,147 @@ CREATE TABLE personas
     referencia 			VARCHAR(200) 	NULL,
     telprimario 		CHAR(9) 		NOT NULL,
     telalternativo 		CHAR(9) 		NULL,
-	creado 				DATETIME 		NOT NULL DEFAULT GETDATE(),
+	creado 				DATETIME 		NOT NULL DEFAULT NOW(),
     modificado 			DATETIME 		NULL,
     CONSTRAINT uk_nrodoc UNIQUE (tipodoc, nrodoc),
     CONSTRAINT fk_iddistrito_per FOREIGN KEY (iddistrito) REFERENCES distritos (iddistrito) 
 )ENGINE = INNODB;
+
+CREATE TABLE areas
+(
+	idarea 				INT AUTO_INCREMENT PRIMARY KEY,
+    area 				VARCHAR(40) 	NOT NULL,
+	creado 				DATETIME 		NOT NULL DEFAULT NOW(),
+    modificado 			DATETIME 		NULL,
+    CONSTRAINT uk_area_are UNIQUE (area)
+)ENGINE = INNODB;
+
+CREATE TABLE cargos
+(
+	idcargo				INT AUTO_INCREMENT PRIMARY KEY,
+    idarea				INT 			NOT NULL,
+    cargo				VARCHAR(40) 	NOT NULL,
+	creado 				DATETIME 		NOT NULL DEFAULT NOW(),
+    modificado 			DATETIME 		NULL,
+    CONSTRAINT fk_idarea_car FOREIGN KEY (idarea) REFERENCES areas (idarea)
+)ENGINE = INNODB;
+
+CREATE TABLE contratoslaborales
+(
+	idcontratolaboral	INT AUTO_INCREMENT PRIMARY KEY,
+    idpersona 			INT 			NOT NULL,
+    idcargo 			INT 			NOT NULL,
+    fechainicio			DATE 			NOT NULL,
+    fechafin 			DATE 			NULL,
+    tipocontrato 		ENUM('P', 'R') NOT NULL COMMENT 'Planilla - Recibos',
+	creado 				DATETIME 		NOT NULL DEFAULT NOW(),
+    modificado 			DATETIME 		NULL,
+    CONSTRAINT fk_idpersona_cla FOREIGN KEY (idpersona) REFERENCES personas (idpersona),
+    CONSTRAINT fk_idcargocla FOREIGN KEY (idcargo) REFERENCES cargos (idcargo)
+)ENGINE = INNODB;
+
+CREATE TABLE colaboradores
+(
+	idcolaborador 		INT AUTO_INCREMENT PRIMARY KEY,
+    idcontratolaboral	INT 			NOT NULL,
+    usernick 			VARCHAR(40) 	NOT NULL,
+    userpassword 		VARCHAR(70) 	NOT NULL,
+    avatar 				VARCHAR(150) 	NULL,
+    ultimoacceso 		DATETIME 		NULL,
+    habilitado			ENUM('S', 'N') 	NOT NULL DEFAULT 'S',
+	creado 				DATETIME 		NOT NULL DEFAULT NOW(),
+    modificado 			DATETIME 		NULL,
+    CONSTRAINT fk_idcontratolaboral_col FOREIGN KEY (idcontratolaboral) REFERENCES contratoslaborales (idcontratolaboral),
+    CONSTRAINT uk_usernick_col UNIQUE (usernick)
+)ENGINE = INNODB;
+
+CREATE TABLE concesionarios
+(
+	idconcesionario 	INT AUTO_INCREMENT PRIMARY KEY, 
+    ruc 				CHAR(11) 		NOT NULL,
+    razonsocial			VARCHAR(350)	NOT NULL,
+    nombrecomercial		VARCHAR(150) 	NOT NULL,
+	creado 				DATETIME 		NOT NULL DEFAULT NOW(),
+    modificado 			DATETIME 		NULL,
+    CONSTRAINT uk_ruc_con UNIQUE (ruc)
+)ENGINE = INNODB;
+
+CREATE TABLE tiendas
+(
+	idtienda 			INT AUTO_INCREMENT PRIMARY KEY,
+    iddistrito			INT 			NOT NULL,
+    idconcesionario		INT 			NOT NULL,
+    direccion			VARCHAR(300)	NULL,
+    telefono 			VARCHAR(12) 	NOT NULL,
+    contacto 			VARCHAR(100)	NULL,
+	creado 				DATETIME 		NOT NULL DEFAULT NOW(),
+    modificado 			DATETIME 		NULL,
+    CONSTRAINT fk_iddistrito_tnd FOREIGN KEY (iddistrito) REFERENCES distritos (iddistrito),
+    CONSTRAINT fk_idconcesionario_tnd FOREIGN KEY (idconcesionario) REFERENCES concesionarios (idconcesionario)
+)ENGINE = INNODB;
+
+CREATE TABLE ordenescompra
+(
+	idordencompra		INT AUTO_INCREMENT PRIMARY KEY COMMENT 'El ID será también el número mostrado en el comprobante',
+    fechaorden			DATE 			NOT NULL,
+    idtienda 			INT 			NOT NULL COMMENT 'Con este dato también podemos indentificar al concesionario',
+    idlogistica 		INT 			NOT NULL COMMENT 'Colaborador del área de logística',
+    observaciones		VARCHAR(500) 	NULL,
+	creado 				DATETIME 		NOT NULL DEFAULT NOW(),
+    modificado 			DATETIME 		NULL,
+    CONSTRAINT fk_idtienda_oco FOREIGN KEY (idtienda) REFERENCES tiendas (idtienda),
+    CONSTRAINT fk_idlogistica_oco FOREIGN KEY (idlogistica) REFERENCES colaboradores (idcolaborador)
+)ENGINE = INNODB;
+
+CREATE TABLE marcas
+(
+	idmarca 			INT AUTO_INCREMENT PRIMARY KEY,
+    marca				VARCHAR(40) 	NOT NULL,
+	creado 				DATETIME 		NOT NULL DEFAULT NOW(),
+    modificado 			DATETIME 		NULL,
+    CONSTRAINT uk_marca_mar UNIQUE (marca)
+)ENGINE = INNODB;
+
+CREATE TABLE tipovehiculos
+(
+	idtipovehiculo		INT AUTO_INCREMENT PRIMARY KEY,
+    tipovehiculo 		VARCHAR(40) 	NOT NULL,
+	creado 				DATETIME 		NOT NULL DEFAULT NOW(),
+    modificado 			DATETIME 		NULL,
+    CONSTRAINT uk_tipovehiculo_tve UNIQUE (tipovehiculo)
+)ENGINE = INNODB;
+
+CREATE TABLE modelos
+(
+	idmodelo 			INT AUTO_INCREMENT PRIMARY KEY,
+    idtipovehiculo		INT 			NOT NULL,
+    idmarca 			INT 			NOT NULL,
+    modelo 				VARCHAR(40) 	NOT NULL,
+	creado 				DATETIME 		NOT NULL DEFAULT NOW(),
+    modificado 			DATETIME 		NULL,
+    CONSTRAINT fk_idtipovehiculo_mod FOREIGN KEY (idtipovehiculo) REFERENCES tipovehiculos (idtipovehiculo),
+    CONSTRAINT fk_idmarca_mod FOREIGN KEY (idmarca) REFERENCES marcas (idmarca),
+    CONSTRAINT uk_modelo_mod UNIQUE (idmarca, modelo)
+)ENGINE = INNODB;
+
+CREATE TABLE combustibles
+(
+	idcombustible		INT AUTO_INCREMENT PRIMARY KEY,
+    combustible 		VARCHAR(40) 	NOT NULL,
+	creado 				DATETIME 		NOT NULL DEFAULT NOW(),
+    modificado 			DATETIME 		NULL,
+    CONSTRAINT uk_combustible_cmb UNIQUE (combustible)
+)ENGINE = INNODB;
+
+CREATE TABLE motorpark
+(
+	idmotorpark 		INT AUTO_INCREMENT PRIMARY KEY
+)ENGINE = INNODB;
+
+CREATE TABLE vehiculos
+(
+	idvehiculo			INT AUTO_INCREMENT PRIMARY KEY,
+    
+)ENGINE = INNODB;
+
+
