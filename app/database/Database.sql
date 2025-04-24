@@ -188,13 +188,59 @@ CREATE TABLE combustibles
 
 CREATE TABLE motorpark
 (
-	idmotorpark 		INT AUTO_INCREMENT PRIMARY KEY
+	idmotorpark 		INT AUTO_INCREMENT PRIMARY KEY,
+    ruc 				CHAR(11) 		NOT NULL,
+    razonsocial			VARCHAR(300)	NOT NULL,
+    nombrecomercial		VARCHAR(100) 	NOT NULL,
+    representante 		VARCHAR(100) 	NULL,
+	creado 				DATETIME 		NOT NULL DEFAULT NOW(),
+    modificado 			DATETIME 		NULL,
+    CONSTRAINT uk_ruc_mtp UNIQUE(ruc)
+)ENGINE = INNODB;
+
+CREATE TABLE locales
+(
+	idlocal				INT AUTO_INCREMENT PRIMARY KEY,
+    tienda 				VARCHAR(40) 	NOT NULL,
+    iddistrito			INT 			NOT NULL,
+    idmotorpark			INT 			NOT NULL,
+    principal			ENUM('S','N') 	NOT NULL,
+    responsable 		VARCHAR(100) 	NOT NULL,
+    correo 				VARCHAR(200) 	NULL,
+    direccion			VARCHAR(300)	NULL,
+    telefono 			VARCHAR(12) 	NULL,
+    latitud 			VARCHAR(20) 	NULL,
+    longitud 			VARCHAR(20) 	NULL,
+	creado 				DATETIME 		NOT NULL DEFAULT NOW(),
+    modificado 			DATETIME 		NULL,    
+    CONSTRAINT fk_iddistrito_loc FOREIGN KEY (iddistrito) REFERENCES distritos (iddistrito),
+    CONSTRAINT fk_idmotorpark_loc FOREIGN KEY (idmotorpark) REFERENCES motorpark (idmotorpark)
 )ENGINE = INNODB;
 
 CREATE TABLE vehiculos
 (
 	idvehiculo			INT AUTO_INCREMENT PRIMARY KEY,
-    
+	idmodelo 			INT 			NOT NULL,
+	anio				CHAR(4) 		NOT NULL,
+    version				VARCHAR(20) 	NOT NULL,
+    condicion			ENUM('nuevo', 'seminuevo') NOT NULL DEFAULT 'nuevo',
+    idcombustible 		INT 			NOT NULL,
+    color 				VARCHAR(30) 	NULL,
+    chasis 				VARCHAR(30)		NULL,
+    placa 				VARCHAR(10)	 	NULL,
+    placarotativa		VARCHAR(10) 	NULL,
+    seriemotor 			VARCHAR(20) 	NULL,
+    moneda 				ENUM('USD', 'PEN') NULL DEFAULT 'USD',
+    precioventa			DECIMAL(9,2) 	NULL,
+    disponibilidad 		ENUM('proceso', 'libre', 'separado', 'vendido', 'recuperado') NOT NULL,
+    idlocal 			INT 			NULL,
+	creado 				DATETIME 		NOT NULL DEFAULT NOW(),
+    modificado 			DATETIME 		NULL,
+    CONSTRAINT fk_idmodelo_veh FOREIGN KEY (idvehiculo) REFERENCES modelos (idmodelo),
+    CONSTRAINT fk_idcombustible_veh FOREIGN KEY (idcombustible) REFERENCES combustibles (idcombustible),
+    CONSTRAINT fk_idlocal_veh FOREIGN KEY (idlocal) REFERENCES locales (idlocal)
 )ENGINE = INNODB;
+
+
 
 
