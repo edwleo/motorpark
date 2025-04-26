@@ -125,6 +125,7 @@ CREATE TABLE tiendas
     iddistrito			INT 			NOT NULL,
     idconcesionario		INT 			NOT NULL,
     direccion			VARCHAR(300)	NULL,
+    email				VARCHAR(200) 	NULL,
     telefono 			VARCHAR(12) 	NOT NULL,
     contacto 			VARCHAR(100)	NULL,
 	creado 				DATETIME 		NOT NULL DEFAULT NOW(),
@@ -132,6 +133,7 @@ CREATE TABLE tiendas
     CONSTRAINT fk_iddistrito_tnd FOREIGN KEY (iddistrito) REFERENCES distritos (iddistrito),
     CONSTRAINT fk_idconcesionario_tnd FOREIGN KEY (idconcesionario) REFERENCES concesionarios (idconcesionario)
 )ENGINE = INNODB;
+
 
 CREATE TABLE ordenescompra
 (
@@ -217,6 +219,8 @@ CREATE TABLE locales
     CONSTRAINT fk_idmotorpark_loc FOREIGN KEY (idmotorpark) REFERENCES motorpark (idmotorpark)
 )ENGINE = INNODB;
 
+
+-- La moneda y precio de compra están definidos en el proceso de COMPRA
 CREATE TABLE vehiculos
 (
 	idvehiculo			INT AUTO_INCREMENT PRIMARY KEY,
@@ -230,17 +234,63 @@ CREATE TABLE vehiculos
     placa 				VARCHAR(10)	 	NULL,
     placarotativa		VARCHAR(10) 	NULL,
     seriemotor 			VARCHAR(20) 	NULL,
-    moneda 				ENUM('USD', 'PEN') NULL DEFAULT 'USD',
+    moneda				ENUM('USD', 'PEN') NULL DEFAULT 'USD',
     precioventa			DECIMAL(9,2) 	NULL,
     disponibilidad 		ENUM('proceso', 'libre', 'separado', 'vendido', 'recuperado') NOT NULL,
+    idlogistica			INT 			NOT NULL,
     idlocal 			INT 			NULL,
+    imagenreferencial 	VARCHAR(200) 	NULL,
 	creado 				DATETIME 		NOT NULL DEFAULT NOW(),
     modificado 			DATETIME 		NULL,
     CONSTRAINT fk_idmodelo_veh FOREIGN KEY (idvehiculo) REFERENCES modelos (idmodelo),
     CONSTRAINT fk_idcombustible_veh FOREIGN KEY (idcombustible) REFERENCES combustibles (idcombustible),
-    CONSTRAINT fk_idlocal_veh FOREIGN KEY (idlocal) REFERENCES locales (idlocal)
+    CONSTRAINT fk_idlocal_veh FOREIGN KEY (idlocal) REFERENCES locales (idlocal),
+    CONSTRAINT fk_idlogistica_veh FOREIGN KEY (idlogistica) REFERENCES colaboradores (idcolaborador)
 )ENGINE = INNODB;
 
+-- Cuando se compra un vehículo, este además de su valor, supone pagos adicioanles como:
+-- Tarjeta de propiedad y placa, Flete picanto, gastos administrativos
+-- No se requiere indiciar la moneda porque esto se especifica al momento de realizar la comrpa
+CREATE TABLE gastos
+(
+	idgasto 			INT AUTO_INCREMENT PRIMARY KEY,
+    idvehiculo 			INT 			NOT NULL,
+    descripcion 		VARCHAR(300) 	NOT NULL,
+	importe 			DECIMAL(9,2) 	NOT NULL,
+	creado 				DATETIME 		NOT NULL DEFAULT NOW(),
+    modificado 			DATETIME 		NULL,
+    CONSTRAINT fk_idvehiculo_gst FOREIGN KEY (idvehiculo) REFERENCES vehiculos (idvehiculo)
+)ENGINE = INNODB;
 
+CREATE TABLE ordenescompra
+(
+	idordencompra		INT AUTO_INCREMENT PRIMARY KEY COMMENT 'Será el número de orden de compra',
+    idtienda			INT 			NOT NULL,
+    idlogistica			INT 			NOT NULL,
+    moneda				ENUM('USD', 'PEN') NOT NULL,
+    serie 				CHAR(4) 		NOT NULL COMMENT 'Será el año',
+    emision				DATE	 		NOT NULL COMMENT 'Se creó la orden de compra',
+    aprobacion			DATE			NULL COMMENT 'Gerencia aprueba la orden',
+    presentacion		DATE 			NULL COMMENT 'Logística envía la orden al concesionario',
+    anulacion 			DATE 			NULL COMMENT 'Logística anula la orden de compra',
+    numstock			VARCHAR(20) 	NULL COMMENT 'Este dato será provisto por el concesionario - opcional',
+    observaciones		VARCHAR(400) 	NULL,
+    estado 				ENUM('emitido', 'aprobado', 'presentado', 'anulado')  NOT NULL DEFAULT 'emitido',
+    CONSTRAINT fk_idtienda_ocp FOREIGN KEY (idtienda) REFERENCES tiendas (idtienda),
+    CONSTRAINT fk_idlogistica_ocp FOREIGN KEY (idlogistica) REFERENCES colaboradores (idcolaborador)
+)ENGINE = INNODB;
 
+-- Una orden de compra puede tener más de un equipo
+CREATE TABLE detordencompra
+(
+	iddetordencompra	INT AUTO_INCREMENT PRIMARY KEY,
+    idordencompra		INT 			NOT NULL,
+    idvehiculo			INT 			NOT NULL,
+    preciocompra		DECIMAL(9,2)	NOT NULL,
+    CONSTRAINT fk_idordencompra_doc FOREIGN KEY (idordencompra) REFERENCES ordenescompra (idordencompra),
+    CONSTRAINT fk_idvehiculo_doc FOREIGN KEY (idvehiculo) REFERENCES vehiculos (idvehiculo)
+)ENGINE = INNODB;
 
+-- Logística tiene que validar los autos cuando llegan, si no corresponden se actualiza la FACTURA
+-- Es posible anular una OC previa coordinación con el concesionario, se debe detallar el motivo
+-- La factura se entrega cuando se termine de realizar el 100% del pago
