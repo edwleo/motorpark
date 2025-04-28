@@ -11,7 +11,7 @@
       <div class="col-6 text-start">
         <p class="mb-0">
           <a href="#" class="text-muted">
-            <strong>Motorpark Yonda</strong>
+            <span>Motorpark Yonda</span>
           </a>
         </p>
       </div>

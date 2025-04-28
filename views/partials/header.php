@@ -46,6 +46,12 @@ $path = "http://localhost/motorpark";
             Módulos
           </li>
           <li class="sidebar-item">
+            <a href="<?= $path ?>/views/oc" class="sidebar-link">
+              <i class="fa-solid fa-list pe-2"></i>
+              OC
+            </a>
+          </li>
+          <li class="sidebar-item">
             <a href="<?= $path ?>/views/compras" class="sidebar-link">
               <i class="fa-solid fa-list pe-2"></i>
               Compras

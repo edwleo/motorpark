@@ -275,7 +275,7 @@ CREATE TABLE ordenescompra
     anulacion 			DATE 			NULL COMMENT 'Logística anula la orden de compra',
     numstock			VARCHAR(20) 	NULL COMMENT 'Este dato será provisto por el concesionario - opcional',
     observaciones		VARCHAR(400) 	NULL,
-    estado 				ENUM('emitido', 'aprobado', 'presentado', 'anulado')  NOT NULL DEFAULT 'emitido',
+    estado 				ENUM('emitido', 'aprobado', 'presentado', 'anulado', 'pagado')  NOT NULL DEFAULT 'emitido',
     CONSTRAINT fk_idtienda_ocp FOREIGN KEY (idtienda) REFERENCES tiendas (idtienda),
     CONSTRAINT fk_idlogistica_ocp FOREIGN KEY (idlogistica) REFERENCES colaboradores (idcolaborador)
 )ENGINE = INNODB;
@@ -287,10 +287,56 @@ CREATE TABLE detordencompra
     idordencompra		INT 			NOT NULL,
     idvehiculo			INT 			NOT NULL,
     preciocompra		DECIMAL(9,2)	NOT NULL,
+    escorrecto 			ENUM ('S', 'N') NULL COMMENT 'Define si el vehículo llego de acuerdo a los datos de la factura',
     CONSTRAINT fk_idordencompra_doc FOREIGN KEY (idordencompra) REFERENCES ordenescompra (idordencompra),
-    CONSTRAINT fk_idvehiculo_doc FOREIGN KEY (idvehiculo) REFERENCES vehiculos (idvehiculo)
+    CONSTRAINT fk_idvehiculo_doc FOREIGN KEY (idvehiculo) REFERENCES vehiculos (idvehiculo),
+    CONSTRAINT uk_idvehiculo_doc UNIQUE (idvehiculo) -- Relación uno a uno
 )ENGINE = INNODB;
 
--- Logística tiene que validar los autos cuando llegan, si no corresponden se actualiza la FACTURA
--- Es posible anular una OC previa coordinación con el concesionario, se debe detallar el motivo
--- La factura se entrega cuando se termine de realizar el 100% del pago
+CREATE TABLE compras
+(
+	idcompra 			INT AUTO_INCREMENT PRIMARY KEY,
+    idorden				INT 			NOT NULL COMMENT 'De esta clave se obtendrán las datos de los vehículos',
+    idlogistica 		INT 			NOT NULL COMMENT 'Colaborador que realiza el registro',
+    fechacompra 		DATE 			NOT NULL,
+    fecharecepcion		DATE 			NULL,
+    tipodoc 			ENUM('B','F')	NOT NULL DEFAULT 'F' COMMENT 'Boleta o Factura',
+    serie 				VARCHAR(10) 	NOT NULL,
+    numdocumento		INT 			NOT NULL,
+    pathxml 			VARCHAR(200)	NULL,
+	creado 				DATETIME 		NOT NULL DEFAULT NOW(),
+    modificado 			DATETIME 		NULL,
+    CONSTRAINT fk_idorden_cmp FOREIGN KEY (idorden) REFERENCES ordenescompra (idordencompra),
+    CONSTRAINT fk_idlogistica_cmp FOREIGN KEY (idlogistica) REFERENCES colaboradores (idcolaborador)
+)ENGINE = INNODB;
+
+CREATE TABLE entidadespago
+(
+	identidadpago		INT AUTO_INCREMENT PRIMARY KEY,
+    entidad 			VARCHAR(20) 	NOT NULL,
+    tipo 				ENUM('Banco', 'Caja', 'Financiera') NOT NULL DEFAULT 'Banco',
+	creado 				DATETIME 		NOT NULL DEFAULT NOW(),
+    modificado 			DATETIME 		NULL,
+    CONSTRAINT uk_entidad_epg UNIQUE (entidad)
+)ENGINE = INNODB;
+
+CREATE TABLE amortizacionesoc
+(
+	idamortizacion		INT AUTO_INCREMENT PRIMARY KEY,
+    idorden 			INT 			NOT NULL,
+    idlogistica			INT 			NOT NULL,
+    identidadpago		INT 			NOT NULL,
+    fechapago 			DATE 			NOT NULL,
+    numtransaccion		VARCHAR(20)		NOT NULL,
+    moneda				ENUM('USD', 'PEN') NOT NULL,
+    tipocambio 			DECIMAL(5,2) 	NULL,
+    amortizacion		DECIMAL(9,2) 	NOT NULL,
+    saldo 				DECIMAL(9,2) 	NOT NULL,
+    comprobante			VARCHAR(200) 	NULL,
+    observaciones		VARCHAR(400) 	NULL,
+	creado 				DATETIME 		NOT NULL DEFAULT NOW(),
+    modificado 			DATETIME 		NULL,
+    CONSTRAINT fk_idorden_aoc FOREIGN KEY (idorden) REFERENCES ordenescompra (idordencompra),
+    CONSTRAINT fk_idlogistica_aoc FOREIGN KEY (idlogistica) REFERENCES colaboradores (idcolaborador),
+    CONSTRAINT fk_identidadpago_aoc FOREIGN KEY (identidadpago) REFERENCES entidadespago (identidadpago)
+)ENGINE = INNODB;
