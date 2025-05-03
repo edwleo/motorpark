@@ -4,7 +4,7 @@
 class Database{
 
   private static $host = "localhost";
-  private static $dbname = "tienda";
+  private static $dbname = "motorpark";
   private static $username = "root";
   private static $password = "";
   private static $charset = "utf8mb4";

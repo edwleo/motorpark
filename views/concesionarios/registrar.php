@@ -18,17 +18,17 @@
     </div>
   </div>
 
-  <div>
+  <div class="mb-2">
     <form action="" autocomplete="off">
-      <div class="card">
+      <div class="card mb-0">
         <div class="card-header">Complete la información solicitada</div>
         <div class="card-body">
           <div class="row g-2">
             <div class="col-md-3">
               <div class="input-group">
                 <div class="form-floating">
-                  <input type="text" id="ruc" class="form-control" maxlength="11" minlength="11" placeholder="RUC"
-                    autofocus required>
+                  <input type="text" id="ruc" class="form-control text-center" maxlength="11" minlength="11"
+                    placeholder="RUC" autofocus required>
                   <label for="ruc" class="form-label">RUC</label>
                 </div>
                 <button class="btn btn-success"><i class="fa-solid fa-magnifying-glass"></i></button>
@@ -47,52 +47,54 @@
               </div>
             </div>
           </div> <!-- ./row -->
-
-          <hr>
-
-          <div class="row">
-            <div class="col-md-6 d-flex align-items-center justify-content-start">
-              <span>Lista de tiendas</span>
-            </div>
-            <div class="col-md-6 text-end">
-              <a href="#" class="btn btn-sm btn-outline-primary" data-bs-toggle="modal"
-                data-bs-target="#modal-tiendas">Agregar tienda</a>
-            </div>
-          </div>
-
-          <hr>
-
-          <div class="row g-2">
-            <div class="col-md-12">
-              <div class="table-responsive">
-                <table class="table table-sm">
-                  <thead>
-                    <tr>
-                      <th>#</th>
-                      <th>Ubigeo</th>
-                      <th>Dirección</th>
-                      <th>Teléfono</th>
-                      <th>Email</th>
-                      <th>Contacto</th>
-                      <th>Acciones</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <tr>
-                      <td colspan="7" class="text-center mt-2 mb-2">No hay tiendas registradas</td>
-                    </tr>
-                  </tbody>
-                </table>
-              </div>
-            </div>
-          </div>
         </div> <!-- ./card-body -->
         <div class="card-footer text-end">
+          <button class="btn btn-sm btn-outline-secondary">Cancelar</button>
           <button class="btn btn-sm btn-primary">Guardar</button>
-          <button class="btn btn-sm btn-secondary">Cancelar</button>
+        </div> <!-- ./card-footer -->
+      </div> <!-- ./card -->
+    </form>
+  </div>
+
+  <div class="card">
+    <div class="card-header">
+      <div class="row">
+        <div class="col-md-6 d-flex align-items-center justify-content-start">
+          <span>Lista de tiendas</span>
+        </div>
+        <div class="col-md-6 text-end">
+          <a href="#" class="btn btn-sm btn-outline-primary" data-bs-toggle="modal"
+            data-bs-target="#modal-tiendas">Agregar</a>
         </div>
       </div>
-    </form>
+    </div>
+
+    <div class="card-body">
+      <div class="row g-2">
+        <div class="col-md-12">
+          <div class="table-responsive">
+            <table class="table table-sm">
+              <thead>
+                <tr>
+                  <th>#</th>
+                  <th>Ubigeo</th>
+                  <th>Dirección</th>
+                  <th>Teléfono</th>
+                  <th>Email</th>
+                  <th>Contacto</th>
+                  <th>Acciones</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td colspan="7" class="text-center mt-2 mb-2">No hay tiendas registradas</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
 
   <!-- Zona de modales -->
@@ -137,7 +139,7 @@
               </div>
               <div class="col-md-8">
                 <div class="form-floating">
-                  <input type="text" name="contacto" id="contacto" class="form-control" required>
+                  <input type="text" name="contacto" id="contacto" class="form-control" placeholder="Contacto" required>
                   <label for="contacto" class="form-label">Contacto</label>
                 </div>
               </div>
@@ -151,7 +153,7 @@
           </form>
         </div> <!-- ./modal-body -->
         <div class="modal-footer">
-          <button type="button" class="btn btn-sm btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+          <button type="button" class="btn btn-sm btn-outline-secondary" data-bs-dismiss="modal">Cancelar</button>
           <button type="button" class="btn btn-sm btn-primary">Agregar</button>
         </div>
       </div> <!-- ./modal-content -->
@@ -162,7 +164,80 @@
 
   <script>
     document.addEventListener("DOMContentLoaded", () => {
+      
+      const departamentos = document.querySelector("#departamentos");
+      const provincias = document.querySelector("#provincias");
+      const distritos = document.querySelector("#distritos");
+      
+      function getAllDepartamentos(){
+        const params = new URLSearchParams();
+        params.append("operation", 'getAllDepartamentos');
 
+        fetch(`../../app/controllers/ubigeo.c.php?${params}`)
+          .then(response => response.json() )
+          .then(data => {
+            
+            departamentos.innerHTML = `<option value='' selected>Seleccione</option>`;
+            if (data.length > 0){
+              data.forEach(element => {
+                departamentos.innerHTML += `
+                  <option value='${element.iddepartamento}'>${element.departamento}</option>
+                `;
+              });
+            }
+          })
+          .catch(e => { console.log(e) });
+      }
+
+      function getAllProvincias(){
+        const params = new URLSearchParams();
+        params.append("operation", 'getAllProvincias');
+        params.append("iddepartamento", parseInt(departamentos.value));
+
+        fetch(`../../app/controllers/ubigeo.c.php?${params}`)
+          .then(response => response.json() )
+          .then(data => {
+            provincias.innerHTML = `<option value='' selected>Seleccione</option>`;
+            if (data.length > 0){
+              data.forEach(element => {
+                provincias.innerHTML += `
+                  <option value='${element.idprovincia}'>${element.provincia}</option>
+                `;
+              });
+            }
+          })
+          .catch(e => { console.log(e) });
+      }
+
+      function getAllDistritos(){
+        const params = new URLSearchParams();
+        params.append("operation", 'getAllDistritos');
+        params.append("idprovincia", parseInt(provincias.value));
+
+        fetch(`../../app/controllers/ubigeo.c.php?${params}`)
+          .then(response => response.json() )
+          .then(data => {
+            distritos.innerHTML = `<option value='' selected>Seleccione</option>`;
+            if (data.length > 0){
+              data.forEach(element => {
+                distritos.innerHTML += `
+                  <option value='${element.iddistrito}'>${element.distrito}</option>
+                `;
+              });
+            }
+          })
+          .catch(e => { console.log(e) });
+      }
+
+      departamentos.addEventListener("change", () => {
+        getAllProvincias();
+      })
+
+      provincias.addEventListener("change", () => {
+        getAllDistritos();
+      })
+
+      getAllDepartamentos();
     });
 
   </script>

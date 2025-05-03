@@ -3,6 +3,6 @@
   color: #FFF
 }
 
-input:focus{
-  background-color: greenyellow;
+input:focus, textarea:focus, select:focus{
+  background-color: #FFFAC9 !important;
 }
