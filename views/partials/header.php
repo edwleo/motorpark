@@ -27,6 +27,7 @@ $path = "http://localhost/motorpark";
   <link rel="stylesheet" href="https://cdn.datatables.net/select/3.0.0/css/select.bootstrap5.css">
 
   <link rel="stylesheet" href="<?= $path ?>/public/css/style-dashboard.css">
+  <link rel="stylesheet" href="<?= $path ?>/public/css/motorpark-style.css">
 </head>
 
 <body>
@@ -55,6 +56,12 @@ $path = "http://localhost/motorpark";
             <a href="<?= $path ?>/views/compras" class="sidebar-link">
               <i class="fa-solid fa-list pe-2"></i>
               Compras
+            </a>
+          </li>
+          <li class="sidebar-item">
+            <a href="<?= $path ?>/views/concesionarios" class="sidebar-link">
+              <i class="fa-solid fa-list pe-2"></i>
+              Concesionarios
             </a>
           </li>
           <li class="sidebar-item">

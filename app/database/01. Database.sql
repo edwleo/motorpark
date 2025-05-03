@@ -240,6 +240,7 @@ CREATE TABLE vehiculos
     idlogistica			INT 			NOT NULL,
     idlocal 			INT 			NULL,
     imagenreferencial 	VARCHAR(200) 	NULL,
+    origen 				ENUM ('OCP', 'OLD','CTZ') NOT NULL COMMENT 'OCP = Orden de compra (conducto regular), OLD (Contratos anteriores al sistema), CTZ (Cotizado por asesor)',
 	creado 				DATETIME 		NOT NULL DEFAULT NOW(),
     modificado 			DATETIME 		NULL,
     CONSTRAINT fk_idmodelo_veh FOREIGN KEY (idvehiculo) REFERENCES modelos (idmodelo),

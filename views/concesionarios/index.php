@@ -14,7 +14,7 @@
         </nav>
       </div>
       <div class="col-md-6 text-end">
-        <a class="btn btn-sm btn-outline-primary" href="<?= $path ?>/views/compras/registrar" class="">Registrar</a>
+        <a class="btn btn-sm btn-outline-primary" href="<?= $path ?>/views/concesionarios/registrar" class="">Registrar</a>
       </div>
     </div>
   </div>
