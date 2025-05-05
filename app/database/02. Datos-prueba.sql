@@ -97,3 +97,9 @@ INSERT INTO modelos
 
 SELECT * FROM modelos;
 SELECT * FROM modelos WHERE idmarca = 8 AND idtipovehiculo = 2;
+
+delete from concesionarios;
+alter table concesionarios auto_increment 1;
+SELECT * FROM concesionarios;
+
+SELECT * FROM tiendas;

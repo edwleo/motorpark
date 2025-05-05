@@ -47,6 +47,10 @@
 
 <script src="http://localhost/motorpark/public/js/script-dashboard.js"></script>
 
+<!-- Sweet Alert -->
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script src="http://localhost/motorpark/public/js/swalcustom.js"></script>
+
 </body>
 
 </html>
