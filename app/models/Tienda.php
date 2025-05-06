@@ -32,15 +32,16 @@ class Tienda{
     }
   }
 
+  //PENDIENTE !!!
   public function delete($idTienda = -1):int{
     try{
       $cmd = $this->pdo->prepare("DELETE FROM tiendas WHERE idtienda = ?");
       $cmd->execute(array($idTienda));
       $results = $cmd->fetchAll(PDO::FETCH_ASSOC);
-      return $results;
+      return 1;
     }catch(PDOException $error){
       error_log($error->getMessage());
-      return [];
+      return -1;
     }
   }
 
