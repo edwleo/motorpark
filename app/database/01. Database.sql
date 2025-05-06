@@ -341,5 +341,3 @@ CREATE TABLE amortizacionesoc
     CONSTRAINT fk_idlogistica_aoc FOREIGN KEY (idlogistica) REFERENCES colaboradores (idcolaborador),
     CONSTRAINT fk_identidadpago_aoc FOREIGN KEY (identidadpago) REFERENCES entidadespago (identidadpago)
 )ENGINE = INNODB;
-
-SELECT * FROM amortizacionesoc;

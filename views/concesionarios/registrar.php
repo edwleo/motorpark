@@ -72,7 +72,7 @@
       <div class="row g-2">
         <div class="col-md-12">
           <div class="table-responsive">
-            <table class="table table-sm">
+            <table class="table table-sm" id="tabla-tiendas">
               <thead>
                 <tr>
                   <th>#</th>
@@ -182,6 +182,7 @@
       const btnRegistrarConcesionario = document.querySelector("#btn-registrar-concesionario");
       const btnCancelarRegistro = document.querySelector("#btn-cancelar-registro");
       const btnModalTiendas = document.querySelector("#btn-modal-tiendas")
+      const tablaTiendas = document.querySelector("#tabla-tiendas tbody"); //Cuerpo de la tabla
 
       //Obtiene los datos del concesionario utilizando una fuente externa API
       function obtenerDatosConcesionario(){
@@ -282,17 +283,58 @@
                 idconcesionario = null;
                 obtenerDatosConcesionario();
               }else{
+                //Existe en la BD
                 idconcesionario = data[0].idconcesionario;
                 nombreComercial.value = data[0].nombrecomercial;
                 razonSocial.value = data[0].razonsocial;
                 btnCancelarRegistro.setAttribute("disabled", true);
                 btnRegistrarConcesionario.setAttribute("disabled", true);
+                obtenerTiendas();
               }
             }).
             catch(error => { console.error(error) });
         }else{
           showToast("Se requiere 11 dígitos", "WARNING", 1500);
         }
+      }
+
+      function obtenerTiendas(){
+        const params = new URLSearchParams()
+        params.append("operation", "getTiendasByIdConcesionario")
+        params.append("idconcesionario", idconcesionario)
+
+        fetch(`../../app/controllers/tienda.c.php?${params}`)
+          .then(response => response.json())
+          .then(data => {
+            if (data.length == 0){
+              tablaTiendas.innerHTML = `
+                <tr>
+                  <td colspan="7" class="text-center mt-2 mb-2">No hay tiendas registradas</td>
+                </tr>
+              `;
+            }else{
+              tablaTiendas.innerHTML = ``;
+              let numFila = 1;
+              data.forEach(tienda => {
+                tablaTiendas.innerHTML += `
+                  <tr>
+                    <td>${numFila}</td>
+                    <td>${tienda.ubigeo}</td>
+                    <td>${tienda.direccion}</td>
+                    <td>${tienda.telefono}</td>
+                    <td>${tienda.email}</td>
+                    <td>${tienda.contacto}</td>
+                    <td>
+                      <a href='#' title='Editar' data-idtienda='${tienda.idtienda}' class='edit'><i class="fa-solid fa-pen"></i></a>
+                      <a href='#' title='Eliminar' data-idtienda='${tienda.idtienda}' class='t-red delete'><i class="fa-solid fa-trash"></i></a>
+                    </td>
+                  </tr>
+                `;
+                numFila++;
+              });
+            }
+          })
+          .catch(error => console.error(error))
       }
 
       //Eventos
@@ -363,13 +405,25 @@
             .then(response => response.json())
             .then(data => {
               if (data.id > 0){
-                showToast("Tienda agregada correctamente", "SUCCESS", 1500);
+                showToast("Tienda agregada correctamente", "SUCCESS", 2000);
+                obtenerTiendas();
                 modalTienda.hide();
               }else{
                 showToast("Verifique los datos", "WARNING", 1500);
               }
             })
             .catch(error => { console.log(error) });
+        }
+      });
+
+      //Evento clic para boton de edición
+      document.querySelector("#tabla-tiendas tbody").addEventListener("click", function (event){
+        const enlace = event.target.closest('.delete');
+        
+        if (enlace){
+          event.preventDefault();
+          const idtienda = parseInt(enlace.getAttribute('data-idtienda'));
+          console.log(idtienda)
         }
       });
 

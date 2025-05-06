@@ -16,7 +16,7 @@ class Concesionario{
       $results = $cmd->fetchAll(PDO::FETCH_ASSOC);
       return $results;
     }catch(PDOException $error){
-      error_log("Query", $error->getMessage());
+      error_log($error->getMessage());
       return [];
     }
   }

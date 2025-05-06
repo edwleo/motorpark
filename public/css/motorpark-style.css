@@ -6,3 +6,7 @@
 input:focus, textarea:focus, select:focus{
   background-color: #FFFAC9 !important;
 }
+
+.t-red{
+  color: #e74c3c;
+}
