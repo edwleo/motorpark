@@ -38,7 +38,7 @@ class Tienda{
       $cmd = $this->pdo->prepare("DELETE FROM tiendas WHERE idtienda = ?");
       $cmd->execute(array($idTienda));
       $results = $cmd->fetchAll(PDO::FETCH_ASSOC);
-      return 1;
+      return (int)$cmd->rowCount();
     }catch(PDOException $error){
       error_log($error->getMessage());
       return -1;
