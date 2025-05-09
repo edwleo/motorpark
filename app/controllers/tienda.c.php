@@ -19,6 +19,9 @@ if (isset($_POST['operation'])){
       $results = ["id" => $tienda->create($registro)];
       echo json_encode($results);
       break;
+    case 'delete':
+      echo json_encode(["filasAfectadas" => $tienda->delete($_POST['id'])]);
+      break;
   }
 }
 

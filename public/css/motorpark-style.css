@@ -7,6 +7,52 @@ input:focus, textarea:focus, select:focus{
   background-color: #FFFAC9 !important;
 }
 
+/* Texto de color rojo */
 .t-red{
   color: #e74c3c;
+}
+
+/* Estilos para la tabla */
+/* Estilo básico para la tabla */
+
+/* Estilos para tablas con Bootstrap 5 */
+.table tbody tr {
+  position: relative;
+  transition: background-color 0.8s ease !important; /* ease */
+}
+
+/* Aumentamos la especificidad y forzamos con !important donde sea necesario */
+.table tbody tr:hover {
+  background-color: rgba(70, 130, 180, 0.3) !important;
+}
+
+/* Efecto de "rastro" con un pseudo-elemento */
+.table tbody tr::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(70, 130, 180, 0.3);
+  opacity: 0;
+  transition: opacity .5s ease;
+  pointer-events: none;
+  z-index: 1;
+}
+
+.table tbody tr:hover::after {
+  opacity: 1;
+}
+
+/* Nos aseguramos que thead y tfoot no tengan estos efectos */
+.table thead tr:hover,
+.table tfoot tr:hover {
+  background-color: inherit !important;
+}
+
+/* Eliminamos cualquier efecto after en thead y tfoot */
+.table thead tr::after,
+.table tfoot tr::after {
+  display: none;
 }

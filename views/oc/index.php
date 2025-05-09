@@ -35,7 +35,7 @@
     </div>
     <div class="card-body" id="lista-oc">
       <div class="table-responsive">
-        <table class="table table-striped" id="tabla-oc">
+        <table class="table table-sm" id="tabla-oc">
           <thead>
             <tr>
               <th>#</th>
@@ -120,7 +120,7 @@
         </div>
       </div>
       <div class="table-responsive">
-        <table class="table table-sm table-striped" id="tabla-detalles">
+        <table class="table table-sm" id="tabla-detalles">
           <thead>
             <tr>
               <th>#</th>

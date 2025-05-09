@@ -419,9 +419,13 @@
       //Evento clic para boton de edición
       document.querySelector("#tabla-tiendas tbody").addEventListener("click", function (event){
         const enlace = event.target.closest('.delete');
-        
         if (enlace){
           event.preventDefault();
+
+          if (confirm("¿Está seguro de eliminar el registro?")){
+
+          }
+
           const idtienda = parseInt(enlace.getAttribute('data-idtienda'));
           console.log(idtienda)
         }
