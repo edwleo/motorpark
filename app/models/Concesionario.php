@@ -9,7 +9,7 @@ class Concesionario{
   public function __construct(){ $this->pdo = Database::getConexion(); }
 
   public function getAllConcesionarios():array{
-    $query = "";
+    $query = "SELECT idconcesionario, ruc, razonsocial, nombrecomercial FROM concesionarios";
     try{
       $cmd = $this->pdo->prepare($query);
       $cmd->execute();

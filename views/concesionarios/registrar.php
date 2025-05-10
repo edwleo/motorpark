@@ -28,7 +28,7 @@
               <div class="input-group">
                 <div class="form-floating">
                   <input type="text" id="ruc" class="form-control text-center" pattern="[0-9]+"
-                    title="Solo se permiten números" maxlength="11" minlength="11" placeholder="RUC" value="20602274277"
+                    title="Solo se permiten números" maxlength="11" minlength="11" placeholder="RUC" 
                     autofocus required>
                   <label for="ruc" class="form-label">RUC</label>
                 </div>
@@ -191,18 +191,24 @@
       const tablaTiendas = document.querySelector("#tabla-tiendas tbody") //Cuerpo de la tabla
 
       //Obtiene los datos del concesionario utilizando una fuente externa API
-      function obtenerDatosConcesionario() {
+      async function obtenerDatosConcesionario() {
         razonSocial.value = "Buscando..."
         if (ruc.value.length == 11) {
-          fetch(`../../app/api/ruc.api.php?ruc=${ruc.value}`)
+          await fetch(`../../app/api/ruc.api.php?ruc=${ruc.value}`)
             .then(response => response.json())
             .then(data => {
-              razonSocial.value = data.razonSocial;
-              nombreComercial.value = ``;
-              nombreComercial.focus();
+              if (data.razonSocial !== undefined){
+                razonSocial.value = data.razonSocial
+                nombreComercial.value = ``
+                nombreComercial.focus()
+              }else{
+                showToast('No existe la empresa', 'WARNING', 2000)
+                razonSocial.value = ""
+                nombreComercial.value = ""
+                ruc.focus()
+              }
             })
             .catch(error => {
-              razonSocial.value = "";
               console.error(error)
             });
         } else {
