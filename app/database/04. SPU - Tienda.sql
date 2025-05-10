@@ -34,4 +34,19 @@ SELECT
 	WHERE TD.idtienda = _idtienda;
 END $$
 
-call spu_tiendas_obtener(1);
+SELECT * FROM tiendas;
+call spu_tiendas_obtener(2);
+
+
+
+-- Prueba de consultas
+UPDATE tiendas SET
+        iddistrito = ?,
+        direccion = ?,
+        email = ?,
+        telefono = ?,
+        contacto = ?,
+        modificado = NOW()  
+      WHERE idtienda = 
+      
+      SELECT NOW();

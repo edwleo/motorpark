@@ -66,4 +66,38 @@ class Tienda{
       return -1;
     }
   }
+
+  public function update($params = []):int{
+    $query = "
+      UPDATE tiendas SET
+        iddistrito = ?,
+        direccion = ?,
+        email = ?,
+        telefono = ?,
+        contacto = ?
+      WHERE idtienda = ?
+    ";
+    try{
+      $cmd = $this->pdo->prepare($query);
+      $cmd->execute(
+        array(
+          $params['iddistrito'],
+          $params['direccion'],
+          $params['email'],
+          $params['telefono'],
+          $params['contacto'],
+          $params['idtienda']
+        )
+      );
+      //Como se registra no se genera ningun ID, se debe identificar cuántos
+      //registros fueron afectados por la instrucción SQL
+      return (int)$cmd->rowCount();
+    }
+    catch(PDOException $error){
+      error_log($error->getMessage());
+      return -1;
+    }
+  }
+
+  
 }
