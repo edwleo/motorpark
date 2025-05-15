@@ -216,11 +216,11 @@
         }
       }
 
-      function getAllDepartamentos() {
+      async function getAllDepartamentos() {
         const params = new URLSearchParams();
         params.append("operation", 'getAllDepartamentos');
 
-        fetch(`../../app/controllers/ubigeo.c.php?${params}`)
+        await fetch(`../../app/controllers/ubigeo.c.php?${params}`)
           .then(response => response.json())
           .then(data => {
 
@@ -290,13 +290,13 @@
       }
 
       //Busca al concesionario en la BD de la empresa
-      function buscarConcesionario() {
+      async function buscarConcesionario() {
         const params = new URLSearchParams()
         params.append("operation", "getConcesionarioByRUC")
         params.append("ruc", ruc.value)
 
         if (ruc.value.length == 11) {
-          fetch(`../../app/controllers/consesionario.c.php?${params}`).
+          await fetch(`../../app/controllers/concesionario.c.php?${params}`).
             then(response => response.json()).
             then(data => {
               if (data.length == 0) {
@@ -321,12 +321,23 @@
         }
       }
 
-      function obtenerTiendas() {
+      async function identificarRUC(){
+        const urlParams = new URLSearchParams(window.location.search)
+        
+        if (urlParams.size > 0){
+          const rucConsultado = urlParams.get('ruc')
+          ruc.value = rucConsultado
+          await buscarConcesionario()
+          await obtenerTiendas()
+        }
+      }
+
+      async function obtenerTiendas() {
         const params = new URLSearchParams()
         params.append("operation", "getTiendasByIdConcesionario")
         params.append("idconcesionario", idconcesionario)
 
-        fetch(`../../app/controllers/tienda.c.php?${params}`)
+        await fetch(`../../app/controllers/tienda.c.php?${params}`)
           .then(response => response.json())
           .then(data => {
             if (data.length == 0) {
@@ -341,15 +352,15 @@
               data.forEach(tienda => {
                 tablaTiendas.innerHTML += `
                   <tr>
-                    <td>${numFila}</td>
-                    <td>${tienda.ubigeo}</td>
-                    <td>${tienda.direccion}</td>
-                    <td>${tienda.telefono}</td>
-                    <td>${tienda.email}</td>
-                    <td>${tienda.contacto}</td>
+                    <td class='align-middle'>${numFila}</td>
+                    <td class='align-middle'>${tienda.ubigeo}</td>
+                    <td class='align-middle'>${tienda.direccion}</td>
+                    <td class='align-middle'>${tienda.telefono}</td>
+                    <td class='align-middle'>${tienda.email}</td>
+                    <td class='align-middle'>${tienda.contacto}</td>
                     <td>
-                      <a href='#' title='Editar' data-idtienda='${tienda.idtienda}' class='edit'><i class="fa-solid fa-pen"></i></a>
-                      <a href='#' title='Eliminar' data-idtienda='${tienda.idtienda}' class='t-red delete'><i class="fa-solid fa-trash"></i></a>
+                      <a href='#' title='Editar' data-idtienda='${tienda.idtienda}' class='btn btn-sm btn-outline-primary edit'><i class="fa-solid fa-pen"></i></a>
+                      <a href='#' title='Eliminar' data-idtienda='${tienda.idtienda}' class='btn btn-sm btn-outline-danger delete'><i class="fa-solid fa-trash"></i></a>
                     </td>
                   </tr>
                 `;
@@ -493,7 +504,7 @@
           params.append("razonsocial", razonSocial.value);
           params.append("nombrecomercial", nombreComercial.value);
 
-          fetch(`../../app/controllers/consesionario.c.php`, {
+          fetch(`../../app/controllers/concesionario.c.php`, {
             method: 'POST',
             body: params
           })
@@ -545,7 +556,8 @@
       });
 
       //Funciones que inician
-      getAllDepartamentos();
+      getAllDepartamentos()
+      identificarRUC()
     });
 
   </script>

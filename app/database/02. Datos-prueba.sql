@@ -101,9 +101,12 @@ SELECT * FROM modelos WHERE idmarca = 8 AND idtipovehiculo = 2;
 delete from concesionarios;
 alter table concesionarios auto_increment 1;
 
-SELECT * FROM concesionarios;
+
 SELECT idconcesionario, ruc, razonsocial, nombrecomercial FROM concesionarios;
 
 SELECT * FROM tiendas;
 
 SELECT * FROM tiendas;
+
+SELECT * FROM concesionarios ORDER BY creado DESC;
+SELECT idconcesionario, ruc, razonsocial, nombrecomercial FROM concesionarios ORDER BY creado DESC;

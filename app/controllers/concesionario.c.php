@@ -11,6 +11,9 @@ if (isset($_GET['operation'])){
       $results = $concesionario->getConcesionarioByRUC($_GET['ruc']);
       echo json_encode($results);
       break;
+    case 'getAllConcesionarios':
+      echo json_encode($concesionario->getAllConcesionarios());
+      break;
   }
 }
 
