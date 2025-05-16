@@ -52,4 +52,27 @@ class Concesionario{
       return -1;
     }
   }
+
+  /**
+   * Retorna el número de órdenes de compra asociadas a este concesionario
+   * @return int
+   */
+  public function getOC($idconcesionario = -1): int{
+    try{
+      $cmd = $this->pdo->prepare("call spu_concesionarios_obtener_oc(?,@registros)");
+      $cmd->execute(
+        array($idconcesionario)
+      );
+      $response = $this->pdo->query("SELECT @registros AS registros")->fetch(PDO::FETCH_ASSOC);
+      return (int) $response['registros'];
+    }
+    catch(PDOException $error){
+      error_log($error->getMessage());
+      return -1;
+    }
+  }
 }
+
+$c = new Concesionario();
+$n = $c->getOC(1);
+var_dump($n);

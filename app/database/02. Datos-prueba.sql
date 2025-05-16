@@ -95,18 +95,37 @@ INSERT INTO modelos
         (15, 2, 'Carens'), -- SUV
         (15, 2, 'Sportage'); -- SUV
 
-SELECT * FROM modelos;
-SELECT * FROM modelos WHERE idmarca = 8 AND idtipovehiculo = 2;
 
-delete from concesionarios;
-alter table concesionarios auto_increment 1;
+INSERT INTO areas (area) VALUES 
+	('Sistemas'),
+    ('Recursos Humanos'),
+    ('Contabilidad'),
+    ('Marketing'),
+    ('Ventas'),
+    ('Caja'),
+    ('Cobranza'),
+    ('Legal');
+
+INSERT INTO cargos (idarea, cargo) 
+	VALUES 
+		(1, 'Jefe de sistemas'),
+        (1, 'Analista desarrollador'),
+        (1, 'Practicante');
+
+INSERT INTO contratoslaborales 
+	(idpersona, idcargo, fechainicio, fechafin, tipocontrato) 
+	VALUES 
+		(1, 1, '2024-06-01', NULL, 'R');
+
+INSERT INTO personas 
+	(
+		apellidos, nombres, tipodoc, nrodoc, genero, fechanac, estadocivil, email, iddistrito, 
+		direccion, referencia, telprimario, telalternativo
+	) 
+    VALUES
+	(
+		'Francia Minaya', 'Jhon Edward', 'DNI', '45406071', 'M', '1984-09-20', 'CAS', 'sistemas@yondaperu.com', '1012',
+        'Upis Felix Amoretti Mz G Lote 19', 'Cerca loza deportiva', '956834915', NULL
+    );
 
 
-SELECT idconcesionario, ruc, razonsocial, nombrecomercial FROM concesionarios;
-
-SELECT * FROM tiendas;
-
-SELECT * FROM tiendas;
-
-SELECT * FROM concesionarios ORDER BY creado DESC;
-SELECT idconcesionario, ruc, razonsocial, nombrecomercial FROM concesionarios ORDER BY creado DESC;
