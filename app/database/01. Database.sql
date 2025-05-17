@@ -158,12 +158,15 @@ CREATE TABLE modelos
     idtipovehiculo		INT 			NOT NULL,
     idmarca 			INT 			NOT NULL,
     modelo 				VARCHAR(40) 	NOT NULL,
+    anio 				CHAR(4) 		NOT NULL,
+    imagenreferencial 	VARCHAR(200)	NULL,
 	creado 				DATETIME 		NOT NULL DEFAULT NOW(),
     modificado 			DATETIME 		NULL,
     CONSTRAINT fk_idtipovehiculo_mod FOREIGN KEY (idtipovehiculo) REFERENCES tipovehiculos (idtipovehiculo),
     CONSTRAINT fk_idmarca_mod FOREIGN KEY (idmarca) REFERENCES marcas (idmarca),
     CONSTRAINT uk_modelo_mod UNIQUE (idmarca, modelo)
 )ENGINE = INNODB;
+
 
 CREATE TABLE combustibles
 (
@@ -211,7 +214,6 @@ CREATE TABLE vehiculos
 (
 	idvehiculo			INT AUTO_INCREMENT PRIMARY KEY,
 	idmodelo 			INT 			NOT NULL,
-	anio				CHAR(4) 		NOT NULL,
     version				VARCHAR(20) 	NOT NULL,
     condicion			ENUM('nuevo', 'seminuevo') NOT NULL DEFAULT 'nuevo',
     idcombustible 		INT 			NOT NULL,
@@ -225,7 +227,6 @@ CREATE TABLE vehiculos
     disponibilidad 		ENUM('proceso', 'libre', 'separado', 'vendido', 'recuperado') NOT NULL,
     idlogistica			INT 			NOT NULL,
     idlocal 			INT 			NULL,
-    imagenreferencial 	VARCHAR(200) 	NULL,
     origen 				ENUM ('OCP', 'OLD','CTZ') NOT NULL COMMENT 'OCP = Orden de compra (conducto regular), OLD (Contratos anteriores al sistema), CTZ (Cotizado por asesor)',
 	creado 				DATETIME 		NOT NULL DEFAULT NOW(),
     modificado 			DATETIME 		NULL,
