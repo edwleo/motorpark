@@ -32,7 +32,6 @@ class Tienda{
     }
   }
 
-  //PENDIENTE !!!
   public function delete($idTienda = -1):int{
     try{
       $cmd = $this->pdo->prepare("DELETE FROM tiendas WHERE idtienda = ?");

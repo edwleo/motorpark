@@ -74,7 +74,7 @@
       <div class="row g-2">
         <div class="col-md-12">
           <div class="table-responsive">
-            <table class="table table-sm" id="tabla-tiendas">
+            <table class="table table-sm table-hover table-hover-yonda" id="tabla-tiendas">
               <thead>
                 <tr>
                   <th>#</th>
@@ -99,7 +99,7 @@
   </div>
 
   <!-- Zona de modales -->
-  <div class="modal fade" id="modal-tiendas" tabindex="-1" aria-labelledby="Modal tiendas" aria-hidden="true">
+  <div class="modal fade" id="modal-tiendas" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="Modal tiendas" aria-hidden="true">
     <div class="modal-dialog">
       <form action="" autocomplete="off" id="form-registro-tienda">
         <div class="modal-content">

@@ -134,20 +134,6 @@ CREATE TABLE tiendas
     CONSTRAINT fk_idconcesionario_tnd FOREIGN KEY (idconcesionario) REFERENCES concesionarios (idconcesionario)
 )ENGINE = INNODB;
 
-
-CREATE TABLE ordenescompra
-(
-	idordencompra		INT AUTO_INCREMENT PRIMARY KEY COMMENT 'El ID será también el número mostrado en el comprobante',
-    fechaorden			DATE 			NOT NULL,
-    idtienda 			INT 			NOT NULL COMMENT 'Con este dato también podemos indentificar al concesionario',
-    idlogistica 		INT 			NOT NULL COMMENT 'Colaborador del área de logística',
-    observaciones		VARCHAR(500) 	NULL,
-	creado 				DATETIME 		NOT NULL DEFAULT NOW(),
-    modificado 			DATETIME 		NULL,
-    CONSTRAINT fk_idtienda_oco FOREIGN KEY (idtienda) REFERENCES tiendas (idtienda),
-    CONSTRAINT fk_idlogistica_oco FOREIGN KEY (idlogistica) REFERENCES colaboradores (idcolaborador)
-)ENGINE = INNODB;
-
 CREATE TABLE marcas
 (
 	idmarca 			INT AUTO_INCREMENT PRIMARY KEY,

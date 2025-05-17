@@ -11,16 +11,10 @@ select:focus {
 
 
 /* Estilos para la tabla */
-/* Estilo básico para la tabla */
-
-/* Estilos para tablas con Bootstrap 5 */
-/*
-.table tbody tr {
-  position: relative;
-  transition: background-color 0.8s ease !important; 
-}
-*/
-
 .table-hover-yonda {
     --bs-table-hover-bg: rgba(25, 135, 84, 0.25) !important; /* Verde */
 }
+
+/* Predeterminamos que las última columna esté alineada a la derecha */
+.table th:last-child { text-align: center; }
+.table td:last-child{ text-align: right; }

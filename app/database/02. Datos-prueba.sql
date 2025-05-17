@@ -112,10 +112,6 @@ INSERT INTO cargos (idarea, cargo)
         (1, 'Analista desarrollador'),
         (1, 'Practicante');
 
-INSERT INTO contratoslaborales 
-	(idpersona, idcargo, fechainicio, fechafin, tipocontrato) 
-	VALUES 
-		(1, 1, '2024-06-01', NULL, 'R');
 
 INSERT INTO personas 
 	(
@@ -128,4 +124,35 @@ INSERT INTO personas
         'Upis Felix Amoretti Mz G Lote 19', 'Cerca loza deportiva', '956834915', NULL
     );
 
+INSERT INTO contratoslaborales 
+	(idpersona, idcargo, fechainicio, fechafin, tipocontrato) 
+	VALUES 
+		(1, 1, '2024-06-01', NULL, 'R');
 
+-- Verificando datos del contrato
+/*
+SELECT
+	CO.idcontratolaboral,
+	PE.apellidos, PE.nombres,
+    CA.cargo,
+    CO.fechainicio, 
+    CO.fechafin,
+    CO.tipocontrato
+	FROM contratoslaborales CO
+    INNER JOIN personas PE ON CO.idpersona = PE.idpersona
+    INNER JOIN cargos CA ON CA.idcargo = CO.idcargo;
+*/
+
+-- Cuenta para Jhon Francia, clave: YONDA2025
+INSERT INTO colaboradores (idcontratolaboral, usernick, userpassword, avatar) 
+	VALUES 
+		(1, 'jhonfm', '$2y$10$GpQTuV8A8UPRul2E1E1OeOrhAb7842wa1cfB3bNieXncYTk2S1NTC', NULL);
+
+
+INSERT INTO ordenescompra 
+	(idtienda, idlogistica, moneda, serie, emision, aprobacion, presentacion, anulacion, numstock, observaciones, estado) 
+    VALUES 
+    (16, 1, 'USD', '2025', '2025-04-07', '2025-04-08', '2025-04-08', NULL, NULL, NULL, 'emitido');
+
+
+SELECT * FROM concesionarios;

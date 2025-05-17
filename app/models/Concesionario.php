@@ -2,41 +2,48 @@
 
 require_once '../config/Database.php';
 
-class Concesionario{
+class Concesionario
+{
 
   private $pdo = null;
 
-  public function __construct(){ $this->pdo = Database::getConexion(); }
+  public function __construct()
+  {
+    $this->pdo = Database::getConexion();
+  }
 
-  public function getAllConcesionarios():array{
+  public function getAllConcesionarios(): array
+  {
     $query = "SELECT idconcesionario, ruc, razonsocial, nombrecomercial FROM concesionarios ORDER BY creado DESC";
-    try{
+    try {
       $cmd = $this->pdo->prepare($query);
       $cmd->execute();
       $results = $cmd->fetchAll(PDO::FETCH_ASSOC);
       return $results;
-    }catch(PDOException $error){
+    } catch (PDOException $error) {
       error_log($error->getMessage());
       return [];
     }
   }
 
-  public function getConcesionarioByRUC($ruc = ''):array{
+  public function getConcesionarioByRUC($ruc = ''): array
+  {
     $query = "SELECT idconcesionario, ruc, razonsocial, nombrecomercial FROM concesionarios WHERE ruc = ?";
-    try{
+    try {
       $cmd = $this->pdo->prepare($query);
       $cmd->execute(array($ruc));
       $results = $cmd->fetchAll(PDO::FETCH_ASSOC);
       return $results;
-    }catch(PDOException $error){
+    } catch (PDOException $error) {
       error_log($error->getMessage());
       return [];
     }
   }
 
-  public function create($params = []):int{
+  public function create($params = []): int
+  {
     $query = "INSERT INTO concesionarios (ruc, razonsocial, nombrecomercial) VALUES (?,?,?)";
-    try{
+    try {
       $cmd = $this->pdo->prepare($query);
       $cmd->execute(
         array(
@@ -45,9 +52,21 @@ class Concesionario{
           $params['nombrecomercial']
         )
       );
-      return (int)$this->pdo->lastInsertId();
+      return (int) $this->pdo->lastInsertId();
+    } catch (PDOException $error) {
+      error_log($error->getMessage());
+      return -1;
     }
-    catch(PDOException $error){
+  }
+
+  public function delete($idconcesionario = -1): int
+  {
+    try {
+      $cmd = $this->pdo->prepare("call spu_concesionarios_eliminar_todo(?)");
+      $cmd->execute(array($idconcesionario));
+      $results = $cmd->fetchAll(PDO::FETCH_ASSOC);
+      return (int) $cmd->rowCount();
+    } catch (PDOException $error) {
       error_log($error->getMessage());
       return -1;
     }
@@ -57,22 +76,37 @@ class Concesionario{
    * Retorna el número de órdenes de compra asociadas a este concesionario
    * @return int
    */
-  public function getOC($idconcesionario = -1): int{
-    try{
+  public function getOC($idconcesionario = -1): int
+  {
+    try {
       $cmd = $this->pdo->prepare("call spu_concesionarios_obtener_oc(?,@registros)");
       $cmd->execute(
         array($idconcesionario)
       );
       $response = $this->pdo->query("SELECT @registros AS registros")->fetch(PDO::FETCH_ASSOC);
       return (int) $response['registros'];
-    }
-    catch(PDOException $error){
+    } catch (PDOException $error) {
       error_log($error->getMessage());
       return -1;
     }
   }
-}
 
-$c = new Concesionario();
-$n = $c->getOC(1);
-var_dump($n);
+  public function update($params): int
+  {
+    try {
+      $query = "UPDATE concesionarios SET nombrecomercial = ?, modificado = NOW() WHERE idconcesionario = ?";
+      $cmd = $this->pdo->prepare($query);
+      $cmd->execute(
+        array(
+          $params['nombrecomercial'],
+          $params['idconcesionario']
+        )
+      );
+      return (int)$cmd->rowCount();
+    } catch (PDOException $error) {
+      error_log($error->getMessage());
+      return -1;
+    }
+  }
+
+}

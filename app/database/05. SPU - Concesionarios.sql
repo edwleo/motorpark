@@ -18,4 +18,17 @@ BEGIN
 		);
 END $$
 
-SELECT * FROM tiendas;
+
+-- Elimina el concesionario y todas sus tiendas, antes tiene que validarse
+-- que ninguna de sus tiendas esté relacionada con un OC
+DELIMITER $$
+CREATE PROCEDURE spu_concesionarios_eliminar_todo
+(
+	IN  _idconcesionario INT
+)
+BEGIN
+	DELETE FROM tiendas WHERE idconcesionario = _idconcesionario;
+    DELETE FROM concesionarios WHERE idconcesionario = _idconcesionario;
+END $$
+
+SELECT * FROM concesionarios;

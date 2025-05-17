@@ -32,7 +32,7 @@ document.querySelector("#btn1").addEventListener("click", async () => {
 function showToast(message = ``, type = `INFO`, duration = 2500, url = null){
   const bgColor = {
     'INFO'    : '#22a6b3',
-    'WARNING' : '#f9ca24',
+    'WARNING' : '#f39c12',
     'SUCCESS' : '#6ab04c',
     'ERROR'   : '#eb4d4b'
   };
