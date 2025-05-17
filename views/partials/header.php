@@ -158,8 +158,9 @@ $path = "http://localhost/motorpark";
                 <img src="http://localhost/motorpark/public/images/profile.jpg" class="avatar img-fluid rounded" alt="">
               </a>
               <div class="dropdown-menu dropdown-menu-end">
-                <a href="#" class="dropdown-item">Perfil</a>
+                <a href="#" class="dropdown-item">Jhon (Sistemas)</a>
                 <a href="#" class="dropdown-item">Configuración</a>
+                <a href="#" class="dropdown-item">Cambiar contraseña</a>
                 <a href="#" class="dropdown-item">Cerrar sesión</a>
               </div>
             </li>
