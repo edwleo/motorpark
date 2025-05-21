@@ -65,6 +65,12 @@ $path = "http://localhost/motorpark";
             </a>
           </li>
           <li class="sidebar-item">
+            <a href="<?= $path ?>/views/marcas" class="sidebar-link">
+              <i class="fa-solid fa-list pe-2"></i>
+              Marcas
+            </a>
+          </li>
+          <li class="sidebar-item">
             <a href="<?= $path ?>/views/vehiculos" class="sidebar-link">
               <i class="fa-solid fa-list pe-2"></i>
               Vehículos
