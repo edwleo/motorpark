@@ -95,6 +95,8 @@ INSERT INTO modelos
         (15, 2, 'Carens'), -- SUV
         (15, 2, 'Sportage'); -- SUV
 
+-- Todos los modelos registrados de prueba serán 2025
+UPDATE modelos SET anio = '2025';
 
 INSERT INTO areas (area) VALUES 
 	('Sistemas'),
@@ -155,4 +157,7 @@ INSERT INTO ordenescompra
     (16, 1, 'USD', '2025', '2025-04-07', '2025-04-08', '2025-04-08', NULL, NULL, NULL, 'emitido');
 
 
-SELECT * FROM concesionarios;
+
+
+SELECT * FROM tipovehiculos;
+SELECT * FROM modelos;
