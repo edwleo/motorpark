@@ -1,0 +1,25 @@
+<?php
+
+require_once '../config/Database.php';
+
+class TipoVehiculo{
+
+  private $pdo;
+
+  public function __construct(){ $this->pdo = Database::getConexion(); }
+
+  public function getAll():array{
+    $sql = "SELECT idtipovehiculo, tipovehiculo FROM tipovehiculos ORDER BY tipovehiculo";
+
+    try{
+      $query = $this->pdo->prepare($sql);
+      $query->execute();
+      return $query->fetchAll(PDO::FETCH_ASSOC);
+    }
+    catch(Exception $e){
+      error_log($e);
+      return [];
+    }
+  }
+
+}

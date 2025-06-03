@@ -14,7 +14,14 @@ class Marca
 
   public function getAllMarcas()
   {
-    $query = "SELECT idmarca, marca FROM marcas ORDER BY marca";
+    $query = "
+    SELECT
+      MR.idmarca, MR.marca, COUNT(MD.idmodelo) 'modelos'
+      FROM marcas MR
+        LEFT JOIN modelos MD ON MD.idmarca = MR.idmarca
+        GROUP BY MR.idmarca, MR.marca;
+    ";
+
     try {
       $cmd = $this->pdo->prepare($query);
       $cmd->execute();

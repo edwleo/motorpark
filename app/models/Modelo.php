@@ -12,7 +12,7 @@ class Modelo{
   {
     try {
       $cmd = $this->pdo->prepare("call spu_modelos_obtener_por_marca(?)");
-      $cmd->execute();
+      $cmd->execute(array($idmarca));
       $results = $cmd->fetchAll(PDO::FETCH_ASSOC);
       return $results;
     } catch (PDOException $error) {
