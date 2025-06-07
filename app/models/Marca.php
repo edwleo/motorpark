@@ -47,13 +47,17 @@ class Marca
     }
   }
 
+  /**
+   * Elimina una marca de forma física, siempre que esta no esté siendo utilizada
+   * @param mixed $idmarca PK de la marca a eliminar
+   * @return int Cantidad de filas afectadas, si es 0, no se eliminó registros
+   */
   public function delete($idmarca = -1): int
   {
     $sql = "DELETE FROM marcas WHERE idmarca = ?";
     try {
       $cmd = $this->pdo->prepare($sql);
       $cmd->execute(array($idmarca));
-      $results = $cmd->fetchAll(PDO::FETCH_ASSOC);
       return (int) $cmd->rowCount();
     } catch (PDOException $error) {
       error_log($error->getMessage());
