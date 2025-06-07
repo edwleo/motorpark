@@ -23,9 +23,8 @@ INSERT INTO marcas
         ('NISSAN'), -- 18
         ('RENAULT'), -- 19
         ('SSANGYONG'), -- 20
-        ('TOYOTA'), -- 21
-        ('VOLKSWAGEN'), -- 22
-        ('VOLVO'); -- 23
+        ('TOYOTA'); -- 21
+
 
 INSERT INTO tipovehiculos 
 	(tipovehiculo) VALUES
@@ -38,18 +37,20 @@ INSERT INTO tipovehiculos
         ('Van'), -- 7
         ('Camión ligero'), -- 8
 		('Motolineal'), -- 9
-        ('Motocarga'); -- 10
+        ('Motocarga'), -- 10
+   		('Mototaxi'); -- 11
+
 
 -- Modelo para las marcas más comunes: 
 -- GEELY (PK: 8)
 INSERT INTO modelos
-	(idmarca, idtipovehiculo, modelo) 
+	(idmarca, idtipovehiculo, modelo, anio) 
     VALUES	
-		(8, 1, 'Emgrand'), -- Sedan
-        (8, 2, 'Cityray'), -- SUV
-        (8, 2, 'CX3 Pro'), -- SUV
-        (8, 2, 'Coolray'), -- SUV
-        (8, 2, 'New Starray'); -- SUV
+		(8, 1, 'Emgrand', '2025'), -- Sedan
+        (8, 2, 'Cityray', '2025'), -- SUV
+        (8, 2, 'CX3 Pro', '2025'), -- SUV
+        (8, 2, 'Coolray', '2025'), -- SUV
+        (8, 2, 'New Starray', '2025'); -- SUV
 
 -- HAVAL (PK: 10)
 INSERT INTO modelos
@@ -156,8 +157,3 @@ INSERT INTO ordenescompra
     VALUES 
     (16, 1, 'USD', '2025', '2025-04-07', '2025-04-08', '2025-04-08', NULL, NULL, NULL, 'emitido');
 
-
-
-
-SELECT * FROM tipovehiculos;
-SELECT * FROM modelos;
