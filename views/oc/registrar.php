@@ -26,51 +26,69 @@
       <div class="card-body">
         
         <div class="row g-2">
+          <div class="col-md-2 mb-2">
+            <div class="form-floating">
+              <input type="text" class="form-control text-center" id="serie" maxlength="11" value="2025-0001254" disabled>
+              <label for="form-label">Serie</label>
+            </div>
+          </div>
+          <div class="col-md-2 mb-2">
+            <div class="form-floating">
+              <input type="date" class="form-control text-center" id="fechaemision">
+              <label for="form-label">Fecha emisión</label>
+            </div>
+          </div>
           <div class="col-md-3 mb-2">
             <div class="form-floating">
-              <select name="concesionario" id="" class="form-select">
+              <select name="concesionarios" id="concesionarios" class="form-select">
                 <option value="">Seleccione</option>
-                <option value="">PERUMOTOR H.G. SAC</option>
               </select>
               <label for="form-label">Concesionario</label>
             </div>
           </div>
           <div class="col-md-2 mb-2">
             <div class="form-floating">
-              <input type="text" class="form-control text-center" id="ruc" maxlength="11" value="20123451489">
+              <input type="text" class="form-control text-center" name="ruc" id="ruc" maxlength="11" readonly>
               <label for="form-label">RUC</label>
             </div>
           </div>
           <div class="col-md-3 mb-2">
             <div class="form-floating">
-              <select name="tienda" id="tienda" class="form-select">
+              <select name="tiendas" id="tiendas" class="form-select">
                 <option value="">Seleccione</option>
-                <optgroup label="Departamento, provincia, distrito">
-                  <option value="">Ica, Ica, Subtanjalla</option>
-                </optgroup>
               </select>
               <label for="form-label">Tienda</label>
             </div>
           </div>
-          <div class="col-md-4 mb-2">
-            <div class="form-floating">
-              <input type="text" class="form-control" id="direccion">
-              <label for="form-label">Tienda</label>
-            </div>
-          </div>
+          
         </div> <!-- ./row -->
 
         <div class="row g-2">
-          <div class="col-md-3">
+          <div class="col-md-4">
             <div class="form-floating">
-              <input type="text" class="form-control" id="vendedor" value="Ricardo Pachas Prado">
+              <input type="text" class="form-control" name="direccion" id="direccion">
+              <label for="form-label">Dirección</label>
+            </div>
+          </div>
+          <div class="col-md-4">
+            <div class="form-floating">
+              <input type="text" class="form-control" name="asesor" id="asesor" value="Ricardo Pachas Prado">
               <label for="form-label">Asesor</label>
             </div>
           </div>
           <div class="col-md-2">
             <div class="form-floating">
-              <input type="text" class="form-control" value="956834565">
+              <input type="text" class="form-control text-center" name="telefono" id="telefono" value="956834565">
               <label for="form-label">Teléfono</label>
+            </div>
+          </div>
+          <div class="col-md-2">
+            <div class="form-floating">
+              <select name="moneda" id="moneda" class="form-select">
+                <option value="PEN">Soles</option>
+                <option value="USD">Dólares</option>
+              </select>
+              <label class="form-label" for="moneda">Moneda</label>
             </div>
           </div>
         </div> <!-- ./row -->
@@ -144,7 +162,47 @@
 
   <script>
     document.addEventListener("DOMContentLoaded", () => {
+      const concesionarios = document.querySelector("#concesionarios")
+      const ruc = document.querySelector("#ruc")
+      let dataConcesionarios = []
 
+      async function obtenerConcesionarios(){
+        const response = await fetch(`../../app/controllers/concesionario.c.php?operation=getAllConcesionarios`, { method: 'GET' } )
+        const data = await response.json()
+        return data
+      }
+
+      async function renderConcesionarios(){
+        dataConcesionarios = await obtenerConcesionarios()
+        if (dataConcesionarios.length > 0){
+          concesionarios.innerHTML = `<option value=''>Seleccione</option>`
+          dataConcesionarios.forEach(element => {
+            concesionarios.innerHTML += `<option value='${element.idconcesionario}'>${element.nombrecomercial}</option>`
+          }); 
+        }
+      }
+
+      async function obtenerTiendas(id){
+        const response = await fetch(`../../app/controllers/tienda.c.php?operation=getTiendasByIdConcesionario&idconcesionario=${id}`, { method: 'GET'} )
+        const data = await response.json()
+        return data
+      }
+
+      //Al seleccionar un concesionario recuperamos el número de RUC
+      concesionarios.addEventListener("change", function(event) {
+        const indice = event.target.selectedIndex
+        if (indice > 0 ) {
+          ruc.value = dataConcesionarios[indice - 1].ruc 
+
+          //Se debe mostrar las tiendas
+          const idconcesionario = parseInt(this.value)
+          console.log(idconcesionario)
+        }else{
+          ruc.value = ""
+        }
+      })
+
+      renderConcesionarios()
     });
   </script>
 

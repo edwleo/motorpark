@@ -9,6 +9,10 @@ select:focus {
   background-color: #FFFAC9 !important;
 }
 
+.inactive{
+  background-color: #ebebeb;
+}
+
 
 /* Estilos para la tabla */
 .table-hover-yonda {
