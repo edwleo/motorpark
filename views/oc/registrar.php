@@ -64,29 +64,35 @@
         </div> <!-- ./row -->
 
         <div class="row g-2">
-          <div class="col-md-4">
+          <div class="col-md-3">
             <div class="form-floating">
-              <input type="text" class="form-control" name="direccion" id="direccion">
+              <input type="text" class="form-control" name="direccion" id="direccion" readonly>
               <label for="form-label">Dirección</label>
             </div>
           </div>
-          <div class="col-md-4">
+          <div class="col-md-3">
             <div class="form-floating">
-              <input type="text" class="form-control" name="asesor" id="asesor" value="Ricardo Pachas Prado">
+              <input type="text" class="form-control" name="asesor" id="asesor" readonly>
               <label for="form-label">Asesor</label>
             </div>
           </div>
           <div class="col-md-2">
             <div class="form-floating">
-              <input type="text" class="form-control text-center" name="telefono" id="telefono" value="956834565">
+              <input type="text" class="form-control text-center" name="telefono" id="telefono" readonly>
               <label for="form-label">Teléfono</label>
             </div>
           </div>
           <div class="col-md-2">
             <div class="form-floating">
+              <input type="text" class="form-control text-center" name="stock" id="stock">
+              <label for="form-label">Stock</label>
+            </div>
+          </div>
+          <div class="col-md-2">
+            <div class="form-floating">
               <select name="moneda" id="moneda" class="form-select">
-                <option value="PEN">Soles</option>
                 <option value="USD">Dólares</option>
+                <option value="PEN">Soles</option>
               </select>
               <label class="form-label" for="moneda">Moneda</label>
             </div>
@@ -164,7 +170,14 @@
     document.addEventListener("DOMContentLoaded", () => {
       const concesionarios = document.querySelector("#concesionarios")
       const ruc = document.querySelector("#ruc")
+      const tiendas = document.querySelector("#tiendas")
+      const direccion = document.querySelector("#direccion")
+      const telefono = document.querySelector("#telefono")
+      const asesor = document.querySelector("#asesor")
+      const moneda = document.querySelector("#moneda")
+
       let dataConcesionarios = []
+      let dataTiendas = []
 
       async function obtenerConcesionarios(){
         const response = await fetch(`../../app/controllers/concesionario.c.php?operation=getAllConcesionarios`, { method: 'GET' } )
@@ -188,17 +201,55 @@
         return data
       }
 
+      function resetFormOC(){
+        ruc.value = ""
+        direccion.value = ""
+        asesor.value = ""
+        telefono.value = ""
+        moneda.value = "USD"
+      }
+
       //Al seleccionar un concesionario recuperamos el número de RUC
-      concesionarios.addEventListener("change", function(event) {
+      concesionarios.addEventListener("change", async function(event) {
+
+        //Reiniciando formulario
+        ruc.value = ""
+        direccion.value = ""
+        asesor.value = ""
+        telefono.value = ""
+        moneda.value = "USD"
+
         const indice = event.target.selectedIndex
         if (indice > 0 ) {
           ruc.value = dataConcesionarios[indice - 1].ruc 
 
           //Se debe mostrar las tiendas
           const idconcesionario = parseInt(this.value)
-          console.log(idconcesionario)
+          dataTiendas = await obtenerTiendas(idconcesionario)
+          if (dataTiendas.length == 0){
+            tiendas.innerHTML = `<option value=''>No hay tiendas registradas</option>`
+          }else{
+            tiendas.innerHTML = `<option value=''>Seleccione</option>`
+            dataTiendas.forEach(element => {
+              tiendas.innerHTML += `<option value='${element.idtienda}'>${element.ubigeo}</option>`;
+            });
+          }
         }else{
-          ruc.value = ""
+          tiendas.innerHTML = `<option value=''>Seleccione</option>`
+        }
+      })
+
+      //Al cambiar una tienda de la lista se debe mostrar la dirección, teléfono y el asesor
+      tiendas.addEventListener("change", (event) => {
+        const indice = event.target.selectedIndex
+        if (indice == 0){
+          direccion.value = ``
+          telefono.value = ``
+          asesor.value = ``
+        }else{
+          direccion.value = dataTiendas[indice - 1].direccion
+          telefono.value = dataTiendas[indice - 1].telefono
+          asesor.value = dataTiendas[indice - 1].contacto
         }
       })
 

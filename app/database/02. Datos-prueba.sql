@@ -157,3 +157,4 @@ INSERT INTO ordenescompra
     VALUES 
     (16, 1, 'USD', '2025', '2025-04-07', '2025-04-08', '2025-04-08', NULL, NULL, NULL, 'emitido');
 
+SELECT * FROM concesionarios;
