@@ -49,7 +49,7 @@ $path = "http://localhost/motorpark";
           <li class="sidebar-item">
             <a href="<?= $path ?>/views/oc" class="sidebar-link">
               <i class="fa-solid fa-list pe-2"></i>
-              OC
+              Orden de compra
             </a>
           </li>
           <li class="sidebar-item">
