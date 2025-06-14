@@ -195,20 +195,22 @@
   </div>
 
   <!-- Zona de modales -->
-  <div class="modal fade" id="modal-vehiculo" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="modal-vehiculo" aria-hidden="true">
-    <div class="modal-dialog modal-xl">
-      <form action="" autocomplete="off" id="formulario-vehiculo">
-        <div class="modal-content">
-          <div class="modal-header bg-yonda">
-            <h1 class="modal-title fs-5" id="exampleModalLabel">Nuevo vehículo</h1>
-            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-          </div>
-          <div class="modal-body pb-2" >
-            
+  <div class="modal fade" id="modal-vehiculo" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+    aria-labelledby="modal-vehiculo" aria-hidden="true">
+    <div class="modal-dialog modal-xl modal-dialog-scrollable">
+      <div class="modal-content">
+        <div class="modal-header bg-yonda">
+          <h1 class="modal-title fs-5" id="exampleModalLabel">Datos del vehículo comprado</h1>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body pb-2">
+
+          <!-- Formulario para datos generales de/los vehiculos -->
+          <form action="" id="formulario-vehiculo" autocomplete="off">
             <div class="row g-2">
               <div class="col-md-2 mb-2">
                 <div class="form-floating">
-                  <input type="number" id="cantidad" value="1" class="form-control text-center">
+                  <input type="number" id="cantidad" value="1" min="1" max="20" class="form-control text-center">
                   <label for="cantidad">Cantidad</label>
                 </div>
               </div>
@@ -253,13 +255,14 @@
                     </select>
                     <label for="anio">Año <span class="text-danger">*</span></label>
                   </div>
-                  <button type="button" class="btn btn-outline-success" title="Incrementa el año del modelo y lo guarda en la base de datos">+</button>
+                  <button type="button" class="btn btn-outline-success"
+                    title="Incrementa el año del modelo y lo guarda en la base de datos">+</button>
                 </div>
               </div>
             </div>
 
             <div class="row g-2">
-              <div class="col-md-3 mb-2">
+              <div class="col-md-2 mb-2">
 
                 <!-- lista de versiones -->
                 <div class="form-floating" id="bloque-version-lista">
@@ -277,14 +280,15 @@
                   </select>
                   <label for="version-ls">Versión <span class="text-danger">*</span></label>
                 </div>
-                
+
                 <!-- input de versión (especificada por el usuario) -->
                 <div class="input-group d-none" id="bloque-version-input">
                   <div class="form-floating">
-                  <input type="text" class="form-control" id="version-in">
-                  <label for="version-in">Describa la versión</label>
+                    <input type="text" class="form-control" id="version-in">
+                    <label for="version-in">Describa la versión</label>
                   </div>
-                  <button type="button" id="mostrar-version-ls" class="btn btn-outline-secondary" title="Mostrar lista"><i class="fa-solid fa-bars-staggered"></i></button>
+                  <button type="button" id="mostrar-version-ls" class="btn btn-outline-secondary"
+                    title="Mostrar lista"><i class="fa-solid fa-bars-staggered"></i></button>
                 </div>
 
               </div>
@@ -310,109 +314,41 @@
                   <label for="combustible">Tipo de combustible <span class="text-danger">*</span></label>
                 </div>
               </div>
-              <div class="col-md-3 mb-2">
+              <div class="col-md-2 mb-2">
                 <div class="form-floating">
                   <input type="text" id="color" class="form-control" placeholder="Color">
                   <label for="color">Color</label>
                 </div>
               </div>
-            </div>
-
-            <hr>
-
-            <!-- Fila para agregar chasis, placa, placa rotativa y serie motor -->
-            <div class="row g-2">
-
-              <div class="row mt-2 g-2">
-                <div class="col-md-1 text-center">#</div>
-                <div class="col-md-4">Chasis</div>
-                <div class="col-md-2">Placa</div>
-                <div class="col-md-2">Placa rotativa</div>
-                <div class="col-md-3">Serie</div>
-              </div>
-
-              <div class="row mt-0 g-2">
-                <div class="col-md-1">
-                  <input type="text" class="form-control text-center mb-2" value="1" disabled>
-                  <input type="text" class="form-control text-center mb-2" value="2" disabled>
-                  <input type="text" class="form-control text-center mb-2" value="3" disabled>
-                  <input type="text" class="form-control text-center mb-2" value="4" disabled>
-                  <input type="text" class="form-control text-center mb-2" value="5" disabled>
-                  <input type="text" class="form-control text-center mb-2" value="6" disabled>
-                  <input type="text" class="form-control text-center mb-2" value="7" disabled>
-                </div>
-                <div class="col-md-4">
-                  <input type="text" class="form-control mb-2">
-                  <input type="text" class="form-control mb-2">
-                  <input type="text" class="form-control mb-2">
-                  <input type="text" class="form-control mb-2">
-                  <input type="text" class="form-control mb-2">
-                  <input type="text" class="form-control mb-2">
-                  <input type="text" class="form-control mb-2">
-                </div>
-                <div class="col-md-2">
-                  <input type="text" class="form-control mb-2">
-                  <input type="text" class="form-control mb-2">
-                  <input type="text" class="form-control mb-2">
-                  <input type="text" class="form-control mb-2">
-                  <input type="text" class="form-control mb-2">
-                  <input type="text" class="form-control mb-2">
-                  <input type="text" class="form-control mb-2">
-                </div>
-                <div class="col-md-2">
-                  <input type="text" class="form-control mb-2">
-                  <input type="text" class="form-control mb-2">
-                  <input type="text" class="form-control mb-2">
-                  <input type="text" class="form-control mb-2">
-                  <input type="text" class="form-control mb-2">
-                  <input type="text" class="form-control mb-2">
-                  <input type="text" class="form-control mb-2">
-                </div>
-                <div class="col-md-3">
-                  <input type="text" class="form-control mb-2">
-                  <input type="text" class="form-control mb-2">
-                  <input type="text" class="form-control mb-2">
-                  <input type="text" class="form-control mb-2">
-                  <input type="text" class="form-control mb-2">
-                  <input type="text" class="form-control mb-2">
-                  <input type="text" class="form-control mb-2">
-                </div>
-              </div>
-
-              <!--
-              <div class="col-md-1">
-                <div class="form-floating">
-                  <input type="text" class="form-control" value="1">
-                  <label for="">#</label>
-                </div>
-              </div>
-              <div class="col-md-4">
-                <div class="form-floating">
-                  <input type="text" class="form-control text-uppercase" id="chasis" placeholder="Chasis">
-                  <label for="chasis">Chasis</label>
-                </div>
-              </div>
               <div class="col-md-2 mb-2">
                 <div class="form-floating">
-                  <input type="text" class="form-control text-uppercase" maxlength="7" id="placa" placeholder="Placa">
-                  <label for="placa">Placa</label>
-                </div>
-              </div>
-              <div class="col-md-2 mb-2">
-                <div class="form-floating">
-                  <input type="text" id="placa-rotativa" class="form-control text-uppercase" maxlength="7" placeholder="Placa rotativa">
-                  <label for="placa-rotativa">Placa rotativa</label>
-                </div>
-              </div>
-              <div class="col-md-3 mb-2">
-                <div class="form-floating">
-                  <input type="text" id="serie-motor" class="form-control" placeholder="Serie motor">
-                  <label for="serie-motor">Serie motor</label>
+                  <input type="text" id="precio" class="form-control text-end" pattern="[0-9]+"
+                    title="Solo se permiten números" placeholder="Precio" required>
+                  <label for="precio">Precio <span class="text-danger">*</span></label>
                 </div>
               </div>
             </div>
-            -->
-            
+          </form>
+          <!-- Fin formulario datos generales del vehículo -->
+
+          <hr>
+
+          <!-- Fila para agregar chasis, placa, placa rotativa y serie motor -->
+          <div class="row g-2">
+
+            <div class="row mt-2 g-2">
+              <div class="col-md-1 text-center">#</div>
+              <div class="col-md-4">Chasis</div>
+              <div class="col-md-2">Placa</div>
+              <div class="col-md-2">Placa rotativa</div>
+              <div class="col-md-3">Serie</div>
+            </div>
+
+            <!-- Se van a generar inputs para agregar los datos de los vehículos -->
+            <div class="content" id="inputs-dinamicos">
+              <!-- Contenido generado de forma dinámica -->
+            </div>
+
             <!-- Fila para leyenda de campos obligatorios -->
             <div class="row">
               <div class="col-md-12">
@@ -420,166 +356,225 @@
               </div>
             </div>
 
+            </dv>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-sm btn-outline-secondary" data-bs-dismiss="modal">Cancelar</button>
+              <button type="submit" form="formulario-vehiculo" id="registrar-vehiculo"
+                class="btn btn-sm btn-primary">Agregar</button>
+            </div>
           </div>
-          <div class="modal-footer">
-            <button type="button" class="btn btn-sm btn-outline-secondary" data-bs-dismiss="modal">Cancelar</button>
-            <button type="submit" class="btn btn-sm btn-primary">Agregar</button>
-          </div>
-        </div>
-      </form>
-  </div> <!-- /.modal-dialog -->
-</div> <!-- ./modal -->
-  <!-- Fin Zona de modales -->
+        </div> <!-- /.modal-dialog -->
+      </div> <!-- ./modal -->
+      <!-- Fin Zona de modales -->
 
 
-  <script>
-    document.addEventListener("DOMContentLoaded", () => {
+      <script>
+        document.addEventListener("DOMContentLoaded", () => {
 
-      const modalVehiculo = new bootstrap.Modal(document.getElementById("modal-vehiculo"))
+          const modalVehiculo = new bootstrap.Modal(document.getElementById("modal-vehiculo"))
+          const concesionarios = document.querySelector("#concesionarios")
 
-      const concesionarios = document.querySelector("#concesionarios")
-      
-      //input form datos de la OC
-      const ruc = document.querySelector("#ruc")
-      const tiendas = document.querySelector("#tiendas")
-      const direccion = document.querySelector("#direccion")
-      const telefono = document.querySelector("#telefono")
-      const asesor = document.querySelector("#asesor")
-      const moneda = document.querySelector("#moneda")
+          //input form datos de la OC
+          const ruc = document.querySelector("#ruc")
+          const tiendas = document.querySelector("#tiendas")
+          const direccion = document.querySelector("#direccion")
+          const telefono = document.querySelector("#telefono")
+          const asesor = document.querySelector("#asesor")
+          const moneda = document.querySelector("#moneda")
 
-      //input form vehiculos (modal)
-      const versionLS = document.querySelector("#version-ls")
-      const versionIN = document.querySelector("#version-in")
-      const mostrarVersionLS = document.querySelector("#mostrar-version-ls")
+          //input form vehiculos (modal)
+          const cantidad = document.querySelector("#cantidad")
+          const marcas = document.querySelector("#marcas")
+          const versionLS = document.querySelector("#version-ls")
+          const versionIN = document.querySelector("#version-in")
+          const mostrarVersionLS = document.querySelector("#mostrar-version-ls")
+          const registrarVehiculo = document.querySelector("#registrar-vehiculo")
 
-      //Formularios
-      const formVehiculo = document.querySelector("#formulario-vehiculo")
+          //Formularios
+          const formVehiculo = document.querySelector("#formulario-vehiculo")
 
-      const abrirWsp = document.querySelector("#abrir-wsp")
-      const agregarItem = document.querySelector("#agregar-item")
+          const abrirWsp = document.querySelector("#abrir-wsp")
+          const agregarItem = document.querySelector("#agregar-item")
 
-      let dataConcesionarios = []
-      let dataTiendas = []
+          let dataConcesionarios = []
+          let dataTiendas = []
+          let dataVehiculos = []
 
-      //Abre Web WhatsApp con el número indicado
-      abrirWsp.addEventListener("click", () => {
-        if (telefono.value.length >= 9) {
-          window.open(`https://web.whatsapp.com/send?phone=${telefono.value}`, '_blank')
-        }
-      })
+          function generadorInputsDinamicos(cantidad) {
+            const inputsDinamicos = document.querySelector("#inputs-dinamicos")
 
-      agregarItem.addEventListener("click", () => {
-        modalVehiculo.show()
-      })
-
-      //Si elige VERSION (especificar...) debemos mostrar una caja de texto
-      versionLS.addEventListener("change", (event) => {
-        const opcion = event.target.value
-
-        if (opcion == "ESP"){
-          document.querySelector("#bloque-version-lista").classList.add("d-none")
-          document.querySelector("#bloque-version-input").classList.remove("d-none")
-          versionIN.value = ``
-          versionIN.focus()
-        }else{
-          versionIN.value = versionLS.value
-        }
-      })
-
-      //Cuando se especifica la VERSION manualmente (input) se puede volver a mostrar la lista
-      mostrarVersionLS.addEventListener("click", () => {
-        versionIN.value = ``;
-        document.querySelector("#bloque-version-lista").classList.remove("d-none")
-        document.querySelector("#bloque-version-input").classList.add("d-none")
-        versionLS.value = ``
-      })
-
-      //Registra un vehículo (envía los datos a un arreglo)
-      //El registro del vehículo se dará cuando el usuario pulse clic en el botón "Registrar"
-      formVehiculo.addEventListener("submit", (event) => {
-        event.preventDefault()
-
-        if (confirm("¿Agregamos el vehículo?")){
-
-        }
-      })
-
-      async function obtenerConcesionarios() {
-        const response = await fetch(`../../app/controllers/concesionario.c.php?operation=getAllConcesionarios`, { method: 'GET' })
-        const data = await response.json()
-        return data
-      }
-
-      async function renderConcesionarios() {
-        dataConcesionarios = await obtenerConcesionarios()
-        if (dataConcesionarios.length > 0) {
-          concesionarios.innerHTML = `<option value=''>Seleccione</option>`
-          dataConcesionarios.forEach(element => {
-            concesionarios.innerHTML += `<option value='${element.idconcesionario}'>${element.nombrecomercial}</option>`
-          });
-        }
-      }
-
-      async function obtenerTiendas(id) {
-        const response = await fetch(`../../app/controllers/tienda.c.php?operation=getTiendasByIdConcesionario&idconcesionario=${id}`, { method: 'GET' })
-        const data = await response.json()
-        return data
-      }
-
-      function resetFormOC() {
-        ruc.value = ""
-        direccion.value = ""
-        asesor.value = ""
-        telefono.value = ""
-        moneda.value = "USD"
-      }
-
-      //Al seleccionar un concesionario recuperamos el número de RUC
-      concesionarios.addEventListener("change", async function (event) {
-
-        //Reiniciando formulario
-        ruc.value = ""
-        direccion.value = ""
-        asesor.value = ""
-        telefono.value = ""
-        moneda.value = "USD"
-
-        const indice = event.target.selectedIndex
-        if (indice > 0) {
-          ruc.value = dataConcesionarios[indice - 1].ruc
-
-          //Se debe mostrar las tiendas
-          const idconcesionario = parseInt(this.value)
-          dataTiendas = await obtenerTiendas(idconcesionario)
-          if (dataTiendas.length == 0) {
-            tiendas.innerHTML = `<option value=''>No hay tiendas registradas</option>`
-          } else {
-            tiendas.innerHTML = `<option value=''>Seleccione</option>`
-            dataTiendas.forEach(element => {
-              tiendas.innerHTML += `<option value='${element.idtienda}'>${element.ubigeo}</option>`;
-            });
+            if (cantidad > 0) {
+              inputsDinamicos.innerHTML = ``
+              for (let i = 1; i <= cantidad; i++) {
+                inputsDinamicos.innerHTML += `
+                <div class="row g-2">
+                  <div class="col-md-1 mb-2"><input type="text" class="form-control text-center" id="idvh${i}" value="${i}" disabled></div>
+                  <div class="col-md-4 mb-2"><input type="text" class="form-control" id="chas${i}"></div>
+                  <div class="col-md-2 mb-2"><input type="text" class="form-control" id="plac${i}"></div>
+                  <div class="col-md-2 mb-2"><input type="text" class="form-control" id="plar${i}"></div>
+                  <div class="col-md-3 mb-2"><input type="text" class="form-control" id="seri${i}"></div>
+                </div>
+                `;
+              }
+            }
           }
-        } else {
-          tiendas.innerHTML = `<option value=''>Seleccione</option>`
-        }
-      })
 
-      //Al cambiar una tienda de la lista se debe mostrar la dirección, teléfono y el asesor
-      tiendas.addEventListener("change", (event) => {
-        const indice = event.target.selectedIndex
-        if (indice == 0) {
-          direccion.value = ``
-          telefono.value = ``
-          asesor.value = ``
-        } else {
-          direccion.value = dataTiendas[indice - 1].direccion
-          telefono.value = dataTiendas[indice - 1].telefono
-          asesor.value = dataTiendas[indice - 1].contacto
-        }
-      })
+          //Se deberán generar input de forma dinámica para agregar: id, chasis, placa, placa rotativa, serie
+          cantidad.addEventListener("change", function (event) {
+            generadorInputsDinamicos(parseInt(this.value))
+          })
 
-      renderConcesionarios()
-    });
-  </script>
+          //Se deberán generar input de forma dinámica para agregar: id, chasis, placa, placa rotativa, serie
+          cantidad.addEventListener("keyup", function (event) {
+            if (this.value != "") {
+              generadorInputsDinamicos(parseInt(this.value))
+            }
+          })
 
-  <?php require_once "../partials/footer.php"; ?>
+          //Abre Web WhatsApp con el número indicado
+          abrirWsp.addEventListener("click", () => {
+            if (telefono.value.length >= 9) {
+              window.open(`https://web.whatsapp.com/send?phone=${telefono.value}`, '_blank')
+            }
+          })
+
+          agregarItem.addEventListener("click", () => {
+            modalVehiculo.show()
+          })
+
+          //Si elige VERSION (especificar...) debemos mostrar una caja de texto
+          versionLS.addEventListener("change", (event) => {
+            const opcion = event.target.value
+
+            if (opcion == "ESP") {
+              document.querySelector("#bloque-version-lista").classList.add("d-none")
+              document.querySelector("#bloque-version-input").classList.remove("d-none")
+              versionIN.value = ``
+              versionIN.focus()
+            } else {
+              versionIN.value = versionLS.value
+            }
+          })
+
+          //Cuando se especifica la VERSION manualmente (input) se puede volver a mostrar la lista
+          mostrarVersionLS.addEventListener("click", () => {
+            versionIN.value = ``;
+            document.querySelector("#bloque-version-lista").classList.remove("d-none")
+            document.querySelector("#bloque-version-input").classList.add("d-none")
+            versionLS.value = ``
+          })
+
+          //Registra un vehículo (envía los datos a un arreglo)
+          formVehiculo.addEventListener("submit", function (event) {
+            event.preventDefault()
+            const pregunta = (cantidad.value) == 1 ? "¿Agregamos este vehículo?" : "¿Agregamos los vehículos de la lista?"
+
+            if (confirm(pregunta)) {
+
+              for (let i = 1; i <= parseInt(cantidad.value); i++) {
+                //Respaldamos la información ingresada en un objeto
+                const vehiculo = {
+                  idmodelo: idmodelo.value,
+                  version: version.value,
+                  condicion: condicion.value
+                }
+              }
+
+            }
+          })
+
+          async function obtenerConcesionarios() {
+            const response = await fetch(`../../app/controllers/concesionario.c.php?operation=getAllConcesionarios`, { method: 'GET' })
+            const data = await response.json()
+            return data
+          }
+
+          async function renderConcesionarios() {
+            dataConcesionarios = await obtenerConcesionarios()
+            if (dataConcesionarios.length > 0) {
+              concesionarios.innerHTML = `<option value=''>Seleccione</option>`
+              dataConcesionarios.forEach(element => {
+                concesionarios.innerHTML += `<option value='${element.idconcesionario}'>${element.nombrecomercial}</option>`
+              });
+            }
+          }
+
+          //Obtiene las marcas desde una consulta asíncrona y lo renderiza en el control <select>
+          async function listarMarcas(){
+            const response = await fetch(`../../app/controllers/marca.c.php?operation=getAll`, { method: 'GET' })
+            const data = await response.json()
+            
+            if (data.length > 0){
+              marcas.innerHTML = `<option value=''>Seleccione</option>`
+              data.forEach(element => {
+                marcas.innerHTML += `<option value='${element.idmarca}'>${element.marca}</option>`
+              });
+            }else{
+              marcas.innerHTML = `<option value=''>No hay datos</option>`
+            }
+          }
+
+          async function obtenerTiendas(id) {
+            const response = await fetch(`../../app/controllers/tienda.c.php?operation=getTiendasByIdConcesionario&idconcesionario=${id}`, { method: 'GET' })
+            const data = await response.json()
+            return data
+          }
+
+          function resetFormOC() {
+            ruc.value = ""
+            direccion.value = ""
+            asesor.value = ""
+            telefono.value = ""
+            moneda.value = "USD"
+          }
+
+          //Al seleccionar un concesionario recuperamos el número de RUC
+          concesionarios.addEventListener("change", async function (event) {
+
+            //Reiniciando formulario
+            ruc.value = ""
+            direccion.value = ""
+            asesor.value = ""
+            telefono.value = ""
+            moneda.value = "USD"
+
+            const indice = event.target.selectedIndex
+            if (indice > 0) {
+              ruc.value = dataConcesionarios[indice - 1].ruc
+
+              //Se debe mostrar las tiendas
+              const idconcesionario = parseInt(this.value)
+              dataTiendas = await obtenerTiendas(idconcesionario)
+              if (dataTiendas.length == 0) {
+                tiendas.innerHTML = `<option value=''>No hay tiendas registradas</option>`
+              } else {
+                tiendas.innerHTML = `<option value=''>Seleccione</option>`
+                dataTiendas.forEach(element => {
+                  tiendas.innerHTML += `<option value='${element.idtienda}'>${element.ubigeo}</option>`;
+                });
+              }
+            } else {
+              tiendas.innerHTML = `<option value=''>Seleccione</option>`
+            }
+          })
+
+          //Al cambiar una tienda de la lista se debe mostrar la dirección, teléfono y el asesor
+          tiendas.addEventListener("change", (event) => {
+            const indice = event.target.selectedIndex
+            if (indice == 0) {
+              direccion.value = ``
+              telefono.value = ``
+              asesor.value = ``
+            } else {
+              direccion.value = dataTiendas[indice - 1].direccion
+              telefono.value = dataTiendas[indice - 1].telefono
+              asesor.value = dataTiendas[indice - 1].contacto
+            }
+          })
+
+          renderConcesionarios()
+          listarMarcas()
+        });
+      </script>
+
+      <?php require_once "../partials/footer.php"; ?>

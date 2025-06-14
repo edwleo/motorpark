@@ -222,7 +222,7 @@ CREATE TABLE vehiculos
     placa 				VARCHAR(10)	 	NULL,
     placarotativa		VARCHAR(10) 	NULL,
     seriemotor 			VARCHAR(20) 	NULL,
-    moneda				ENUM('USD', 'PEN') NULL DEFAULT 'USD',
+    moneda				ENUM('USD', 'PEN') NULL DEFAULT 'USD', -- VENTA
     precioventa			DECIMAL(9,2) 	NULL,
     disponibilidad 		ENUM('proceso', 'libre', 'separado', 'vendido', 'recuperado') NOT NULL,
     idlogistica			INT 			NOT NULL,

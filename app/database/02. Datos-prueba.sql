@@ -158,5 +158,14 @@ INSERT INTO ordenescompra
     (16, 1, 'USD', '2025', '2025-04-07', '2025-04-08', '2025-04-08', NULL, NULL, NULL, 'emitido');
 
 SELECT * FROM concesionarios;
-SELECT * FROM modelos;
+SELECT * FROM marcas;
 SELECT * FROM vehiculos;
+SELECT * FROM modelos;
+SELECT * FROM tipovehiculos;
+
+SELECT
+	DISTINCT(TV.tipovehiculo), MD.idtipovehiculo 
+	FROM modelos MD
+    INNER JOIN tipovehiculos TV ON MD.idtipovehiculo = TV.idtipovehiculo
+    WHERE MD.idmarca = 12
+    ORDER BY TV. tipovehiculo;

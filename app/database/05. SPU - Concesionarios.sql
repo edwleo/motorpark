@@ -31,4 +31,3 @@ BEGIN
     DELETE FROM concesionarios WHERE idconcesionario = _idconcesionario;
 END $$
 
-SELECT * FROM concesionarios;
