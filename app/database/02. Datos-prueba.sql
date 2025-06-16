@@ -169,3 +169,11 @@ SELECT
     INNER JOIN tipovehiculos TV ON MD.idtipovehiculo = TV.idtipovehiculo
     WHERE MD.idmarca = 12
     ORDER BY TV. tipovehiculo;
+
+SELECT
+	MD.idmodelo, MD.modelo, MD.anio
+	FROM modelos MD
+    INNER JOIN marcas MR ON MR.idmarca = MD.idmarca
+    INNER JOIN tipovehiculos TV ON TV.idtipovehiculo = MD.idtipovehiculo
+    WHERE MR.idmarca = 12 AND TV.idtipovehiculo = 2
+    ORDER BY MD.modelo, MD.anio;

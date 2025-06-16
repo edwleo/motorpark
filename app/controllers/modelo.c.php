@@ -10,6 +10,9 @@ if (isset($_GET['operation'])){
     case 'getAll':
       echo json_encode($modelo->getAllModelos($_GET['idmarca']));
       break;
+    case 'getModelosByTipoMarca':
+      echo json_encode($modelo->getModelosByTipoMarca($_GET['idmarca'], $_GET['idtipovehiculo']));
+      break;
     case 'delete':
       echo json_encode(["rows" => $modelo->delete($_GET['idmarca'])]);
       break;

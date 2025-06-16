@@ -200,7 +200,7 @@
     <div class="modal-dialog modal-xl modal-dialog-scrollable">
       <div class="modal-content">
         <div class="modal-header bg-yonda">
-          <h1 class="modal-title fs-5" id="exampleModalLabel">Datos del vehículo comprado</h1>
+          <h1 class="modal-title fs-5" id="exampleModalLabel">Datos del vehículo a comprar</h1>
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
         <div class="modal-body pb-2">
@@ -384,7 +384,9 @@
 
           //input form vehiculos (modal)
           const cantidad = document.querySelector("#cantidad")
+          const tipos = document.querySelector("#tipos")
           const marcas = document.querySelector("#marcas")
+          const modelos = document.querySelector("#modelos")
           const versionLS = document.querySelector("#version-ls")
           const versionIN = document.querySelector("#version-in")
           const mostrarVersionLS = document.querySelector("#mostrar-version-ls")
@@ -527,6 +529,41 @@
             telefono.value = ""
             moneda.value = "USD"
           }
+
+          //Al cambiar una marca de la lista, se recargan los tipo de vehiculos
+          marcas.addEventListener("change", async function(event) {
+            const idmarca = parseInt(this.value)
+            const response = await fetch(`../../app/controllers/tipovehiculo.c.php?operation=getTipoVehiculoByMarca&idmarca=${idmarca}`, {method: 'GET'})
+            const data = await response.json()
+
+            if (data.length > 0){
+              tipos.innerHTML = `<option value=''>Seleccione</option>`
+              data.forEach(element => {
+                tipos.innerHTML += `<option value='${element.idtipovehiculo}'>${element.tipovehiculo}</option>`
+              });
+              modelos.innerHTML = `<option value=''>Seleccione</option>`
+            }else{
+              tipos.innerHTML = `<option value=''>No hay  datos</option>`
+              modelos.innerHTML = `<option value=''>No hay  datos</option>`
+            }
+          })
+
+          tipos.addEventListener("change", async function (){
+            const idmarca = parseInt(marcas.value)
+            const idtipovehiculo = parseInt(tipos.value)
+            const response = await fetch(`../../app/controllers/modelo.c.php?operation=getModelosByTipoMarca&idmarca=${idmarca}&idtipovehiculo=${idtipovehiculo}`, { method: 'GET' })
+            const data = await response.json()
+
+            if (data.length > 0){
+              modelos.innerHTML = `<option value=''>Seleccione</option>`
+              data.forEach(element => {
+                modelos.innerHTML += `<option value='${element.idmodelo}'>${element.modelo}</option>`
+              });
+            }else{
+              modelos.innerHTML = `<option value=''>No hay  datos</option>`
+            }
+
+          })
 
           //Al seleccionar un concesionario recuperamos el número de RUC
           concesionarios.addEventListener("change", async function (event) {

@@ -21,6 +21,34 @@ class Modelo{
     }
   }
 
+  /**
+   * Obtenemos una lista de modelos de vehículos según la marca y tipo pasado como parámetro
+   * @param int $idmarca
+   * @param int $idtipovehiculo
+   * @return array
+   */
+  public function getModelosByTipoMarca(int $idmarca, int $idtipovehiculo)  
+  {
+    $query = "
+    SELECT
+    MD.idmodelo, MD.modelo, MD.anio
+    FROM modelos MD
+      INNER JOIN marcas MR ON MR.idmarca = MD.idmarca
+      INNER JOIN tipovehiculos TV ON TV.idtipovehiculo = MD.idtipovehiculo
+      WHERE MR.idmarca = ? AND TV.idtipovehiculo = ?
+      ORDER BY MD.modelo, MD.anio;
+    ";
+    try {
+      $cmd = $this->pdo->prepare($query);
+      $cmd->execute(array($idmarca, $idtipovehiculo));
+      $results = $cmd->fetchAll(PDO::FETCH_ASSOC);
+      return $results;
+    } catch (PDOException $error) {
+      error_log($error->getMessage());
+      return [];
+    }
+  }
+
 
   /**
    * Agrega un nuevo modelo de vehículo de acuerdo a la marca y tipo

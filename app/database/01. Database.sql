@@ -152,6 +152,7 @@ CREATE TABLE tipovehiculos
     CONSTRAINT uk_tipovehiculo_tve UNIQUE (tipovehiculo)
 )ENGINE = INNODB;
 
+-- El unique para modelos debe ser tipovehiculo + marca + año
 CREATE TABLE modelos
 (
 	idmodelo 			INT AUTO_INCREMENT PRIMARY KEY,
@@ -164,9 +165,8 @@ CREATE TABLE modelos
     modificado 			DATETIME 		NULL,
     CONSTRAINT fk_idtipovehiculo_mod FOREIGN KEY (idtipovehiculo) REFERENCES tipovehiculos (idtipovehiculo),
     CONSTRAINT fk_idmarca_mod FOREIGN KEY (idmarca) REFERENCES marcas (idmarca),
-    CONSTRAINT uk_modelo_mod UNIQUE (idmarca, modelo)
+    CONSTRAINT uk_modelo_mod UNIQUE (idmarca, modelo, anio)
 )ENGINE = INNODB;
-
 
 CREATE TABLE combustibles
 (
