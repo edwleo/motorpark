@@ -23,6 +23,9 @@
 
   <form action="" autocomplete="off">
     <div class="card mb-2">
+      <div class="card-header bg-info">
+        <strong>Paso 1:</strong> <span class="fst-italic">Datos generales de la orden de compra</span>
+      </div>
       <div class="card-body">
 
         <div class="row g-2">
@@ -65,19 +68,19 @@
         </div> <!-- ./row -->
 
         <div class="row g-2">
-          <div class="col-md-3">
+          <div class="col-md-3 mb-2">
             <div class="form-floating">
               <input type="text" class="form-control" name="direccion" id="direccion" readonly>
               <label for="form-label">Dirección</label>
             </div>
           </div>
-          <div class="col-md-3">
+          <div class="col-md-3 mb-2">
             <div class="form-floating">
               <input type="text" class="form-control" name="asesor" id="asesor" readonly>
               <label for="form-label">Asesor</label>
             </div>
           </div>
-          <div class="col-md-2">
+          <div class="col-md-2 mb-2">
             <div class="input-group">
               <div class="form-floating">
                 <input type="text" class="form-control text-center" name="telefono" id="telefono" readonly>
@@ -87,13 +90,13 @@
                   class="fa-brands fa-whatsapp"></i></button>
             </div>
           </div>
-          <div class="col-md-2">
+          <div class="col-md-2 mb-2">
             <div class="form-floating">
               <input type="text" class="form-control text-center" name="stock" id="stock">
               <label for="form-label">Stock</label>
             </div>
           </div>
-          <div class="col-md-2">
+          <div class="col-md-2 mb-2">
             <div class="form-floating">
               <select name="moneda" id="moneda" class="form-select">
                 <option value="USD">Dólares</option>
@@ -104,34 +107,40 @@
           </div>
         </div> <!-- ./row -->
 
+        <div class="row g-2">
+          <div class="col-md-12">
+            <div class="form-floating">
+              <input type="text" id="observaciones" class="form-control">
+              <label for="observaciones">Observaciones</label>
+            </div>
+          </div>
+        </div>
+
       </div> <!-- ./card-body -->
+      <div class="card-footer text-end">
+        <button class="btn btn-sm btn-outline-secondary">Cancelar</button>
+        <button class="btn btn-sm btn-primary">Registrar</button>
+      </div>
     </div><!-- ./card -->
   </form>
 
-  <div class="card mb-2">
-    <div class="card-body">
-      <form action="">
-        <div class="row">
-          <div class="col-md-6 d-flex align-items-center justify-content-start">
-            <strong class="me-2">Tipo de item:</strong>
-            <div class="me-3">
-              <input type="radio" class="form-check-input" name="tipo" id="tipo-vehiculo" checked>
-              <label for="tipo-vehiculo" class="form-check-label">Vehículo</label>
-            </div>
-            <div class="">
-              <input type="radio" class="form-check-input" name="tipo" id="tipo-accesorio">
-              <label for="tipo-accesorio" class="form-check-label">Accesorio</label>
-            </div>
-          </div>
-          <div class="col-md-6 text-end">
-            <button class="btn btn-sm btn-success" id="agregar-item" type="button">Agregar</button>
+
+
+  <div class="card mt-2">
+    <div class="card-header bg-info">
+      <div class="row">
+        <div class="col-md-6 d-flex align-items-center justify-content-start">
+          <strong>Paso 2:</strong> <span class="fst-italic">Agregar elementos a la orden de compra</span>
+        </div>
+        <div class="col-md-6 d-flex align-items-center justify-content-end">
+          <div class="btn-group btn-group-sm">
+            <button class="btn btn-sm btn-dark" id="agregar-accesorio" type="button" title="Agregar accesorio"><i class="fa-solid fa-box-open"></i> Accesorio</button>
+            <button class="btn btn-sm btn-dark" id="agregar-item" type="button" title="Agregar vehiculo"><i class="fa-solid fa-car-side"></i> Vehículo</button>
           </div>
         </div>
-      </form>
+      </div>
     </div>
-  </div>
 
-  <div class="card">
     <div class="card-body">
       <div class="table-responsive">
         <table class="table table-sm">
@@ -188,10 +197,6 @@
       </div>
     </div>
 
-    <div class="card-footer text-end">
-      <button type="reset" class="btn btn-outline-secondary btn-sm">Cancelar</button>
-      <button type="submit" class="btn btn-primary btn-sm">Registrar</button>
-    </div>
   </div>
 
   <!-- Zona de modales -->
@@ -218,8 +223,6 @@
                 <div class="form-floating">
                   <select name="marcas" id="marcas" class="form-select" required>
                     <option value="">Seleccione</option>
-                    <option value="">KIA</option>
-                    <option value="">HYUNDAI</option>
                   </select>
                   <label for="marcas" class="form-label">Marca <span class="text-danger">*</span></label>
                 </div>
@@ -228,9 +231,6 @@
                 <div class="form-floating">
                   <select name="tipos" id="tipos" class="form-select" required>
                     <option value="">Seleccione</option>
-                    <option value="">SUV</option>
-                    <option value="">Hatchback</option>
-                    <option value="">Sedan</option>
                   </select>
                   <label for="tipos">Tipo de vehículo <span class="text-danger">*</span></label>
                 </div>
@@ -238,10 +238,7 @@
               <div class="col-md-3 mb-2">
                 <div class="form-floating">
                   <select name="modelos" id="modelos" class="form-select" required>
-                    <option value="">Modelos</option>
-                    <option value="">Creta</option>
-                    <option value="">Tucson</option>
-                    <option value="">Santa Fe</option>
+                    <option value="">Seleccione</option>
                   </select>
                   <label for="modelos">Modelos disponibles <span class="text-danger">*</span></label>
                 </div>
@@ -249,11 +246,10 @@
               <div class="col-md-2 mb-2">
                 <div class="input-group">
                   <div class="form-floating">
-                    <select name="anio" id="anio" class="form-select" required>
+                    <select name="anios" id="anios" class="form-select" required>
                       <option value="">Seleccione</option>
-                      <option value="">2025</option>
                     </select>
-                    <label for="anio">Año <span class="text-danger">*</span></label>
+                    <label for="anios">Año <span class="text-danger">*</span></label>
                   </div>
                   <button type="button" class="btn btn-outline-success"
                     title="Incrementa el año del modelo y lo guarda en la base de datos">+</button>
@@ -387,6 +383,7 @@
           const tipos = document.querySelector("#tipos")
           const marcas = document.querySelector("#marcas")
           const modelos = document.querySelector("#modelos")
+          const anios = document.querySelector("#anios")
           const versionLS = document.querySelector("#version-ls")
           const versionIN = document.querySelector("#version-in")
           const mostrarVersionLS = document.querySelector("#mostrar-version-ls")
@@ -401,6 +398,7 @@
           let dataConcesionarios = []
           let dataTiendas = []
           let dataVehiculos = []
+          let dataModelos = [] //Se utilizará para cargar y seleccionar un modelo y luego un año sin hacer doble consulta al backend
 
           function generadorInputsDinamicos(cantidad) {
             const inputsDinamicos = document.querySelector("#inputs-dinamicos")
@@ -502,16 +500,16 @@
           }
 
           //Obtiene las marcas desde una consulta asíncrona y lo renderiza en el control <select>
-          async function listarMarcas(){
+          async function listarMarcas() {
             const response = await fetch(`../../app/controllers/marca.c.php?operation=getAll`, { method: 'GET' })
             const data = await response.json()
-            
-            if (data.length > 0){
+
+            if (data.length > 0) {
               marcas.innerHTML = `<option value=''>Seleccione</option>`
               data.forEach(element => {
                 marcas.innerHTML += `<option value='${element.idmarca}'>${element.marca}</option>`
               });
-            }else{
+            } else {
               marcas.innerHTML = `<option value=''>No hay datos</option>`
             }
           }
@@ -531,38 +529,70 @@
           }
 
           //Al cambiar una marca de la lista, se recargan los tipo de vehiculos
-          marcas.addEventListener("change", async function(event) {
+          marcas.addEventListener("change", async function (event) {
             const idmarca = parseInt(this.value)
-            const response = await fetch(`../../app/controllers/tipovehiculo.c.php?operation=getTipoVehiculoByMarca&idmarca=${idmarca}`, {method: 'GET'})
+            const response = await fetch(`../../app/controllers/tipovehiculo.c.php?operation=getTipoVehiculoByMarca&idmarca=${idmarca}`, { method: 'GET' })
             const data = await response.json()
 
-            if (data.length > 0){
+            if (data.length > 0) {
               tipos.innerHTML = `<option value=''>Seleccione</option>`
               data.forEach(element => {
                 tipos.innerHTML += `<option value='${element.idtipovehiculo}'>${element.tipovehiculo}</option>`
               });
               modelos.innerHTML = `<option value=''>Seleccione</option>`
-            }else{
+              anios.innerHTML = `<option value=''>Seleccione</option>`
+            } else {
               tipos.innerHTML = `<option value=''>No hay  datos</option>`
+              modelos.innerHTML = `<option value=''>No hay  datos</option>`
+              anios.innerHTML = `<option value=''>No hay  datos</option>`
+            }
+          })
+
+          tipos.addEventListener("change", async function () {
+            const idmarca = parseInt(marcas.value)
+            const idtipovehiculo = parseInt(tipos.value)
+            const response = await fetch(`../../app/controllers/modelo.c.php?operation=getModelosByTipoMarca&idmarca=${idmarca}&idtipovehiculo=${idtipovehiculo}`, { method: 'GET' })
+            dataModelos = await response.json()
+
+            if (dataModelos.length > 0) {
+              modelos.innerHTML = `<option value=''>Seleccione</option>`
+              anios.innerHTML = `<option value=''>Seleccione</option>`
+
+              //Se compara el modelo por agregar con el ya agregado para no repetir
+              let modeloAgregado = ""
+
+              dataModelos.forEach(element => {
+
+                if (modeloAgregado === "") {
+                  //Si la variable está vacía, se agrega directamente (es el primero)
+                  modelos.innerHTML += `<option value='${element.idmodelo}'>${element.modelo}</option>`
+                }
+                else {
+                  //Para las otras iteraciones, se agrega siempre que el nuevo modelo sea diferente del agregado anteriormente
+                  if (modeloAgregado != element.modelo) {
+                    modelos.innerHTML += `<option value='${element.idmodelo}'>${element.modelo}</option>`
+                  }
+                }
+
+                //Para cualquier cosa, la variable actualiza su valor con el modelo agregado
+                modeloAgregado = element.modelo
+              });
+            } else {
               modelos.innerHTML = `<option value=''>No hay  datos</option>`
             }
           })
 
-          tipos.addEventListener("change", async function (){
-            const idmarca = parseInt(marcas.value)
-            const idtipovehiculo = parseInt(tipos.value)
-            const response = await fetch(`../../app/controllers/modelo.c.php?operation=getModelosByTipoMarca&idmarca=${idmarca}&idtipovehiculo=${idtipovehiculo}`, { method: 'GET' })
-            const data = await response.json()
+          //Se agregan los años del modelo seleccionado
+          modelos.addEventListener("change", function (event) {
+            const modeloSeleccionado = this.options[this.selectedIndex].text
 
-            if (data.length > 0){
-              modelos.innerHTML = `<option value=''>Seleccione</option>`
-              data.forEach(element => {
-                modelos.innerHTML += `<option value='${element.idmodelo}'>${element.modelo}</option>`
-              });
-            }else{
-              modelos.innerHTML = `<option value=''>No hay  datos</option>`
-            }
-
+            //Buscamos ese modelo en DataModelos y agregamos los años a la lista
+            anios.innerHTML = `<option value=''>Seleccione</option>`
+            dataModelos.forEach(element => {
+              if (element.modelo === modeloSeleccionado) {
+                anios.innerHTML += `<option value='${element.idmodelo}'>${element.anio}</option>`
+              }
+            });
           })
 
           //Al seleccionar un concesionario recuperamos el número de RUC
