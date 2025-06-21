@@ -21,7 +21,7 @@
     </div>
   </div>
 
-  <form action="" autocomplete="off">
+  <form action="" id="formulario-oc" autocomplete="off">
     <div class="card mb-2">
       <div class="card-header bg-info">
         <strong>Paso 1:</strong> <span class="fst-italic">Datos generales de la orden de compra</span>
@@ -44,7 +44,7 @@
           </div>
           <div class="col-md-3 mb-2">
             <div class="form-floating">
-              <select name="concesionarios" id="concesionarios" class="form-select">
+              <select name="concesionarios" id="concesionarios" class="form-select" required>
                 <option value="">Seleccione</option>
               </select>
               <label for="form-label">Concesionario</label>
@@ -52,13 +52,13 @@
           </div>
           <div class="col-md-2 mb-2">
             <div class="form-floating">
-              <input type="text" class="form-control text-center" name="ruc" id="ruc" maxlength="11" readonly>
+              <input type="text" class="form-control text-center" name="ruc" id="ruc" maxlength="11" required readonly>
               <label for="form-label">RUC</label>
             </div>
           </div>
           <div class="col-md-3 mb-2">
             <div class="form-floating">
-              <select name="tiendas" id="tiendas" class="form-select">
+              <select name="tiendas" id="tiendas" class="form-select" required>
                 <option value="">Seleccione</option>
               </select>
               <label for="form-label">Tienda</label>
@@ -70,20 +70,20 @@
         <div class="row g-2">
           <div class="col-md-3 mb-2">
             <div class="form-floating">
-              <input type="text" class="form-control" name="direccion" id="direccion" readonly>
+              <input type="text" class="form-control" name="direccion" id="direccion" required readonly>
               <label for="form-label">Dirección</label>
             </div>
           </div>
           <div class="col-md-3 mb-2">
             <div class="form-floating">
-              <input type="text" class="form-control" name="asesor" id="asesor" readonly>
+              <input type="text" class="form-control" name="asesor" id="asesor" required readonly>
               <label for="form-label">Asesor</label>
             </div>
           </div>
           <div class="col-md-2 mb-2">
             <div class="input-group">
               <div class="form-floating">
-                <input type="text" class="form-control text-center" name="telefono" id="telefono" readonly>
+                <input type="text" class="form-control text-center" name="telefono" id="telefono" required readonly>
                 <label for="form-label">Teléfono</label>
               </div>
               <button class="btn btn-outline-success" type="button" id="abrir-wsp" title="Contactar por WhatsApp"><i
@@ -118,8 +118,8 @@
 
       </div> <!-- ./card-body -->
       <div class="card-footer text-end">
-        <button class="btn btn-sm btn-outline-secondary">Cancelar</button>
-        <button class="btn btn-sm btn-primary">Registrar</button>
+        <button type="reset" class="btn btn-sm btn-outline-secondary">Cancelar</button>
+        <button type="submit" class="btn btn-sm btn-primary">Registrar</button>
       </div>
     </div><!-- ./card -->
   </form>
@@ -372,11 +372,14 @@
 
           //input form datos de la OC
           const ruc = document.querySelector("#ruc")
+          const fechaEmision = document.querySelector("#fechaemision")
           const tiendas = document.querySelector("#tiendas")
           const direccion = document.querySelector("#direccion")
           const telefono = document.querySelector("#telefono")
+          const numstock = document.querySelector("#stock")
           const asesor = document.querySelector("#asesor")
           const moneda = document.querySelector("#moneda")
+          const observaciones = document.querySelector("#observaciones")
 
           //input form vehiculos (modal)
           const cantidad = document.querySelector("#cantidad")
@@ -390,6 +393,7 @@
           const registrarVehiculo = document.querySelector("#registrar-vehiculo")
 
           //Formularios
+          const formOC = document.querySelector("#formulario-oc")
           const formVehiculo = document.querySelector("#formulario-vehiculo")
 
           const abrirWsp = document.querySelector("#abrir-wsp")
@@ -462,6 +466,36 @@
             document.querySelector("#bloque-version-lista").classList.remove("d-none")
             document.querySelector("#bloque-version-input").classList.add("d-none")
             versionLS.value = ``
+          })
+
+          //Registra la OC
+          formOC.addEventListener("submit", function (event) {
+            event.preventDefault()
+
+            if (confirm("¿Está seguro de registrar los datos generales de esta orden de compra?")){
+              const parametros = new FormData()
+
+              parametros.append("operation", "create")
+              parametros.append("idtienda", parseInt(tiendas.value))
+              parametros.append("moneda", moneda.value)
+              parametros.append("numstock", numstock.value)
+              parametros.append("observaciones", observaciones.value)
+
+              fetch(`../../app/controllers/ordencompra.controller.php`, {
+                method: 'POST',
+                body: parametros
+              })
+                .then(response => response.json())
+                .then(data => {
+                  if (data.id > 0){
+                    showToast("OC agregada correctamente", "SUCCESS", 2500);
+
+                  }else{
+                    showToast("No pudo concretar el proceso", "DANGER", 1500);
+                  }
+                })
+                .catch(error => console.error(error))
+            }
           })
 
           //Registra un vehículo (envía los datos a un arreglo)
@@ -639,6 +673,14 @@
             }
           })
 
+          function asignarFechaActual(){
+            const hoy = new Date()
+            const fechaFormat = hoy.toISOString().split('T')[0]
+            fechaEmision.value = fechaFormat
+            fechaEmision.setAttribute("disabled", true)
+          }
+
+          asignarFechaActual()
           renderConcesionarios()
           listarMarcas()
         });

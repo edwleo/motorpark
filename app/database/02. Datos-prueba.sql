@@ -107,7 +107,8 @@ INSERT INTO areas (area) VALUES
     ('Ventas'),
     ('Caja'),
     ('Cobranza'),
-    ('Legal');
+    ('Legal'),
+	('Logística');
 
 INSERT INTO cargos (idarea, cargo) 
 	VALUES 
@@ -115,7 +116,12 @@ INSERT INTO cargos (idarea, cargo)
         (1, 'Analista desarrollador'),
         (1, 'Practicante');
 
+INSERT INTO cargos (idarea, cargo) 
+	VALUES 
+		(9, 'Jefe de Logística'),
+        (9, 'Asistente de Logística');
 
+-- Usuario de SISTEMAS
 INSERT INTO personas 
 	(
 		apellidos, nombres, tipodoc, nrodoc, genero, fechanac, estadocivil, email, iddistrito, 
@@ -131,6 +137,25 @@ INSERT INTO contratoslaborales
 	(idpersona, idcargo, fechainicio, fechafin, tipocontrato) 
 	VALUES 
 		(1, 1, '2024-06-01', NULL, 'R');
+
+-- Usuario JEFE DE LOGÍSTICA
+INSERT INTO personas 
+	(
+		apellidos, nombres, tipodoc, nrodoc, genero, fechanac, estadocivil, email, iddistrito, 
+		direccion, referencia, telprimario, telalternativo
+	) 
+    VALUES
+	(
+		'Llana Lozano', 'Keiko Leticia', 'DNI', '73476525', 'F', '1995-01-10', 'SOL', 'asistentecontable@yondaperu.com', '1012',
+        'Jiron Alva Maurtua N° 100', NULL, '926743607', NULL
+    );
+
+INSERT INTO contratoslaborales 
+	(idpersona, idcargo, fechainicio, fechafin, tipocontrato) 
+	VALUES 
+		(2, 8, '2024-01-01', NULL, 'P');
+
+
 
 -- Verificando datos del contrato
 /*
@@ -152,16 +177,16 @@ INSERT INTO colaboradores (idcontratolaboral, usernick, userpassword, avatar)
 		(1, 'jhonfm', '$2y$10$GpQTuV8A8UPRul2E1E1OeOrhAb7842wa1cfB3bNieXncYTk2S1NTC', NULL);
 
 
+-- Cuenta para Letia Llana, clave: YONDA2025
+INSERT INTO colaboradores (idcontratolaboral, usernick, userpassword, avatar) 
+	VALUES 
+		(1, 'leticiall', '$2y$10$GpQTuV8A8UPRul2E1E1OeOrhAb7842wa1cfB3bNieXncYTk2S1NTC', NULL);
+
 INSERT INTO ordenescompra 
 	(idtienda, idlogistica, moneda, serie, emision, aprobacion, presentacion, anulacion, numstock, observaciones, estado) 
     VALUES 
     (16, 1, 'USD', '2025', '2025-04-07', '2025-04-08', '2025-04-08', NULL, NULL, NULL, 'emitido');
 
-SELECT * FROM concesionarios;
-SELECT * FROM marcas;
-SELECT * FROM vehiculos;
-SELECT * FROM modelos;
-SELECT * FROM tipovehiculos;
 
 SELECT
 	DISTINCT(TV.tipovehiculo), MD.idtipovehiculo 
@@ -177,3 +202,5 @@ SELECT
     INNER JOIN tipovehiculos TV ON TV.idtipovehiculo = MD.idtipovehiculo
     WHERE MR.idmarca = 12 AND TV.idtipovehiculo = 2
     ORDER BY MD.modelo, MD.anio;
+
+SELECT * FROM ordenescompra;
