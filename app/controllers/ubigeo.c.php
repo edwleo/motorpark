@@ -17,6 +17,8 @@ if (isset($_GET['operation'])) {
     case 'getAllDistritos':
       echo json_encode($ubigeo->getAllDistritos($_GET['idprovincia']));
       break;
+    case 'getAllDistritosAll':
+      echo json_encode($ubigeo->getAllDistritosAll());
+      break;
   }
-
 }
