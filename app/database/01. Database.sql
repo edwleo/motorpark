@@ -225,8 +225,8 @@ CREATE TABLE vehiculos
     moneda				ENUM('USD', 'PEN') NULL DEFAULT 'USD', -- VENTA
     precioventa			DECIMAL(9,2) 	NULL,
     disponibilidad 		ENUM('proceso', 'libre', 'separado', 'vendido', 'recuperado') NOT NULL,
-    idlogistica			INT 			NOT NULL,
-    idlocal 			INT 			NULL,
+    idlogistica			INT 			NOT NULL COMMENT 'Usuario del área de logística',
+    idlocal 			INT 			NULL COMMENT 'Piso: CHINCHA - ICA',
     origen 				ENUM ('OCP', 'OLD','CTZ') NOT NULL COMMENT 'OCP = Orden de compra (conducto regular), OLD (Contratos anteriores al sistema), CTZ (Cotizado por asesor)',
 	creado 				DATETIME 		NOT NULL DEFAULT NOW(),
     modificado 			DATETIME 		NULL,
@@ -267,6 +267,10 @@ CREATE TABLE ordenescompra
     CONSTRAINT fk_idtienda_ocp FOREIGN KEY (idtienda) REFERENCES tiendas (idtienda),
     CONSTRAINT fk_idlogistica_ocp FOREIGN KEY (idlogistica) REFERENCES colaboradores (idcolaborador)
 )ENGINE = INNODB;
+
+DELETE FROM ordenescompra;
+ALTER TABLE ordenescompra AUTO_INCREMENT 1;
+SELECT * FROM ordenescompra;
 
 -- Una orden de compra puede tener más de un equipo
 CREATE TABLE detordencompra

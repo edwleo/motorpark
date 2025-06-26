@@ -33,6 +33,11 @@ class Marca
     }
   }
 
+  /**
+   * Se retorna la PK de la marca registrada
+   * @param mixed $marca
+   * @return int
+   */
   public function create($marca = ''): int
   {
     $query = "INSERT INTO marcas (marca) VALUES (?)";
