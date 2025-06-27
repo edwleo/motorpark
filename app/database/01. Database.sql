@@ -82,6 +82,7 @@ CREATE TABLE empresas
     CONSTRAINT fk_iddistrito_empre FOREIGN KEY(iddistrito) REFERENCES distritos(iddistrito)
 )ENGINE = INNODB;
 
+crear tabla 
 
 CREATE TABLE clientes
 (
