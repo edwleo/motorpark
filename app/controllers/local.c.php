@@ -14,12 +14,13 @@ if (isset($_GET['operation'])) {
         case 'getDateEdit':
             echo json_encode($local->getTelResponsableById($_GET['idlocal']));
             break;
-        case 'getMotorapark':
+        case 'getMotorPark':
             echo json_encode($local->getMotorPark());
+            break;
+        case 'delete':
+            $output = ["rows" => $local->delete($_GET['idlocal'])];
+            echo json_encode($output);
     }
-} else {
-
-    echo json_encode(["error" => "No se especificó ninguna operación"]);
 }
 
 if (isset($_POST['operation'])) {
@@ -27,7 +28,7 @@ if (isset($_POST['operation'])) {
         case 'create':
             $registro = [
                 "tienda" => $_POST['tienda'],
-                "iddistrito" => $_POST['iddistrito'] ,
+                "iddistrito" => $_POST['iddistrito'],
                 "idmotorpark" => $_POST['idmotorpark'],
                 "principal" => $_POST['principal'],
                 "responsable" => $_POST['responsable'],

@@ -1,7 +1,22 @@
 <?php require_once "../partials/header.php"; ?>
 
 <div class="container-fluid">
-
+    <div class="alert alert-info mt-2" role="alert">
+        <div class="row">
+            <div class="col-md-6 d-flex align-items-center justify-content-start">
+                <nav aria-label="breadcrumb">
+                    <ol class="breadcrumb mb-0">
+                        <li class="breadcrumb-item"><a href="#">Locales</a></li>
+                        <li class="breadcrumb-item active" aria-current="page">Registrar</li>
+                    </ol>
+                </nav>
+            </div>
+            <div class="col-md-6 text-end">
+                <a class="btn btn-sm btn-outline-primary" href="<?= $path ?>/views/locales/" class="">Mostrar
+                    lista</a>
+            </div>
+        </div>
+    </div>
     <div class="container mt-4">
         <div class="card shadow-sm">
             <div class="card-header bg-yonda text-white">
@@ -66,13 +81,15 @@
                     <div class="row g-3 mt-1">
                         <div class="col-md-4">
                             <div class="form-floating">
-                                <input type="text" id="telefono" name="telefono" maxlength="12" pattern="[0-9]+" class="form-control" placeholder="Teléfono" required>
+                                <input type="text" id="telefono" name="telefono" maxlength="12" pattern="[0-9]+"
+                                    class="form-control" placeholder="Teléfono" required>
                                 <label for="telefono">Teléfono</label>
                             </div>
                         </div>
                         <div class="col-md-8">
                             <div class="form-floating">
-                                <input type="email" name="correo" id="correo" class="form-control" placeholder="Correo electrónico" required>
+                                <input type="email" name="correo" id="correo" class="form-control"
+                                    placeholder="Correo electrónico" required>
                                 <label for="correo">Correo electrónico</label>
                             </div>
                         </div>
@@ -82,13 +99,15 @@
                     <div class="row g-3 mt-1">
                         <div class="col-md-6">
                             <div class="form-floating">
-                                <input type="text" name="responsable" id="responsable" class="form-control" maxlength="100" placeholder="Responsable" required>
+                                <input type="text" name="responsable" id="responsable" class="form-control"
+                                    maxlength="100" placeholder="Responsable" required>
                                 <label for="responsable">Responsable</label>
                             </div>
                         </div>
                         <div class="col-md-6">
                             <div class="form-floating">
-                                <input type="text" name="tienda" id="tienda" class="form-control" maxlength="40" placeholder="Nombre del local" required>
+                                <input type="text" name="tienda" id="tienda" class="form-control" maxlength="40"
+                                    placeholder="Nombre del local" required>
                                 <label for="tienda">Nombre del Local</label>
                             </div>
                         </div>
@@ -97,13 +116,16 @@
                     <!-- Dirección -->
                     <div class="mt-3">
                         <label for="direccion" class="form-label">Dirección</label>
-                        <textarea name="direccion" id="direccion" rows="3" class="form-control" maxlength="300" placeholder="Dirección" required></textarea>
+                        <textarea name="direccion" id="direccion" rows="3" class="form-control" maxlength="300"
+                            placeholder="Dirección" required></textarea>
                     </div>
 
 
 
                     <!-- Botón -->
                     <div class="text-end mt-4">
+                        <button type="reset" class="btn btn-sm btn-outline-secondary"
+                            data-bs-dismiss="modal">Cancelar</button>
                         <button type="submit" class="btn btn-sm btn-primary">Guardar Local</button>
                     </div>
                 </form>
@@ -122,7 +144,7 @@
         const distritos = document.querySelector('#distrito');
         const formRegistroTienda = document.querySelector('#form-registro-tienda');
         const selectTienda = document.querySelector('#idmotorpark');
-        const selectPrincipal =  document.querySelector('#principal');
+        const selectPrincipal = document.querySelector('#principal');
         const telefono = document.querySelector('#telefono');
         const correo = document.querySelector("#correo");
         const responsable = document.querySelector("#responsable");
@@ -259,7 +281,7 @@
                 params.append("operation", "create");
                 params.append("tienda", nombreLocal.value);
                 params.append("iddistrito", distritos.value);
-                params.append("idmotorpark",selectTienda.value);
+                params.append("idmotorpark", selectTienda.value);
                 params.append("principal", selectPrincipal.value);
                 params.append("responsable", responsable.value);
                 params.append("correo", correo.value ?? null);
@@ -267,17 +289,17 @@
                 params.append("telefono", telefono.value ?? null);
                 params.append("longitud", longitud ?? null);
                 params.append("latitud", latitud ?? null);
-               
 
-                fetch(`../../app/controllers/concesionario.c.php`, {
-                        method: 'POST',
-                        body: params
-                    })
+
+                fetch(`../../app/controllers/local.c.php`, {
+                    method: 'POST',
+                    body: params
+                })
                     .then(response => response.json())
                     .then(data => {
                         if (data.id > 0) {
                             idconcesionario = data.id
-                            showToast("Nuevo concesionario", "SUCCESS", 1500);
+                            showToast("Nuevo local agregado", "SUCCESS", 1500);
                             btnCancelarRegistro.setAttribute("disabled", true);
                             btnRegistrarConcesionario.setAttribute("disabled", true);
                         } else {
@@ -290,13 +312,6 @@
             }
         })
 
-        formRegistroTienda.addEventListener("submit", async (event) => {
-            event.preventDefault();
-
-            if (confirm("¿Está seguro de continuar?")) {
-                await guardarTienda()
-            }
-        });
 
 
         getAllDepartamentos()
