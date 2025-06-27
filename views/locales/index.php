@@ -47,7 +47,8 @@
     </div>
 
     <!-- Zona modales -->
-    <div class="modal fade" id="modal-locales" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="modal-locales" aria-hidden="true">
+    <div class="modal fade" id="modal-locales" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+        aria-labelledby="modal-locales" aria-hidden="true">
         <div class="modal-dialog">
             <form action="" autocomplete="off" id="formulario-locales">
                 <input type="hidden" id="idlocal">
@@ -67,7 +68,8 @@
                         </div>
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-sm btn-outline-secondary" data-bs-dismiss="modal">Cancelar</button>
+                        <button type="button" class="btn btn-sm btn-outline-secondary"
+                            data-bs-dismiss="modal">Cancelar</button>
                         <button type="submit" class="btn btn-sm btn-primary">Actualizar</button>
                     </div>
                 </div>
@@ -111,11 +113,12 @@
                     data-responsable='${element.responsable}' 
                     data-telefono='${element.telefono}'
                     title='Editar'><i class="fa-solid fa-pen"></i></a>
-                     <a href='#' title='Eliminar' data-idlocal='${element.local}' class='btn btn-sm btn-outline-danger delete'><i class="fa-solid fa-trash"></i></a> 
+
+                  <a href='#' title='Eliminar' data-idlocal='${element.idlocal}' 
+                    class='btn btn-sm btn-outline-danger delete'>
+                    <i class="fa-solid fa-trash"></i>
+                  </a>
                 </td>
-               
-                 
-                
               </tr>
             `;
                         });
@@ -125,9 +128,24 @@
                 }
             }
 
-            // Abrir modal y cargar datos
-            tablaBody.addEventListener("click", e => {
-                const btnEdit = e.target.closest(".edit");
+            // Eliminar local
+            async function eliminarLocal(idlocal) {
+                const params = new URLSearchParams();
+                params.append("operation", "delete");
+                params.append("idlocal", idlocal);
+
+                const response = await fetch(`http://localhost/motorpark/app/controllers/local.c.php?${params}`, {
+                    method: "GET"
+                });
+                return await response.json();
+            }
+
+            // Delegar eventos de edición y eliminación
+            tablaBody.addEventListener("click", async e => {
+                const btnEdit = e.target.closest(".edit"); //  Busca el elemento más cercano con clase .edit
+                const btnDelete = e.target.closest(".delete"); //  Busca el elemento más cercano con clase .delete
+                const fila = e.target.closest("tr");
+
                 if (btnEdit) {
                     e.preventDefault();
 
@@ -141,6 +159,23 @@
                     inputTelefono.value = telefono;
 
                     modalLocal.show();
+                }
+
+                if (btnDelete) {
+                    e.preventDefault();
+
+                    const idEliminar = btnDelete.dataset.idlocal;
+
+                    if (confirm("¿Estás seguro de eliminar este local?")) {
+                        const resultado = await eliminarLocal(idEliminar);
+
+                        if (resultado.rows > 0) {
+                            showToast("Local eliminado correctamente", "SUCCESS", 1500);
+                            fila.remove();
+                        } else {
+                            showToast("No se pudo eliminar el local", "ERROR", 3000);
+                        }
+                    }
                 }
             });
 
@@ -169,15 +204,14 @@
                         body: formData
                     });
 
-
                     const result = await response.json();
 
                     if (result.rows > 0) {
-                        alert("Local actualizado correctamente.");
+                        showToast("Local actualizado correctamente", "SUCCESS", 1500);
                         modalLocal.hide();
                         obtenerLocales();
                     } else {
-                        alert("No se actualizó ningún dato.");
+                        showToast("No se actualizó ningún dato", "WARNING", 3000);
                     }
                 } catch (error) {
                     console.error("Error al actualizar:", error);
@@ -187,5 +221,6 @@
             obtenerLocales();
         });
     </script>
+
 
     <?php require_once "../partials/footer.php"; ?>

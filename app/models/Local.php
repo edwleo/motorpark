@@ -14,7 +14,8 @@ class Local
     }
 
 
-    public function getMotorPark() {
+    public function getMotorPark()
+    {
         try {
             $query = "SELECT idmotorpark, nombrecomercial FROM motorpark";
             $cmd = $this->pdo->prepare($query);
@@ -22,7 +23,7 @@ class Local
             $results = $cmd->fetchAll(PDO::FETCH_ASSOC);
             return $results;
 
-        } catch(PDOException $error) {
+        } catch (PDOException $error) {
             error_log($error->getMessage());
             return [];
         }
@@ -108,7 +109,20 @@ class Local
                 $params['idlocal']
             ]);
 
-            return (int)$cmd->rowCount();
+            return (int) $cmd->rowCount();
+        } catch (PDOException $error) {
+            error_log($error->getMessage());
+            return -1;
+        }
+    }
+
+    public function delete($idlocal = -1): int
+    {
+        try {
+            $cmd = $this->pdo->prepare("DELETE FROM locales WHERE idlocal=?");
+            $cmd->execute(array($idlocal));
+            $results = $cmd->fetchAll(PDO::FETCH_ASSOC);
+            return (int) $cmd->rowCount();
         } catch (PDOException $error) {
             error_log($error->getMessage());
             return -1;
@@ -116,21 +130,23 @@ class Local
     }
 }
 
-$local = new Local();
-echo json_encode($local->getMotorPark());
+// $local = new Local();
+// echo json_encode($local->delete(5));
 
-//  $datos = [
-//      'tienda' => 'Motorpark',
-//      'iddistrito' => 1007,
-//      'idmotorpark' => 1,
-//      'principal' => 'S',
-//      'responsable' => 'Mendoza Huaraca Yhon Kennidey',
-//      'correo' => 'atencion@yondaperu.com',
-//      'direccion' => 'Chincha Alta 11702',
-//      'telefono' => '999665558',
-//      'latitud' => null,
-//      'longitud' => null,
-//      'idlocal' => 1
-//  ];
+//   $datos = [
+//       'tienda' => 'Motorpark',
+//       'iddistrito' => 1007,
+//       'idmotorpark' => 1,
+//       'principal' => 'S',
+//       'responsable' => 'Mendoza Huaraca Yhon Kennidey',
+//       'correo' => 'atencion@yondaperu.com',
+//       'direccion' => 'Chincha Alta 11702',
+//       'telefono' => '999665558',
+//       'latitud' => null,
+//       'longitud' => null,
+//       'idlocal' => 1
+//   ];
+
+//   echo json_encode($local->create($datos));
 
 // echo json_encode($local->getTelResponsableById(1));
