@@ -49,33 +49,86 @@
 
 </div>
 
-<script>
-document.addEventListener("DOMContentLoaded", () => {
-  const tablaUsuarios = document.querySelector("#tabla-usuarios tbody");
-  const urlController = "../../app/controllers/Usuario.controller.php?operation=getAllUsuarios";
+<div class="modal fade" id="modalCambiarClave" tabindex="-1" aria-labelledby="modalCambiarClaveLabel" aria-hidden="true">
+  <div class="modal-dialog modal-sm">
+    <div class="modal-content">
+      <div class="modal-header bg-yonda">
+        <h5 class="modal-title" id="modalCambiarClaveLabel">Cambiar contraseña</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+      </div>
+      <div class="modal-body">
+        <form id="formCambiarClave" autocomplete="off">
+          <input type="hidden" id="cc-idusuario" name="idusuario">
 
-  //Obteniendo usuarios activos
-  async function obtenerUsuarios() {
-    try {
-      const res = await fetch(urlController, { method: 'GET' });
-      if (!res.ok) throw new Error("Error en la respuesta del servidor");
-      const data = await res.json();
-      tablaUsuarios.innerHTML = "";
-      if (!Array.isArray(data) || data.length === 0) {
-        tablaUsuarios.innerHTML = `
+          <div class="col-12 form-floating mb-3">
+            <input
+              type="text"
+              class="form-control"
+              id="cc-usuario"
+              name="usuario"
+              readonly>
+            <label for="cc-usuario">Usuario</label>
+          </div>
+
+          <div class="col-12 form-floating mb-3">
+            <input
+              type="password"
+              class="form-control"
+              id="cc-password1"
+              name="password1"
+              pattern="^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&]).{8,}$"
+              title="Mínimo 8 caracteres: incluye letra, número y símbolo"
+              required>
+            <label for="cc-password1">Nueva contraseña</label>
+          </div>
+          <div class="col-12 form-floating mb-3">
+            <input
+              type="password"
+              class="form-control"
+              id="cc-password2"
+              name="password2"
+              required>
+            <label for="cc-password2">Repetir contraseña</label>
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-sm btn-outline-secondary" data-bs-dismiss="modal">Cancelar</button>
+        <button type="button" class="btn btn-sm btn-primary" id="btnAceptarCambiarClave">Aceptar</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  document.addEventListener("DOMContentLoaded", () => {
+    const tablaUsuarios = document.querySelector("#tabla-usuarios tbody");
+    const urlController = "../../app/controllers/Usuario.controller.php?operation=getAllUsuarios";
+
+    //Obteniendo usuarios activos
+    async function obtenerUsuarios() {
+      try {
+        const res = await fetch(urlController, {
+          method: 'GET'
+        });
+        if (!res.ok) throw new Error("Error en la respuesta del servidor");
+        const data = await res.json();
+        tablaUsuarios.innerHTML = "";
+        if (!Array.isArray(data) || data.length === 0) {
+          tablaUsuarios.innerHTML = `
           <tr>
             <td colspan="9" class="text-center text-muted">
               No hay usuarios registrados.
             </td>
           </tr>`;
-        return;
-      }
+          return;
+        }
 
-      // Recorre los usuarios y crea filas
-      let numeroFila = 1;
-      data.forEach(u => {
-        const tr = document.createElement("tr");
-        tr.innerHTML = `
+        // Recorre los usuarios y crea filas
+        let numeroFila = 1;
+        data.forEach(u => {
+          const tr = document.createElement("tr");
+          tr.innerHTML = `
           <td class="align-middle">${numeroFila++}</td>
           <td class="align-middle">${u.apellidos}</td>
           <td class="align-middle">${u.nombres}</td>
@@ -87,65 +140,142 @@ document.addEventListener("DOMContentLoaded", () => {
               : ''}
           </td>
           <td class="align-middle">
-            ${u.fecha_fin 
-              ? new Date(u.fecha_fin).toLocaleDateString('es-PE') 
-              : ''}
+            ${
+              u.fecha_fin === 'Indeterminado'
+                ? 'Indeterminado'
+                : (u.fecha_fin
+                    ? new Date(u.fecha_fin).toLocaleDateString('es-PE')
+                    : '')
+            }
           </td>
           <td class="align-middle">${u.usuario}</td>
-          <td class="align-middle">
+          <td class="align-middle text-center">
             <a href="<?= $path ?>/views/usuarios/editar/${u.id}" 
                class="btn btn-sm btn-outline-primary" title="Editar">
               <i class="fa-solid fa-pen"></i>
             </a>
+            <button
+              type="button"
+              class="btn btn-sm btn-outline-warning mx-1 btn-cambiar-clave"
+              title="Cambiar contraseña"
+              data-bs-toggle="modal"
+              data-bs-target="#modalCambiarClave"
+              data-id="${u.idcolaborador}"
+              data-username="${u.usuario}"
+            >
+              <i class="fa-solid fa-key"></i>
+            </button>
             <button data-id="${u.id}" 
-                    class="btn btn-sm btn-outline-danger btn-borrar" 
+                    class="text-center btn btn-sm btn-outline-danger btn-borrar" 
                     title="Eliminar">
               <i class="fa-solid fa-trash"></i>
             </button>
           </td>
         `;
-        tablaUsuarios.appendChild(tr);
-      });
+          tablaUsuarios.appendChild(tr);
+        });
 
-      // 2) Asigna el evento de borrado tras pintar las filas
-      tablaUsuarios.querySelectorAll(".btn-borrar").forEach(btn => {
-        btn.addEventListener("click", async (e) => {
-          const id = btn.getAttribute("data-id");
-          if (!confirm("¿Estás seguro de eliminar este usuario?")) return;
+        // 2) Asigna el evento de borrado tras pintar las filas
+        tablaUsuarios.querySelectorAll(".btn-borrar").forEach(btn => {
+          btn.addEventListener("click", async (e) => {
+            const id = btn.getAttribute("data-id");
+            if (!confirm("¿Estás seguro de eliminar este usuario?")) return;
+            try {
+              const delRes = await fetch(
+                `../../app/controllers/Usuario.controller.php?operation=deleteUsuario&id=${encodeURIComponent(id)}`, {
+                  method: 'GET'
+                }
+              );
+              const delJson = await delRes.json();
+              if (delJson.success) {
+                // recarga la tabla
+                await obtenerUsuarios();
+                showToast?.('Usuario eliminado', 'SUCCESS', 1500);
+              } else {
+                alert(delJson.message || "No se pudo eliminar");
+              }
+            } catch (err) {
+              console.error(err);
+              alert("Error al eliminar el usuario.");
+            }
+          });
+        });
+        tablaUsuarios.querySelectorAll(".btn-cambiar-clave").forEach(btn => {
+          btn.addEventListener('click', async () => {
+            const idcol = btn.dataset.id;
+            /* limpia y muestra modal */
+            document.getElementById('cc-idusuario').value = idcol;
+            document.getElementById('cc-usuario').value = '';
+            document.getElementById('cc-password1').value = '';
+            document.getElementById('cc-password2').value = '';
+
+            try {
+              const res = await fetch(`../../app/controllers/Usuario.controller.php?operation=getUsernickById&id=${encodeURIComponent(idcol)}`);
+              const json = await res.json();
+              document.getElementById('cc-usuario').value = json.usernick || '';
+            } catch (err) {
+              console.error('Error cargando usuario:', err);
+            }
+          });
+        });
+        document.getElementById('btnAceptarCambiarClave').addEventListener('click', async () => {
+          const form = document.getElementById('formCambiarClave');
+          const pwd1 = document.getElementById('cc-password1');
+          const pwd2 = document.getElementById('cc-password2');
+          const idCol = document.getElementById('cc-idusuario').value;
+
+          // 1) Validación HTML5: patrón y required
+          if (!pwd1.checkValidity()) {
+            showToast(pwd1.title, 'ERROR', 3000);
+            return;
+          }
+
+          // 2) Contraseñas coincidentes
+          if (pwd1.value !== pwd2.value) {
+            showToast('Las contraseñas no coinciden.', 'ERROR', 3000);
+            return;
+          }
+
+          // 3) Enviar al servidor
+          const data = new FormData(form);
+          data.set('operation', 'changePassword');
+
           try {
-            const delRes = await fetch(
-              `../../app/controllers/Usuario.controller.php?operation=deleteUsuario&id=${encodeURIComponent(id)}`,
-              { method: 'GET' }
-            );
-            const delJson = await delRes.json();
-            if (delJson.success) {
-              // recarga la tabla
-              await obtenerUsuarios();
-              showToast?.('Usuario eliminado', 'SUCCESS', 1500);
+            const res = await fetch('../../app/controllers/Usuario.controller.php', {
+              method: 'POST',
+              body: data
+            });
+            const json = await res.json();
+
+            if (json.success) {
+              // Cerrar modal y mostrar toast
+              bootstrap.Modal.getInstance(
+                document.getElementById('modalCambiarClave')
+              ).hide();
+              showToast?.('Contraseña actualizada', 'SUCCESS', 1500);
             } else {
-              alert(delJson.message || "No se pudo eliminar");
+              alert('Error: ' + (json.message || 'No se pudo cambiar'));
             }
           } catch (err) {
             console.error(err);
-            alert("Error al eliminar el usuario.");
+            alert('Error de conexión');
           }
         });
-      });
 
-    } catch (err) {
-      console.error(err);
-      tablaUsuarios.innerHTML = `
+      } catch (err) {
+        console.error(err);
+        tablaUsuarios.innerHTML = `
         <tr>
           <td colspan="9" class="text-center text-danger">
             Error al cargar usuarios.
           </td>
         </tr>`;
+      }
     }
-  }
 
-  // Lanza la carga inicial
-  obtenerUsuarios();
-});
+    // Lanza la carga inicial
+    obtenerUsuarios();
+  });
 </script>
 
 <?php require_once "../partials/footer.php"; ?>

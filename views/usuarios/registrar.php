@@ -22,7 +22,7 @@
 
   <!-- Campos -->
   <div class="mb-2">
-    <form action="" autocomplete="off">
+    <form action="" id="formRegisterFull" autocomplete="off">
 
       <!-- PASO 1 - DATOS DE LA EMPRESA -->
       <div class="card mb-4">
@@ -39,7 +39,7 @@
               <div class="input-group">
                 <!-- form-floating con flex-grow para que ocupe todo el espacio -->
                 <div class="form-floating flex-grow-1">
-                  <input type="text" id="dni" class="form-control text-center">
+                  <input type="text" id="dni" name="nrodoc" class="form-control text-center">
                   <label for="dni">DNI</label>
                 </div>
                 <button type="button" class="btn btn-primary" title="Administrar" data-bs-toggle="modal"
@@ -113,7 +113,7 @@
               <div class="form-check mt-2">
                 <input class="form-check-input" type="checkbox" value="" id="sin-fecha-fin" name="sin_fecha_fin">
                 <label class="form-check-label" for="sin-fecha-fin">
-                  Sin fecha
+                  Indeterminado
                 </label>
               </div>
             </div>
@@ -135,19 +135,21 @@
             <!-- CAMPO DE USER AND PASSWORD -->
             <div class="col-md-4">
               <div class="form-floating">
-                <input type="text" class="form-control">
+                <input type="text" class="form-control" id="usernick" name="usuario" required>
                 <label for="form-label">Nombre de usuario</label>
               </div>
             </div>
             <div class="col-md-4">
               <div class="form-floating">
-                <input type="text" class="form-control">
+                <input type="password" class="form-control" id="password1" name="password1"
+                  pattern="^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&]).{8,}$" title="Mínimo 8 caracteres: al menos letra, número y símbolo"
+                  required>
                 <label for="form-label">Contraseña 1</label>
               </div>
             </div>
             <div class="col-md-4">
               <div class="form-floating">
-                <input type="text" class="form-control">
+                <input type="password" class="form-control" id="password2" name="password2" required>
                 <label for="form-label">Contraseña 2</label>
               </div>
             </div>
@@ -169,11 +171,12 @@
 </div>
 
 <!-- 2) Estructura del modal -->
-<div class="modal fade" id="modalRegistrarPersona" tabindex="-1" aria-labelledby="modalRegistrarPersonaLabel"
-  aria-hidden="true">
+<div class="modal fade" id="modalRegistrarPersona" tabindex="-1"
+  data-bs-backdrop="static" data-bs-keyboard="false"
+  aria-labelledby="modalRegistrarPersonaLabel" aria-hidden="true">
   <div class="modal-dialog modal-xl">
     <div class="modal-content">
-      <div class="modal-header">
+      <div class="modal-header bg-yonda">
         <h5 class="modal-title" id="modalRegistrarPersonaLabel">Datos de la Persona</h5>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
       </div>
@@ -181,7 +184,7 @@
         <form id="formRegistrarPersona" autocomplete="off">
           <div class="row g-1">
             <!-- Tipo y número de doc -->
-            <div class="col-md-3 form-floating">
+            <div class="col-md-2 form-floating">
               <select class="form-select" id="modal-tipodoc" name="tipodoc">
                 <option value="DNI">DNI</option>
                 <option value="CEX">CEX</option>
@@ -189,17 +192,17 @@
               </select>
               <label for="modal-tipodoc">Tipo Doc</label>
             </div>
-            <div class="col-md-3 form-floating">
+            <div class="col-md-2 form-floating">
               <input type="text" class="form-control" id="modal-nrodoc" name="nrodoc" required>
               <label for="modal-nrodoc">N° Documento</label>
             </div>
 
             <!-- Apellidos / Nombres -->
-            <div class="col-md-3 form-floating">
+            <div class="col-md-4 form-floating">
               <input type="text" class="form-control" id="modal-apellidos" name="apellidos" required>
               <label for="modal-apellidos">Apellidos</label>
             </div>
-            <div class="col-md-3 form-floating">
+            <div class="col-md-4 form-floating">
               <input type="text" class="form-control" id="modal-nombres" name="nombres" required>
               <label for="modal-nombres">Nombres</label>
             </div>
@@ -236,7 +239,6 @@
             <div class="col-md-6 form-floating">
               <select class="form-select" id="modal-iddistrito" name="iddistrito">
                 <option value="">Seleccione Distrito</option>
-                <!-- cargar vía JS -->
               </select>
               <label for="modal-iddistrito">Distrito</label>
             </div>
@@ -267,7 +269,7 @@
         <button type="button" class="btn btn-sm btn-outline-secondary" data-bs-dismiss="modal">
           Cancelar
         </button>
-        <button type="button" class="btn btn-primary btn-sm" id="btnGuardarPersona">
+        <button type="button" class="btn btn-sm btn-primary" id="btnGuardarPersona">
           Guardar
         </button>
       </div>
@@ -291,7 +293,7 @@
       selectElem.disabled = items.length === 0;
     }
 
-    // 1) Obtener todas las áreas al cargar la página
+    /* 1) Obtener todas las áreas al cargar la página */
     fetch(`../../app/controllers/Usuario.controller.php?operation=getAllAreas`)
       .then(res => res.json())
       .then(data => {
@@ -313,7 +315,7 @@
         .catch(err => console.error('Error cargando cargos:', err));
     });
 
-    //  —— cargar TODOS los distritos al abrir el modal ——
+    /* cargar todos los distritos al abrir el modal */
     const selDist = document.getElementById('modal-iddistrito');
     const urlUbigeo = '../../app/controllers/Ubigeo.c.php';
 
@@ -334,44 +336,45 @@
           .catch(err => console.error('Error cargando distritos:', err));
       });
 
+    /* BOTON PARA REGISTRAR UNA PERSONA MODAL */
     document.getElementById('btnGuardarPersona').addEventListener('click', () => {
       const formModal = document.getElementById('formRegistrarPersona');
       const data = new FormData(formModal);
       data.append('operation', 'create');
 
       fetch('../../app/controllers/Usuario.controller.php', {
-        method: 'POST',
-        body: data
-      })
+          method: 'POST',
+          body: data
+        })
         .then(res => res.json())
         .then(resp => {
           if (!resp.success) {
             return alert('Error: ' + resp.message);
           }
 
-          // 1) Cierra el modal
+          /* 1) Cierra el modal */
           const modalEl = document.getElementById('modalRegistrarPersona');
           const bsModal = bootstrap.Modal.getInstance(modalEl);
           bsModal.hide();
 
-          // 2) Captura los valores directamente de los inputs del modal
+          /* 2) Captura los valores directamente de los inputs del modal */
           const nuevoDni = document.getElementById('modal-nrodoc').value;
           const nuevosApellidos = document.getElementById('modal-apellidos').value;
           const nuevosNombres = document.getElementById('modal-nombres').value;
 
-          // 3) Asígnalos a los campos del formulario principal
+          /* 3) Asígnalos a los campos del formulario principal */
           document.getElementById('dni').value = nuevoDni;
           document.getElementById('apellidos').value = nuevosApellidos;
           document.getElementById('nombres').value = nuevosNombres;
 
-          // 4) Guarda el idpersona si lo necesitas
+          /* 4) Guarda el idpersona si lo necesitas */
           let hidden = document.getElementById('idpersona');
           if (!hidden) {
             hidden = document.createElement('input');
             hidden.type = 'hidden';
             hidden.id = 'idpersona';
             hidden.name = 'idpersona';
-            document.querySelector('form[autocomplete="off"]').appendChild(hidden);
+            document.getElementById('formRegisterFull').appendChild(hidden);
           }
           hidden.value = resp.idpersona;
 
@@ -379,6 +382,122 @@
         })
         .catch(() => alert('No se pudo conectar con el servidor.'));
     });
+
+    /* BOTON PARA REGISTRAR USUARIO */
+    document.getElementById('formRegisterFull').addEventListener('submit', async function(e) {
+      e.preventDefault();
+      const form = e.target;
+      const pwd1 = form.querySelector('#password1');
+      const pwd2 = form.querySelector('#password2');
+
+      // 1) Validación HTML5: patrón y required
+      if (!pwd1.checkValidity()) {
+        showToast(pwd1.title, 'ERROR', 3000);
+        return;
+      }
+
+      // 2) Contraseñas coincidentes
+      if (pwd1.value !== pwd2.value) {
+        showToast('Las contraseñas no coinciden.', 'ERROR', 3000);
+        return;
+      }
+
+      // 3) Preparar envío
+      const data = new FormData(form);
+      data.set('operation', 'registerFull');
+      if (form.querySelector('#sin-fecha-fin').checked) {
+        data.set('sin_fecha_fin', '1');
+        data.delete('fecha_fin');
+      }
+
+      try {
+        const resp = await fetch('../../app/controllers/Usuario.controller.php', {
+          method: 'POST',
+          body: data
+        }).then(r => r.json());
+
+        if (resp.success) {
+          showToast('Usuario registrado correctamente.', 'SUCCESS', 2000);
+          form.reset();
+          // opcional: recargar o redirigir
+        } else {
+          showToast(resp.message || 'Error al registrar usuario.', 'ERROR', 3000);
+        }
+      } catch (err) {
+        console.error(err);
+        showToast('Error de conexión con el servidor.', 'ERROR', 3000);
+      }
+    });
+
+    /* Mostrar “Sin fecha” en el input cuando se marque el checkbox */
+    const chkSinFecha = document.getElementById('sin-fecha-fin');
+    const fechaFinInput = document.getElementById('fecha-fin');
+
+    chkSinFecha.addEventListener('change', () => {
+      if (chkSinFecha.checked) {
+        fechaFinInput.type = 'text';
+        fechaFinInput.value = 'Indeterminado';
+        fechaFinInput.readOnly = true;
+      } else {
+        fechaFinInput.type = 'date';
+        fechaFinInput.value = '';
+        fechaFinInput.readOnly = false;
+      }
+    });
+
+    /* Autocompletar persona por DNI */
+    const inputDNI = document.getElementById('dni');
+    const inputApellidos = document.getElementById('apellidos');
+    const inputNombres = document.getElementById('nombres');
+    const btnAbrirModal = document.querySelector('button[data-bs-target="#modalRegistrarPersona"]');
+
+    inputDNI.addEventListener('keydown', async (e) => {
+      if (e.key !== 'Enter') return;
+      e.preventDefault();
+
+      const dni = inputDNI.value.trim();
+      if (!dni) return;
+
+      try {
+        const res = await fetch(
+          `../../app/controllers/Usuario.controller.php?operation=getPersonaByDNI&dni=${encodeURIComponent(dni)}`
+        );
+        const persona = await res.json();
+
+        if (persona.idpersona) {
+          // Existe: rellena campos
+          inputApellidos.value = persona.apellidos;
+          inputNombres.value = persona.nombres;
+
+          let hidden = document.getElementById('idpersona');
+          if (!hidden) {
+            hidden = document.createElement('input');
+            hidden.type = 'hidden';
+            hidden.id = 'idpersona';
+            hidden.name = 'idpersona';
+            document.getElementById('formRegisterFull').appendChild(hidden);
+          }
+          hidden.value = persona.idpersona;
+
+        } else {
+          // No existe: toast de advertencia y abrir modal
+          showToast(`DNI ${dni} no encontrado. Registra la persona.`, 'WARNING', 3000);
+          document.getElementById('modal-nrodoc').value = dni;
+          btnAbrirModal.click();
+
+          // Evita que ENTER dentro del modal cierre o envie
+          const modalForm = document.getElementById('formRegistrarPersona');
+          modalForm.addEventListener('keydown', ev => {
+            if (ev.key === 'Enter') ev.preventDefault();
+          });
+        }
+
+      } catch (err) {
+        console.error('Error buscando persona por DNI:', err);
+        showToast('Error de conexión al buscar DNI.', 'ERROR', 3000);
+      }
+    });
+
   });
 </script>
 
