@@ -42,11 +42,7 @@
                   <input type="text" id="dni" class="form-control text-center">
                   <label for="dni">DNI</label>
                 </div>
-                <button
-                  type="button"
-                  class="btn btn-primary"
-                  title="Administrar"
-                  data-bs-toggle="modal"
+                <button type="button" class="btn btn-primary" title="Administrar" data-bs-toggle="modal"
                   data-bs-target="#modalRegistrarPersona">
                   <i class="fa-solid fa-ellipsis-vertical"></i>
                 </button>
@@ -62,7 +58,7 @@
             </div>
             <div class="col-md-5">
               <div class="form-floating">
-                <input type="text" id="nombres"   name="nombres" class="form-control">
+                <input type="text" id="nombres" name="nombres" class="form-control">
                 <label for="form-label">Nombres</label>
               </div>
             </div>
@@ -173,11 +169,7 @@
 </div>
 
 <!-- 2) Estructura del modal -->
-<div
-  class="modal fade"
-  id="modalRegistrarPersona"
-  tabindex="-1"
-  aria-labelledby="modalRegistrarPersonaLabel"
+<div class="modal fade" id="modalRegistrarPersona" tabindex="-1" aria-labelledby="modalRegistrarPersonaLabel"
   aria-hidden="true">
   <div class="modal-dialog modal-xl">
     <div class="modal-content">
@@ -272,16 +264,10 @@
         </form>
       </div>
       <div class="modal-footer">
-        <button
-          type="button"
-          class="btn btn-sm btn-outline-secondary"
-          data-bs-dismiss="modal">
+        <button type="button" class="btn btn-sm btn-outline-secondary" data-bs-dismiss="modal">
           Cancelar
         </button>
-        <button
-          type="button"
-          class="btn btn-primary btn-sm"
-          id="btnGuardarPersona">
+        <button type="button" class="btn btn-primary btn-sm" id="btnGuardarPersona">
           Guardar
         </button>
       </div>
@@ -349,50 +335,50 @@
       });
 
     document.getElementById('btnGuardarPersona').addEventListener('click', () => {
-  const formModal = document.getElementById('formRegistrarPersona');
-  const data = new FormData(formModal);
-  data.append('operation', 'create');
+      const formModal = document.getElementById('formRegistrarPersona');
+      const data = new FormData(formModal);
+      data.append('operation', 'create');
 
-  fetch('../../app/controllers/Usuario.controller.php', {
-    method: 'POST',
-    body: data
-  })
-  .then(res => res.json())
-  .then(resp => {
-    if (!resp.success) {
-      return alert('Error: ' + resp.message);
-    }
+      fetch('../../app/controllers/Usuario.controller.php', {
+        method: 'POST',
+        body: data
+      })
+        .then(res => res.json())
+        .then(resp => {
+          if (!resp.success) {
+            return alert('Error: ' + resp.message);
+          }
 
-    // 1) Cierra el modal
-    const modalEl = document.getElementById('modalRegistrarPersona');
-    const bsModal = bootstrap.Modal.getInstance(modalEl);
-    bsModal.hide();
+          // 1) Cierra el modal
+          const modalEl = document.getElementById('modalRegistrarPersona');
+          const bsModal = bootstrap.Modal.getInstance(modalEl);
+          bsModal.hide();
 
-    // 2) Captura los valores directamente de los inputs del modal
-    const nuevoDni       = document.getElementById('modal-nrodoc').value;
-    const nuevosApellidos= document.getElementById('modal-apellidos').value;
-    const nuevosNombres  = document.getElementById('modal-nombres').value;
+          // 2) Captura los valores directamente de los inputs del modal
+          const nuevoDni = document.getElementById('modal-nrodoc').value;
+          const nuevosApellidos = document.getElementById('modal-apellidos').value;
+          const nuevosNombres = document.getElementById('modal-nombres').value;
 
-    // 3) Asígnalos a los campos del formulario principal
-    document.getElementById('dni').value       = nuevoDni;
-    document.getElementById('apellidos').value = nuevosApellidos;
-    document.getElementById('nombres').value   = nuevosNombres;
+          // 3) Asígnalos a los campos del formulario principal
+          document.getElementById('dni').value = nuevoDni;
+          document.getElementById('apellidos').value = nuevosApellidos;
+          document.getElementById('nombres').value = nuevosNombres;
 
-    // 4) Guarda el idpersona si lo necesitas
-    let hidden = document.getElementById('idpersona');
-    if (!hidden) {
-      hidden = document.createElement('input');
-      hidden.type = 'hidden';
-      hidden.id   = 'idpersona';
-      hidden.name = 'idpersona';
-      document.querySelector('form[autocomplete="off"]').appendChild(hidden);
-    }
-    hidden.value = resp.idpersona;
+          // 4) Guarda el idpersona si lo necesitas
+          let hidden = document.getElementById('idpersona');
+          if (!hidden) {
+            hidden = document.createElement('input');
+            hidden.type = 'hidden';
+            hidden.id = 'idpersona';
+            hidden.name = 'idpersona';
+            document.querySelector('form[autocomplete="off"]').appendChild(hidden);
+          }
+          hidden.value = resp.idpersona;
 
-    alert('¡Persona registrada con ID ' + resp.idpersona + '!');
-  })
-  .catch(() => alert('No se pudo conectar con el servidor.'));
-});
+          alert('¡Persona registrada con ID ' + resp.idpersona + '!');
+        })
+        .catch(() => alert('No se pudo conectar con el servidor.'));
+    });
   });
 </script>
 
