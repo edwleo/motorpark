@@ -41,6 +41,7 @@ CREATE TABLE distritos
 CREATE TABLE personas
 (
 	idpersona 			INT PRIMARY KEY AUTO_INCREMENT,
+    iddistrito 		    INT 			NULL,
     apellidos 			VARCHAR(70) 	NOT NULL,
     nombres 			VARCHAR(70)		NOT NULL,
     tipodoc 			ENUM('DNI', 'CEX', 'PAS') NOT NULL DEFAULT 'DNI',
@@ -49,9 +50,10 @@ CREATE TABLE personas
     fechanac 			DATE 			NULL,
     estadocivil 		ENUM('SOL', 'CAS', 'VDO', 'DVC', 'CNV') NULL COMMENT 'Soltero, casado, viudo, divorciado y conviviente',
     email 				VARCHAR(150)	NULL,
-    iddistrito 			INT 			NULL,
     direccion			VARCHAR(200) 	NULL,
     referencia 			VARCHAR(200) 	NULL,
+    latitud	            VARCHAR(20) NULL,
+    longitud            VARCHAR(20) NULL,
     telprimario 		CHAR(9) 		NOT NULL,
     telalternativo 		CHAR(9) 		NULL,
 	creado 				DATETIME 		NOT NULL DEFAULT NOW(),
@@ -59,6 +61,42 @@ CREATE TABLE personas
     CONSTRAINT uk_nrodoc UNIQUE (tipodoc, nrodoc),
     CONSTRAINT fk_iddistrito_per FOREIGN KEY (iddistrito) REFERENCES distritos (iddistrito) 
 )ENGINE = INNODB;
+
+
+CREATE TABLE empresas
+(   
+    idempresa           INT PRIMARY KEY AUTO_INCREMENT,
+    iddistrito          INT NOT NULL,
+    razonsocial         VARCHAR(300) NOT NULL,
+    nombrecomercial     VARCHAR(100) NOT NULL,
+    ruc                 CHAR(11) NOT NULL UNIQUE,
+    representante       VARCHAR(50) NOT NULL,
+    email               VARCHAR(100) NULL,
+    direccion           VARCHAR(300) NOT NULL,
+    referencia          VARCHAR(280) NULL,
+    latitud	            VARCHAR(20) NULL,
+    longitud            VARCHAR(20) NULL,
+    telprimario         VARCHAR(12) NOT NULL,
+    telsecundario       VARCHAR(12) NULL,
+    estado              ENUM('ACT', 'INACT') DEFAULT 'ACT' NOT NULL,
+    CONSTRAINT fk_iddistrito_empre FOREIGN KEY(iddistrito) REFERENCES distritos(iddistrito)
+)ENGINE = INNODB;
+
+
+CREATE TABLE clientes
+(
+    idcliente           INT PRIMARY KEY AUTO_INCREMENT,
+    idpersona           INT  NULL,
+    idempresa           INT  NULL,
+    idcolregistra       INT NULL,
+    idcolactualiza      INT NULL,
+    tipocliente         ENUM('P','E') NOT NULL,
+    CONSTRAINT fk_idpersona_client FOREIGN KEY(idpersona) REFERENCES personas(idpersona),
+    CONSTRAINT fk_idcolregistra_client FOREIGN KEY(idcolregistra) REFERENCES colaboradores(idcolaborador),
+    CONSTRAINT fk_idcolactualiza_client FOREIGN KEY(idcolactualiza) REFERENCES colaboradores(idcolaborador)
+
+)ENGINE=INNODB;
+
 
 CREATE TABLE areas
 (
