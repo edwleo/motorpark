@@ -265,7 +265,7 @@
             getAllDistritos(provincias.value);
         })
         distritos.addEventListener("change", () => {
-            direccion.focus();
+            //direccion.focus();
         })
 
         getTiendas();
