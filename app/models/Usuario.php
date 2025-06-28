@@ -196,8 +196,6 @@ class Usuario
     }
   }
 
-  public function searchPersonas() {}
-
   /**
    * FUNCIONES PARA REGISTRAR USUARIOS 
    */
@@ -297,5 +295,71 @@ class Usuario
       error_log("registerFull failed: " . $e->getMessage());
       return ['success' => false, 'message' => $e->getMessage()];
     }
+  }
+
+  public function deleteById(int $id)
+  {
+    try {
+      $sql = "DELETE FORM colaboradores WHERE idcolaborador = :id";
+      $stmt = $this->pdo->prepare($sql);
+      $stmt->bindValue(':id', $id, PDO::PARAM_INT);
+      $stmt->execute();
+
+      /* Verifica que el registro este eliminado */
+      if ($stmt->rowCount() === 0) {
+        return ['success' => false, 'message' => 'No se encontro el usuario'];
+      }
+      return ['success' => true];
+    } catch (PDOException $e) {
+      error_log("Error en deleteBy: " . $e->getMessage());
+      return ['success' => false, 'message' => 'Error al eliminar'];
+    }
+  }
+
+  public function authenticate(string $usernick, string $password): array
+  {
+    $sql = "SELECT 
+          c.idcolaborador, 
+          cl.idpersona, 
+          p.nombres, 
+          p.apellidos, 
+          c.userpassword
+      FROM colaboradores c
+      JOIN contratoslaborales cl ON cl.idcontratolaboral = c.idcontratolaboral
+      JOIN personas p ON p.idpersona = cl.idpersona
+      WHERE c.usernick = :nick
+        AND c.habilitado = 'S'
+      LIMIT 1";
+
+    $stmt = $this->pdo->prepare($sql);
+    $stmt->bindValue(':nick', $usernick, PDO::PARAM_STR);
+    $stmt->execute();
+
+    $user = $stmt->fetch(PDO::FETCH_ASSOC);
+
+    // 1) Usuario no existe o está inhabilitado
+    if (!$user) {
+      return ['success' => false, 'message' => 'Usuario no encontrado'];
+    }
+
+    // 2) Escribe en el log el hash almacenado para depuración
+    error_log("DEBUG authenticate: usernick={$usernick}, storedHash={$user['userpassword']}");
+
+    // 3) Verifica el password
+    if (password_verify($password, $user['userpassword'])) {
+      unset($user['userpassword']);
+      return array_merge(['success' => true], $user);
+    }
+
+    // 4) (Opcional) Fallback: coincidencia de texto plano solo en migración
+    if ($password === $user['userpassword']) {
+      // Re-hashea y actualiza en BD
+      $newHash = password_hash($password, PASSWORD_DEFAULT);
+      $this->updatePassword($user['idcolaborador'], $password);
+      unset($user['userpassword']);
+      return array_merge(['success' => true, 'message' => 'Migrated plain pwd to bcrypt'], $user);
+    }
+
+    return ['success' => false, 'message' => 'Contraseña incorrecta'];
   }
 }

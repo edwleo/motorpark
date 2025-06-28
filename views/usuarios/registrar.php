@@ -39,7 +39,7 @@
               <div class="input-group">
                 <!-- form-floating con flex-grow para que ocupe todo el espacio -->
                 <div class="form-floating flex-grow-1">
-                  <input type="text" id="dni" name="nrodoc" class="form-control text-center">
+                  <input type="text" id="dni" name="nrodoc" class="form-control text-center" autofocus>
                   <label for="dni">DNI</label>
                 </div>
                 <button type="button" class="btn btn-primary" title="Administrar" data-bs-toggle="modal"
@@ -387,6 +387,20 @@
     document.getElementById('formRegisterFull').addEventListener('submit', async function(e) {
       e.preventDefault();
       const form = e.target;
+
+      const result = await Swal.fire({
+        title: '¿Estás seguro de registrar este usuario?',
+        icon: 'question',
+        showCancelButton: true,
+        confirmButtonText: 'Sí, registrar',
+        cancelButtonText: 'No, cancelar',
+        reverseButtons: true
+      });
+
+      if (!result.isConfirmed) {
+        return;
+      }
+
       const pwd1 = form.querySelector('#password1');
       const pwd2 = form.querySelector('#password2');
 
@@ -428,8 +442,13 @@
         showToast('Error de conexión con el servidor.', 'ERROR', 3000);
       }
     });
+    const modalPersona = document.getElementById('modalRegistrarPersona');
+    modalPersona.addEventListener('shown.bs.modal', () => {
+      const primerInput = modalPersona.querySelector('#modal-apellidos');
+      if (primerInput) primerInput.focus();
+    });
 
-    /* Mostrar “Sin fecha” en el input cuando se marque el checkbox */
+    /* Mostrar “Indeterminado” como FECHAFIN cuando se marque el checkbox */
     const chkSinFecha = document.getElementById('sin-fecha-fin');
     const fechaFinInput = document.getElementById('fecha-fin');
 
@@ -465,9 +484,13 @@
         const persona = await res.json();
 
         if (persona.idpersona) {
-          // Existe: rellena campos
+
           inputApellidos.value = persona.apellidos;
           inputNombres.value = persona.nombres;
+          inputApellidos.disabled = true;
+          inputNombres.disabled = true;
+          inputApellidos.classList.add('bg-light');
+          inputNombres.classList.add('bg-light');
 
           let hidden = document.getElementById('idpersona');
           if (!hidden) {
@@ -480,6 +503,12 @@
           hidden.value = persona.idpersona;
 
         } else {
+          inputApellidos.value = '';
+          inputNombres.value = '';
+          inputApellidos.disabled = false;
+          inputNombres.disabled = false;
+          inputApellidos.classList.remove('bg-light');
+          inputNombres.classList.remove('bg-light');
           // No existe: toast de advertencia y abrir modal
           showToast(`DNI ${dni} no encontrado. Registra la persona.`, 'WARNING', 3000);
           document.getElementById('modal-nrodoc').value = dni;

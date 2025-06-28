@@ -165,7 +165,7 @@
             >
               <i class="fa-solid fa-key"></i>
             </button>
-            <button data-id="${u.id}" 
+            <button data-id="${u.idcolaborador}" 
                     class="text-center btn btn-sm btn-outline-danger btn-borrar" 
                     title="Eliminar">
               <i class="fa-solid fa-trash"></i>
@@ -177,26 +177,24 @@
 
         // 2) Asigna el evento de borrado tras pintar las filas
         tablaUsuarios.querySelectorAll(".btn-borrar").forEach(btn => {
-          btn.addEventListener("click", async (e) => {
+          btn.addEventListener("click", async () => {
             const id = btn.getAttribute("data-id");
             if (!confirm("¿Estás seguro de eliminar este usuario?")) return;
             try {
               const delRes = await fetch(
-                `../../app/controllers/Usuario.controller.php?operation=deleteUsuario&id=${encodeURIComponent(id)}`, {
-                  method: 'GET'
-                }
+                `../../app/controllers/Usuario.controller.php?operation=deleteUsuario&idcolaborador=${encodeURIComponent(id)}`
               );
+              if (!delRes.ok) throw new Error("Status " + delRes.status);
               const delJson = await delRes.json();
               if (delJson.success) {
-                // recarga la tabla
                 await obtenerUsuarios();
-                showToast?.('Usuario eliminado', 'SUCCESS', 1500);
+                showToast('Usuario eliminado', 'SUCCESS', 1500);
               } else {
-                alert(delJson.message || "No se pudo eliminar");
+                showToast(delJson.message || "No se pudo eliminar");
               }
             } catch (err) {
               console.error(err);
-              alert("Error al eliminar el usuario.");
+              showToast("Error al eliminar el usuario.");
             }
           });
         });
@@ -225,8 +223,7 @@
           const idCol = document.getElementById('cc-idusuario').value;
 
           // 1) Validación HTML5: patrón y required
-          if (!pwd1.checkValidity()) {
-            showToast(pwd1.title, 'ERROR', 3000);
+          if (!pwd1.reportValidity()) {
             return;
           }
 

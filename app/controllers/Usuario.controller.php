@@ -1,10 +1,47 @@
 <?php
+ini_set('display_errors', 1);
+error_reporting(E_ALL);
+session_start();
+
 header('Content-Type: application/json; charset=utf-8');
-require_once '../models/Usuario.php';
+
+// <-- rutas corregidas aquí:
+require_once __DIR__ . '/../config/Database.php';
+require_once __DIR__ . '/../models/Usuario.php';
 
 $usuario = new Usuario();
 
-//Procesamiento de POST para crear persona desde el modal
+
+/**
+ * Para iniciar sesion
+ */
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && ($_POST['operation'] ?? '') === 'login') {
+  $nick = trim($_POST['usernick']  ?? '');
+  $pwd  = trim($_POST['userpassword'] ?? '');
+
+  if ($nick === '' || $pwd === '') {
+    echo json_encode(['success' => false, 'message' => 'Faltan credenciales']);
+    exit;
+  }
+
+  $resp = $usuario->authenticate($nick, $pwd);
+  if ($resp['success']) {
+    $_SESSION['user'] = [
+      'idcolaborador' => $resp['idcolaborador'],
+      'idpersona'     => $resp['idpersona'],
+      'nombre'        => $resp['nombres'] . ' ' . $resp['apellidos'],
+      'usernick'      => $nick
+    ];
+  }
+
+  echo json_encode($resp);
+  exit;
+}
+
+
+/**
+ * POST para crear persona desde el modal
+ */
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && ($_POST['operation'] ?? '') === 'create') {
   // Llamamos al método del modelo y devolvemos la respuesta
   $resp = $usuario->createPersona([
@@ -36,11 +73,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && ($_POST['operation'] ?? '') === 'cr
   exit;
 }
 
-if (
-  $_SERVER['REQUEST_METHOD'] === 'POST'
-  && ($_POST['operation'] ?? '') === 'registerFull'
-) {
-
+/**
+ * POST para registrar usuario completo
+ */
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && ($_POST['operation'] ?? '') === 'registerFull') {
   // Si ya vino idpersona, usamos esa persona; 
   if (!empty($_POST['idpersona'])) {
     $idPersona = intval($_POST['idpersona']);
@@ -91,48 +127,26 @@ if (
   exit;
 }
 
-if (
-  $_SERVER['REQUEST_METHOD'] === 'POST'
-  && ($_POST['operation'] ?? '') === 'changePassword'
-) {
-  // 1) recoge id y nuevas contraseñas
-  $idCol = intval($_POST['idusuario'] ?? 0);
-  $p1    = $_POST['password1']  ?? '';
-  $p2    = $_POST['password2']  ?? '';
-
-  // 2) validaciones básicas
-  if (!$idCol || !$p1 || $p1 !== $p2) {
-    echo json_encode([
-      'success' => false,
-      'message' => 'ID inválido o contraseñas no coinciden'
-    ]);
+/**
+ * POST para registrar las contraseñas nuevas desde el modal
+ */
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && ($_POST['operation'] ?? '') === 'changePassword') {
+  $id   = intval($_POST['idusuario']   ?? 0);
+  $p1   = $_POST['password1'] ?? '';
+  $p2   = $_POST['password2'] ?? '';
+  if (!$id || !$p1 || $p1 !== $p2) {
+    echo json_encode(['success' => false, 'message' => 'Datos inválidos.']);
     exit;
   }
-
-  // 3) hashea y actualiza
-  $hash = password_hash($p1, PASSWORD_DEFAULT);
-  $ok   = $usuario->updatePassword($idCol, $hash);
-
-  // 4) respuesta
-  echo json_encode(['success' => (bool)$ok]);
+  $res = $usuario->updatePassword($id, $p1);
+  echo json_encode($res);
   exit;
 }
 
-if ($_SERVER['REQUEST_METHOD'] === 'POST' && ($_POST['operation'] ?? '') === 'changePassword') {
-    $id   = intval($_POST['idusuario']   ?? 0);
-    $p1   = $_POST['password1'] ?? '';
-    $p2   = $_POST['password2'] ?? '';
-    if (!$id || !$p1 || $p1 !== $p2) {
-        echo json_encode(['success' => false, 'message' => 'Datos inválidos.']);
-        exit;
-    }
-    $res = $usuario->updatePassword($id, $p1);
-    echo json_encode($res);
-    exit;
-}
 
-
-// Mantenemos el GET para áreas, cargos, usuarios
+/**
+ * GET para mostrar:
+ */
 if (isset($_GET['operation'])) {
   switch ($_GET['operation']) {
     case 'getAllUsuarios':
@@ -151,7 +165,6 @@ if (isset($_GET['operation'])) {
       echo json_encode($persona);
       break;
     case 'getUsernickById':
-      // lee el parámetro id
       $id = intval($_GET['id'] ?? 0);
       if ($id > 0) {
         $res = $usuario->getUsernickById($id);
@@ -160,6 +173,19 @@ if (isset($_GET['operation'])) {
         echo json_encode([]);
       }
       break;
-    
+    case 'deleteUsuario':
+      if (!isset($_GET['idcolaborador'])) {
+        echo json_encode(['success' => false, 'message' => 'Falta idcolaborador']);
+        exit;
+      }
+      $id = (int) $_GET['idcolaborador'];
+      // Llama a tu método del modelo que haga el DELETE
+      $res = $usuario->deleteById($id);
+      if ($res['success']) {
+        echo json_encode(['success' => true]);
+      } else {
+        echo json_encode(['success' => false, 'message' => $res['message']]);
+      }
+      exit;
   }
 }
