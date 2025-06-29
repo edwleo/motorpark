@@ -17,7 +17,7 @@
             </div>
         </div>
     </div>
-    <div class="container mt-4">
+    <div class="container-fluid mt-4">
         <div class="card shadow-sm">
             <div class="card-header bg-yonda text-white">
                 <h5 class="mb-0">Registrar Local</h5>

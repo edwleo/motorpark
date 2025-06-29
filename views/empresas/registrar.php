@@ -6,13 +6,13 @@
             <div class="col-md-6 d-flex align-items-center justify-content-start">
                 <nav aria-label="breadcrumb">
                     <ol class="breadcrumb mb-0">
-                        <li class="breadcrumb-item"><a href="#">Clientes (Normales)</a></li>
+                        <li class="breadcrumb-item"><a href="#">Empresas</a></li>
                         <li class="breadcrumb-item active" aria-current="page">Registrar</li>
                     </ol>
                 </nav>
             </div>
             <div class="col-md-6 text-end">
-                <a class="btn btn-sm btn-outline-primary" href="<?= $path ?>/views/clientes/" class="">Mostrar
+                <a class="btn btn-sm btn-outline-primary" href="<?= $path ?>/views/empresas/" class="">Mostrar
                     lista</a>
             </div>
         </div>
@@ -20,47 +20,41 @@
     <div class="container-fluid mt-4">
         <div class="card shadow-sm">
             <div class="card-header bg-yonda text-white">
-                <h5 class="mb-0">Registrar Cliente (Normales)</h5>
+                <h5 class="mb-0">Registrar Cliente (Empresa)</h5>
             </div>
             <div class="card-body">
-                <form action="" id="form-registro-cliente" autocomplete="off">
-                    <input type="hidden" name="idcliente" id="idcliente">
-
+                <form action="" id="form-registro-cliente-empresa" autocomplete="off">
 
                     <div class="row g-3 mt-1 mb-3">
 
 
                         <div class="col-md-3">
                             <div class="form-floating">
-                                <select name="tipodocumento" id="tipodocumento" class="form-select" required>
-                                    <option value="DNI" selected>DNI</option>
-                                    <option value="CEX">Carnet de extranjeria</option>
-                                    <option value="PAS">Pasaporte</option>
-
-                                </select>
-                                <label for="tipodocumento">Tipo documento</label>
+                                <input type="text" name="ruc" id="ruc" class="form-control"
+                                    placeholder="Ingrese el N° de RUC" maxlength="12" required>
+                                <label for="ruc">N° RUC</label>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="form-floating">
+                                <input type="text" id="razonsocial" name="razonsocial" class="form-control"
+                                    placeholder="Ingrese la razón social" required>
+                                <label for="razonsocial">Razón social</label>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="form-floating">
+                                <input type="text" name="nombrecomercial" id="nombrecomercial" class="form-control"
+                                    placeholder="Ingrese el nombre comercial" required>
+                                <label for="nombrecomercial">Nombre comercial</label>
                             </div>
                         </div>
 
                         <div class="col-md-3">
                             <div class="form-floating">
-                                <input type="text" name="nrodoc" id="ndocumento" class="form-control"
-                                    placeholder="Ingrese el N° de documento" required>
-                                <label for="ndocumento">N° documento</label>
-                            </div>
-                        </div>
-                        <div class="col-md-3">
-                            <div class="form-floating">
-                                <input type="text" id="apellidos" name="apellidos" class="form-control"
-                                    placeholder="Ingrese los apellidos" required>
-                                <label for="apellidos">Apellidos</label>
-                            </div>
-                        </div>
-                        <div class="col-md-3">
-                            <div class="form-floating">
-                                <input type="text" name="nombres" id="nombres" class="form-control"
-                                    placeholder="Ingrese los nombres" required>
-                                <label for="nombres">Nombres</label>
+                                <input type="text" name="representante" id="representante" class="form-control"
+                                    placeholder="Ingrese el nombre del representante" required>
+                                <label for="representante">Representante</label>
                             </div>
                         </div>
 
@@ -94,43 +88,7 @@
                         </div>
                     </div>
 
-                    <!-- DATOS ESTADO DE LA PERSONA Y NACIMIENTO -->
 
-
-                    <div class="row g-3 mt-1">
-                        <div class="col-md-4">
-                            <div class="form-floating">
-                                <select name="genero" id="genero" class="form-select" required>
-                                    <option value="M">Masculino</option>
-                                    <option value="F">Femenino</option>
-                                </select>
-                                <label for="genero">Género</label>
-                            </div>
-                        </div>
-                        <div class="col-md-4">
-                            <div class="form-floating">
-                                <select name="estadocivil" id="estadocivil" class="form-select" required>
-                                    <option value="SOL">Solter@</option>
-                                    <option value="CAS">Casad@</option>
-                                    <option value="VDO">Viud@</option>
-                                    <option value="DVC">Divorciad@</option>
-                                    <option value="CNV">Conviviente</option>
-                                </select>
-                                <label for="estadocivil">Estado civil</label>
-                            </div>
-                        </div>
-
-                        <div class="col-md-4">
-                            <div class="form-floating">
-                                <input type="date" name="fechanac" id="fechanacimiento" class="form-control"
-                                    placeholder="Fecha nacimiento" required>
-                                <label for="fechanacimiento">Fecha nacimiento</label>
-                            </div>
-
-                        </div>
-
-
-                    </div>
 
                     <div class="row g-3 mt-1">
 
@@ -138,36 +96,37 @@
                         <div class="col-md-4">
                             <div class="form-floating">
                                 <input type="email" name="email" id="email" class="form-control"
-                                    placeholder="exmaple@gmail.com">
+                                    placeholder="exmple@gmail.com">
                                 <label for="email">Correo</label>
                             </div>
+
                         </div>
 
                         <div class="col-md-4">
                             <div class="form-floating">
-                                <input type="tel" name="telprimario" id="telprimario" class="form-control" maxlength="9"
-                                    pattern="[0-9]+" placeholder="N° telefóno" required>
+                                <input type="tel" name="telprimario" id="telprimario" class="form-control"
+                                    placeholder="Número de telefóno" maxlength="9" pattern="[0-9]+" required>
                                 <label for="telprimario">Telefóno</label>
                             </div>
 
                         </div>
 
+
                         <div class="col-md-4">
                             <div class="form-floating">
-                                <input type="tel" name="telalternativo" id="telalternativo" class="form-control"
-                                    maxlength="9" pattern="[0-9]+" placeholder="N° telefóno">
-                                <label for="telalternativo">Telefóno 2 (Opcional)</label>
+                                <input type="tel" name="telsecundario" id="telsecundario" class="form-control"
+                                    placeholder="Número de telefóno" maxlength="0" pattern="[0-9]+">
+                                <label for="telsecundario">Telefóno 2 (Opcional)</label>
                             </div>
 
                         </div>
 
+
                     </div>
-
-
 
                     <div class="row g-3 mt-1">
 
-                        <div class="col-md-6">
+                        <div class="col-md-3">
                             <div class="form-floating">
                                 <input type="text" name="direccion" id="direccion" class="form-control"
                                     placeholder="Ingrese una dirección">
@@ -175,39 +134,31 @@
                             </div>
                         </div>
 
-                        <div class="col-md-6">
+                        <div class="col-md-3">
                             <div class="form-floating">
                                 <input type="text" name="referencia" id="referencia" class="form-control"
                                     placeholder="Ingrese una dirección">
                                 <label for="referencia">Referencia(Opcional)</label>
                             </div>
                         </div>
-                    </div>
 
-
-
-
-                    <!-- LATITUD Y LONGITUD -->
-
-
-                    <!-- Responsable y nombre del local -->
-                    <div class="row g-3 mt-1">
                         <div class="col-md-2">
                             <div class="form-floating">
                                 <input type="text" name="latitud" id="latitud" class="form-control"
-                                    placeholder="Latitud">
+                                    placeholder="Ingrese la latitud">
                                 <label for="latitud">Latitud</label>
                             </div>
                         </div>
+
                         <div class="col-md-2">
                             <div class="form-floating">
-                                <input type="text" name="longitud" id="longitud" class="form-control" maxlength="40"
-                                    placeholder="Longitud">
+                                <input type="text" name="longitud" id="longitud" class="form-control"
+                                    placeholder="Ingrese la longitud">
                                 <label for="longitud">Longitud</label>
                             </div>
                         </div>
 
-                        <div class="col-md-3">
+                        <div class="col-md-2">
 
                             <button type="button" class="btn btn-sm btn-success" id="btn-mapa">Ver mapa</button>
                         </div>
@@ -231,44 +182,31 @@
 <script>
     document.addEventListener('DOMContentLoaded', () => {
 
-        const form = document.querySelector('#form-registro-cliente');
+        const form = document.querySelector('#form-registro-cliente-empresa');
         const btnRegistrarCliente = document.querySelector('#btn-registrar');
         const btnCancelarRegistro = document.querySelector('#btn-cancelar');
 
-        // Campos persona
-        const tipodocumento = document.querySelector('#tipodocumento');
-        const ndocumento = document.querySelector('#ndocumento');
-        const apellidos = document.querySelector('#apellidos');
-        const nombres = document.querySelector('#nombres');
-        const genero = document.querySelector('#genero');
-        const estadoCivil = document.querySelector('#estadocivil');
-        const fechaNacimiento = document.querySelector('#fechanacimiento');
-        const email = document.querySelector('#email');
-        const telPrimario = document.querySelector('#telprimario');
-        const telAlternativo = document.querySelector('#telalternativo');
+        // Campos empresa
+        const ruc = document.querySelector('#ruc');
+        const razonSocial = document.querySelector('#razonsocial');
+        const nombreComercial = document.querySelector('#nombrecomercial');
+        const representante = document.querySelector('#representante');
         const departamentos = document.querySelector('#departamento');
         const provincias = document.querySelector('#provincia');
         const distritos = document.querySelector('#distrito');
+        const email = document.querySelector('#email');
+        const telPrimario = document.querySelector('#telprimario');
+        const telSecundario = document.querySelector('#telsecundario');
         const direccion = document.querySelector('#direccion');
         const referencia = document.querySelector('#referencia');
         const latitud = document.querySelector('#latitud');
         const longitud = document.querySelector('#longitud');
 
-        const tipocliente = 'P';
+        const tipocliente = 'E'; // Por defecto es de tipo empresa
 
 
-        // function esMayorDeEdad(fechaNacStr) {
-        //     const hoy = new Date();
-        //     const fechaNac = new Date(fechaNacStr);
-
-        //     const edad = hoy.getFullYear() - fechaNac.getFullYear();
-        //     const mes = hoy.getMonth() - fechaNac.getMonth();
-        //     const dia = hoy.getDate() - fechaNac.getDate();
-
-        //     if (edad > 18) return true;
-        //     if (edad === 18 && (mes > 0 || (mes === 0 && dia >= 0))) return true;
-
-        //     return false;
+        // function normalize(value) {
+        //     return value === "" || value === "null" ? null : value;
         // }
 
         // Carga de ubigeo en cascada
@@ -316,51 +254,46 @@
 
         getAllDepartamentos();
 
-        // Submit: crear persona y luego cliente
+        // Submit: crear empresa y luego cliente
         form.addEventListener('submit', async e => {
             e.preventDefault();
             if (!confirm('¿Desea guardar este cliente?')) return;
 
-            // if (!esMayorDeEdad(fechaNacimiento.value)) {
-            //     alert("Debe ser mayor de edad (18+ años).");
-            //     return;
-            // }
+            // 1) Crear empresa
+            const empresaFD = new FormData();
+            empresaFD.append('operation', 'create');
+            empresaFD.append('iddistrito', distritos.value);
+            empresaFD.append('razonsocial', razonSocial.value);
+            empresaFD.append('nombrecomercial', nombreComercial.value);
+            empresaFD.append('ruc', ruc.value);
+            empresaFD.append('representante', representante.value);
+            empresaFD.append('email', email.value);
+            empresaFD.append('direccion', direccion.value);
+            empresaFD.append('referencia', referencia.value);
+            empresaFD.append('latitud', latitud.value);
+            empresaFD.append('longitud', longitud.value);
+            empresaFD.append('telprimario', telPrimario.value);
+            empresaFD.append('telsecundario', telSecundario.value);
 
-            // 1) Crear persona
-            const personaFD = new FormData();
-            personaFD.append('operation', 'create');
-            personaFD.append('apellidos', apellidos.value);
-            personaFD.append('nombres', nombres.value);
-            personaFD.append('tipodoc', tipodocumento.value);
-            personaFD.append('nrodoc', ndocumento.value);
-            personaFD.append('genero', genero.value);
-            personaFD.append('fechanac', fechaNacimiento.value);
-            personaFD.append('estadocivil', estadoCivil.value);
-            personaFD.append('email', email.value || null);
-            personaFD.append('iddistrito', distritos.value);
-            personaFD.append('direccion', direccion.value || null);
-            personaFD.append('referencia', referencia.value || null);
-            personaFD.append('telprimario', telPrimario.value);
-            personaFD.append('telalternativo', telAlternativo.value || null);
-            personaFD.append('latitud', latitud.value || null);
-            personaFD.append('longitud', longitud.value || null);
+            console.log(Object.fromEntries(empresaFD.entries()));
+
 
             try {
-                const respPersona = await fetch('../../app/controllers/persona.c.php', {
+                const respEmpresa = await fetch('../../app/controllers/empresa.c.php', {
                     method: 'POST',
-                    body: personaFD
+                    body: empresaFD
                 });
-                const dataPersona = await respPersona.json();
+                const dataEmpresa = await respEmpresa.json();
 
-                if (!dataPersona.id || dataPersona.id < 1) {
-                    showToast('Error al crear persona', 'ERROR', 3000);
+                if (!dataEmpresa.id || dataEmpresa.id < 1) {
+                    showToast('Error al crear la empresa', 'ERROR', 3000);
                     return;
                 }
 
-                // 2) Crear cliente
+                // 2) Crear clietnte
                 const clienteFD = new FormData();
                 clienteFD.append('operation', 'create');
-                clienteFD.append('idpersona', dataPersona.id);
+                clienteFD.append('idempresa', dataEmpresa.id);
                 clienteFD.append('tipocliente', tipocliente);
 
                 console.log(clienteFD);

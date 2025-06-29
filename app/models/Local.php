@@ -13,6 +13,7 @@ class Local
         $this->pdo = Database::getConexion();
     }
 
+    // Función para traer la tienda  por nomnbrecomercial
 
     public function getMotorPark()
     {

@@ -1,4 +1,5 @@
 CREATE DATABASE motorpark;
+
 USE motorpark;
 
 -- Necesitaremos de una función que calcula la hora actual, esto será 
@@ -71,18 +72,20 @@ CREATE TABLE empresas
     nombrecomercial     VARCHAR(100) NOT NULL,
     ruc                 CHAR(11) NOT NULL UNIQUE,
     representante       VARCHAR(50) NOT NULL,
-    email               VARCHAR(100) NULL,
+    email               VARCHAR(100) NULL UNIQUE,
     direccion           VARCHAR(300) NOT NULL,
     referencia          VARCHAR(280) NULL,
     latitud	            VARCHAR(20) NULL,
     longitud            VARCHAR(20) NULL,
-    telprimario         VARCHAR(12) NOT NULL,
-    telsecundario       VARCHAR(12) NULL,
+    telprimario         VARCHAR(12) NOT NULL UNIQUE,
+    telsecundario       VARCHAR(12) NULL UNIQUE,
     estado              ENUM('ACT', 'INACT') DEFAULT 'ACT' NOT NULL,
     CONSTRAINT fk_iddistrito_empre FOREIGN KEY(iddistrito) REFERENCES distritos(iddistrito)
 )ENGINE = INNODB;
 
-crear tabla 
+/* 
+ALTER TABLE empresas MODIFY COLUMN telprimario VARCHAR(12) NOT NULL UNIQUE;
+ALTER TABLE empresas MODIFY COLUMN telsecundario VARCHAR(12) NULL UNIQUE; */
 
 CREATE TABLE clientes
 (
@@ -92,12 +95,13 @@ CREATE TABLE clientes
     idcolregistra       INT NULL,
     idcolactualiza      INT NULL,
     tipocliente         ENUM('P','E') NOT NULL,
+    estado              ENUM('ACT', 'INACT') DEFAULT 'ACT' NOT NULL
     CONSTRAINT fk_idpersona_client FOREIGN KEY(idpersona) REFERENCES personas(idpersona),
     CONSTRAINT fk_idcolregistra_client FOREIGN KEY(idcolregistra) REFERENCES colaboradores(idcolaborador),
     CONSTRAINT fk_idcolactualiza_client FOREIGN KEY(idcolactualiza) REFERENCES colaboradores(idcolaborador)
 
 )ENGINE=INNODB;
-
+/* ALTER TABLE clientes ADD COLUMN estado ENUM('ACT', 'INACT') DEFAULT 'ACT' NOT NULL; */
 
 CREATE TABLE areas
 (

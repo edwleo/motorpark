@@ -9,9 +9,10 @@ if (isset($_GET['operation'])) {
 
     switch ($_GET['operation']) {
 
-        case 'getAllClientes':
-            echo json_encode($cliente->getAllClientes());
-            break;
+        case 'delete':
+            $output = ["rows" => $cliente->delete($_GET['idcliente'])];
+            echo json_encode($output);
+
     }
 }
 
@@ -21,7 +22,8 @@ if (isset($_POST['operation'])) {
         case 'create':
 
             $registros = [
-                'idpersona' => $_POST['idpersona'],
+                'idpersona' => $_POST['idpersona'] ?? null,
+                'idempresa' => $_POST['idempresa'] ?? null,
                 'idcolregistra' => $_POST['idcolregistra'] ?? null,
                 'idcolactualiza' => $_POST['idcolactualiza'] ?? null,
                 'tipocliente' => $_POST['tipocliente']

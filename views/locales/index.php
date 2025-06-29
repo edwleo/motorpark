@@ -1,6 +1,6 @@
 <?php require_once "../partials/header.php"; ?>
 
-<?php require_once "../partials/header.php"; ?>
+
 
 <div class="container-fluid">
 
@@ -25,6 +25,7 @@
         <div class="col-md-12">
             <div class="card">
                 <div class="card-body">
+                    <div class="table-responsive">
                     <table class="table table-sm table-hover table-hover-yonda" id="tabla-locales">
                         <thead>
                             <tr>
@@ -41,6 +42,7 @@
                         <tbody>
                         </tbody>
                     </table>
+                    </div>
                 </div>
             </div>
         </div>
@@ -62,7 +64,7 @@
                             <input type="text" class="form-control" id="responsable" placeholder="Responsable" required>
                             <label for="nombre-comercial">Responsable</label>
                         </div>
-                        <div class="form-floating">
+                        <div class="form-floating mt-2">
                             <input type="text" class="form-control" id="telefono" placeholder="Telefóno" required>
                             <label for="nombre-comercial">Telefóno</label>
                         </div>
