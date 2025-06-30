@@ -349,25 +349,25 @@
         .then(res => res.json())
         .then(resp => {
           if (!resp.success) {
-            return alert('Error: ' + resp.message);
+            // Mostrar error con showToast en lugar de alert
+            showToast('Error: ' + resp.message, 'ERROR', 3000);
+            return;
           }
 
-          /* 1) Cierra el modal */
+          // Cerrar el modal
           const modalEl = document.getElementById('modalRegistrarPersona');
           const bsModal = bootstrap.Modal.getInstance(modalEl);
           bsModal.hide();
 
-          /* 2) Captura los valores directamente de los inputs del modal */
+          // Asignar valores al formulario principal
           const nuevoDni = document.getElementById('modal-nrodoc').value;
           const nuevosApellidos = document.getElementById('modal-apellidos').value;
           const nuevosNombres = document.getElementById('modal-nombres').value;
-
-          /* 3) Asígnalos a los campos del formulario principal */
           document.getElementById('dni').value = nuevoDni;
           document.getElementById('apellidos').value = nuevosApellidos;
           document.getElementById('nombres').value = nuevosNombres;
 
-          /* 4) Guarda el idpersona si lo necesitas */
+          // Guardar idpersona en input hidden
           let hidden = document.getElementById('idpersona');
           if (!hidden) {
             hidden = document.createElement('input');
@@ -377,10 +377,10 @@
             document.getElementById('formRegisterFull').appendChild(hidden);
           }
           hidden.value = resp.idpersona;
-
-          alert('¡Persona registrada con ID ' + resp.idpersona + '!');
+          /* showToast('¡Persona registrada con ID ' + resp.idpersona + '!', 'SUCCESS', 3000); */
+          showToast('¡Persona registrada.', 'SUCCESS', 3000);
         })
-        .catch(() => alert('No se pudo conectar con el servidor.'));
+        .catch(() => showToast('No se pudo conectar con el servidor.', 'ERROR', 3000));
     });
 
     /* BOTON PARA REGISTRAR USUARIO */
