@@ -11,7 +11,6 @@ require_once __DIR__ . '/../models/Usuario.php';
 
 $usuario = new Usuario();
 
-
 /**
  * Para iniciar sesion
  */
@@ -142,7 +141,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && ($_POST['operation'] ?? '') === 'ch
   echo json_encode($res);
   exit;
 }
-
 
 /**
  * GET para mostrar:

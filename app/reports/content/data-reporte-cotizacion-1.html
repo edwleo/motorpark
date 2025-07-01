@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Cotización 1</title>
+  <style>
+    .header {
+      text-align: center;
+      margin-bottom: 15px;
+    }
+
+    .header img {
+      width: 100%;
+      max-height: 120px;
+      object-fit: contain;
+    }
+
+    .container {
+      width: 100%;
+      padding: 0 20px;
+      box-sizing: border-box;
+    }
+
+    .fecha {
+      margin-left: 450px;
+    }
+
+    .row {
+      display: flex;
+      width: 100%;
+    }
+
+    .row>.left {
+      flex: 1;
+      text-align: left;
+    }
+
+    .row>.right {
+      flex: 1;
+      text-align: right;
+    }
+
+    .title {
+      text-align: center;
+      margin: 20px 0;
+    }
+
+    .content {
+      max-width: 900px;
+      margin-left: 50px;
+      margin-right: 50px;
+    }
+
+    /* por defecto */
+    .content p {
+      margin: 8px 0;
+      line-height: 1.4;
+    }
+
+    /* estas dos líneas más pegadas */
+    .tight {
+      margin: 2px 0;
+    }
+
+    .detalle {
+      border-collapse: collapse;
+      font-weight: bold;
+    }
+
+    /* .detalle td {
+      padding: 2px 8px;
+      vertical-align: top;
+    } */
+
+    .detalle td.label {
+      /* ancho fijo para alinear los dos puntos */
+      width: 200px;
+      text-align: left;
+    }
+
+    .detalle td.value {
+      text-align: left;
+    }
+
+    .small-text {
+      font-size: 10pt;
+    }
+
+    .pricing {
+      margin-top: 15px;
+      border-collapse: collapse;
+      font-weight: bold;
+      width: 100%;
+    }
+
+    /* Borde en toda la tabla */
+    .pricing,
+    .pricing td {
+      border: 1px solid #000;
+    }
+
+    /* Ajuste de padding para celdas */
+    .pricing td {
+      padding: 6px 12px;
+    }
+
+    .instructions {
+      margin-top: 20px;
+      line-height: 1.4;
+    }
+
+    .instructions p {
+      margin: 8px 0;
+    }
+
+    .instructions ol li {
+      margin-bottom: 4px;
+      font-weight: bold;
+    }
+
+    .instructions .closing {
+      margin-top: 16px;
+    }
+
+    .selected {
+      background-color: #09fce3;
+      padding: 4px 8px;
+      display: inline-block;
+      border-radius: 4px;
+    }
+
+    html,
+    body {
+      height: 100%;
+      margin: 0;
+      padding: 0;
+      position: relative;
+    }
+
+    body {
+      padding-bottom: 160px;
+    }
+
+    .footer {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+    }
+
+    .footer .footer-text {
+      margin: 0 40px 4px auto; /* desplaza el texto hacia la derecha */
+      font-size: 14pt;
+      text-align: right;
+      line-height: 1.5;
+      margin-bottom: 5px; /* espacio sobre la imagen */
+    }
+  </style>
+</head>
+
+<body>
+  <div class="header">
+    <img src="../../images/cabecera-yonda.png" alt="Cabecera Yonda">
+  </div>
+
+  <div class="container">
+    <div class="row">
+      <div class="left fecha">
+        Chincha, 01 de julio de 2025
+      </div>
+      <div class="right"></div>
+    </div>
+
+    <h2 class="title"><strong>COTIZACION VEHICULAR</strong></h2>
+
+    <div class="content">
+      <p class="tight small-text">Presente, atte. Yonda &amp; Grupo Huaraca E.I.R.L.</p>
+      <p class="tight small-text">RUC: 20609396866</p>
+      <br>
+      <p class="small-text">De nuestra consideración, nos es grato dirigirnos a usted para brindarle una cotización
+        vehicular de acuerdo al
+        siguiente detalle:</p>
+
+      <!-- TABLA DE DETALLE -->
+      <table class="detalle">
+        <tr>
+          <td class="label">NOMBRE DEL CLIENTE</td>
+          <td class="value">: LUIS CUADROS</td>
+        </tr>
+        <tr>
+          <td class="label">DNI</td>
+          <td class="value">: 42859500</td>
+        </tr>
+        <tr>
+          <td class="label">CELULAR</td>
+          <td class="value">: 962285537</td>
+        </tr>
+        <tr>
+          <td class="label">MARCA DEL VEHICULO</td>
+          <td class="value">: KIA</td>
+        </tr>
+        <tr>
+          <td class="label">MODELO</td>
+          <td class="value">: PICANTO</td>
+        </tr>
+        <tr>
+          <td class="label">AÑO</td>
+          <td class="value">: 2025</td>
+        </tr>
+        <tr>
+          <td class="label">COLOR</td>
+          <td class="value">: POR DEFINIR</td>
+        </tr>
+      </table>
+
+      <!-- CUADRO DE DATO -->
+      <table class="pricing">
+        <tr>
+          <td>PRECIO</td>
+          <td>$11,890</td>
+          <td>INICIAL</td>
+          <td>S/ 14,000.00</td>
+        </tr>
+        <tr>
+          <td>24 MESES</td>
+          <td></td>
+          <td>36 MESES</td>
+          <td>S/ 1,742.00</td>
+        </tr>
+        <tr>
+          <td>48 MESES</td>
+          <td>S/ 1,566.00</td>
+          <td>60 MESES</td>
+          <td>S/ 1,475.00</td>
+        </tr>
+      </table>
+
+      <div class="instructions">
+        <p>Con la finalidad de iniciar el proceso de desembolso de su crédito agradeceremos entregar a nuestro ejecutivo
+          de ventas la siguiente documentación:</p>
+        <ol>
+          <li>FOTOCOPIA DNI DEL TITULAR Y CÓNYUGE</li>
+          <li>COPIA DEL ÚLTIMO RECIBO PAGADO DE SERVICIOS (LUZ O AGUA)</li>
+          <li>COPIA SIMPLE DE VIVIENDA (TÍTULO DE PROPIEDAD / CERTIFICADO DE POSESIÓN, COPIA LITERAL)</li>
+          <li>BOLETAS DE PAGO</li>
+          <li>DNI AVAL (DNI CÓNYUGE DE SER NECESARIO)</li>
+          <li>EVALUACIÓN DE GASTOS FAMILIARES</li>
+          <li>30% DE INICIAL COMO MÍNIMO (aumenta según precio de la unidad)</li>
+          <li>VERIFICACIÓN DOMICILIARIA Y LABORAL</li>
+          <li>PAGO ÚNICO POR GASTOS ADMINISTRATIVOS S/ 1,500.00</li>
+          <li>SEGURO VEHICULAR (bajo evaluación)</li>
+          <li>GPS SATELITAL</li>
+        </ol>
+        <!-- style="text-align: center;" -->
+        <p><span class="selected">ENTREGA DE LA UNIDAD EN UN MÁXIMO DE 25 DÍAS HÁBILES</span></p>
+        <p class="closing">Finalmente, agradecemos su confianza en nosotros y reiteramos nuestro compromiso en dar
+          cumplimiento a todos los procesos señalados con anterioridad y conversados con las personas a cargo.</p>
+        <p class="closing"><strong>Atte.</strong></p>
+      </div>
+
+    </div>
+  </div>
+
+  <div class="footer">
+    <div class="footer-text">
+      CHARLY YACTAYO ORTIZ<br>
+      Ejecutivo de Ventas<br>
+      TELEFONO: (056) 934 008 037
+    </div>
+    <img src="../../images/footer-yonda.png" style="width:100%; display:block;" alt="Piecera Yonda">
+  </div>
+</body>
+
+</html>

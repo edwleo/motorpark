@@ -75,14 +75,14 @@
           const resp = await fetch('app/controllers/Usuario.controller.php', { method: 'POST', body: data });
           // imprime el HTML/JSON que venga del servidor
           const text = await resp.text();
-          console.log("RESPUESTA CRUDA:", text);
+          /* console.log("RESPUESTA CRUDA:", text); */
 
           // intenta luego parsear
           let json;
           try {
             json = JSON.parse(text);
           } catch (e) {
-            console.error("JSON inválido:", e);
+            /* console.error("JSON inválido:", e); */
             return alert("Respuesta no es JSON. Mira la consola.");
           }
 
