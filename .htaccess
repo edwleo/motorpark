@@ -1,13 +1,7 @@
 # Activa el motor de reescritura
 RewriteEngine On
 
-# ---------- BLOQUE 1: Impedir acceso a carpetas sin index.php ----------
-# Si la ruta es un directorio...
-RewriteCond %{REQUEST_FILENAME} -d
-# ...y NO existe un archivo index.php dentro de ese directorio...
-RewriteCond %{REQUEST_FILENAME}/index.php !-f
-# ...entonces denegar el acceso
-RewriteRule ^.*$ - [F,L]
+
 
 # ---------- BLOQUE 2: Quitar .php de la URL ----------
 # Si la ruta solicitada NO es un archivo real...

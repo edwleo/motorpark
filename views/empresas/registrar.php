@@ -31,7 +31,7 @@
                         <div class="col-md-3">
                             <div class="form-floating">
                                 <input type="text" name="ruc" id="ruc" class="form-control"
-                                    placeholder="Ingrese el N° de RUC" maxlength="12" required>
+                                    placeholder="Ingrese el N° de RUC" maxlength="11" required>
                                 <label for="ruc">N° RUC</label>
                             </div>
                         </div>

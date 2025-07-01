@@ -63,6 +63,10 @@ CREATE TABLE personas
     CONSTRAINT fk_iddistrito_per FOREIGN KEY (iddistrito) REFERENCES distritos (iddistrito) 
 )ENGINE = INNODB;
 
+SHOW COLUMNS FROM personas;
+-- ALTER TABLE personas ADD COLUMN latitud VARCHAR(20) NULL;
+-- ALTER TABLE personas ADD COLUMN longitud VARCHAR(20) NULL;
+
 
 CREATE TABLE empresas
 (   
@@ -83,9 +87,9 @@ CREATE TABLE empresas
     CONSTRAINT fk_iddistrito_empre FOREIGN KEY(iddistrito) REFERENCES distritos(iddistrito)
 )ENGINE = INNODB;
 
-/* 
-ALTER TABLE empresas MODIFY COLUMN telprimario VARCHAR(12) NOT NULL UNIQUE;
-ALTER TABLE empresas MODIFY COLUMN telsecundario VARCHAR(12) NULL UNIQUE; */
+
+-- ALTER TABLE empresas MODIFY COLUMN telprimario VARCHAR(12) NOT NULL UNIQUE;
+-- ALTER TABLE empresas MODIFY COLUMN telsecundario VARCHAR(12) NULL UNIQUE; 
 
 CREATE TABLE clientes
 (
@@ -95,7 +99,7 @@ CREATE TABLE clientes
     idcolregistra       INT NULL,
     idcolactualiza      INT NULL,
     tipocliente         ENUM('P','E') NOT NULL,
-    estado              ENUM('ACT', 'INACT') DEFAULT 'ACT' NOT NULL
+    estado              ENUM('ACT', 'INACT') DEFAULT 'ACT' NOT NULL,
     CONSTRAINT fk_idpersona_client FOREIGN KEY(idpersona) REFERENCES personas(idpersona),
     CONSTRAINT fk_idcolregistra_client FOREIGN KEY(idcolregistra) REFERENCES colaboradores(idcolaborador),
     CONSTRAINT fk_idcolactualiza_client FOREIGN KEY(idcolactualiza) REFERENCES colaboradores(idcolaborador)
