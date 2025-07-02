@@ -1,7 +1,8 @@
 <div class="container">
     <div class="container-title-contrato" style="margin-top: 120px;">
-        <p class="uppercase bold">CONTRATO DE CRÉDITO VEHICULAR CON RETENSION DE DOMINIO DE VEHICULO N° 0001 – FC. 20 - SEDE CHINCHA
+        <p class="uppercase bold" style="text-align: center;">CONTRATO DE CRÉDITO VEHICULAR CON RETENSION DE DOMINIO DE VEHICULO
         </p>
+        <p class="uppercase bold " style="text-align: center;">N° 0001 – FC. 20 - SEDE CHINCHA</p>
     </div>
 
     <p>

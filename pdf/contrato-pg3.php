@@ -8,9 +8,9 @@
         Si el <strong>CLIENTE</strong> incumpliera con dos (02) pagos de Cuotas Total Mensuales consecutivas incurrirá en
         causal de resolución de contrato y <strong>YONDA & GRUPO HUARACA</strong> procederá a resolverlo de pleno derecho, en concordancia con lo establecido
         en el artículo 1430° del Código Civil y pasará al recojo el vehículo, pudiendo despojarlo de la posesión del bien, sin necesidad de un
-        proceso judicial; quedando a favor de YONDA & GRUPO HUARACA todas las cuotas canceladas como indemnización por incumplimiento de
-        contrato de acuerdo al artículo 1561 del código civil, asimismo, si EL CLIENTE es parte en algún proceso judicial y como consecuencia
-        de ello, a criterio de YONDA & GRUPO HUARACA, su patrimonio se encuentra en peligro de ser disminuido, se procederá al recojo del
+        proceso judicial; quedando a favor de <strong>YONDA & GRUPO HUARACA</strong> todas las cuotas canceladas como indemnización por incumplimiento de
+        contrato de acuerdo al artículo 1561 del código civil, asimismo, si <strong>EL CLIENTE</strong> es parte en algún proceso judicial y como consecuencia
+        de ello, a criterio de <strong>YONDA & GRUPO HUARACA</strong>, su patrimonio se encuentra en peligro de ser disminuido, se procederá al recojo del
         vehículo.
         Queda en potestad de <strong>YONDA & GRUPO HUARACA</strong> exigir al <strong>CLIENTE</strong> el pago de los gastos que hubiera, esto en caso el bien haya sufrido un
         deterioro, desperfecto o cuente con alguna deuda por infracción de tránsito u otros.
@@ -26,7 +26,7 @@
         <strong>SEPTIMA: El CLIENTE</strong>, se obliga a ejercitar las acciones necesarias para evitar la extinción o deterioro del Vehículo, con obligación
         de darle el mantenimiento que se exige para contar con la garantía del proveedor, quedando además obligado a comunicar a <strong>YONDA & GRUPO HUARACA</strong> sobre cualquier situación que pudiera poner en peligro la existencia del mismo. Asimismo, se obliga al pago de cualquier multa por infracción de las normas
         de tránsito, registro vehicular o demás obligaciones que devengan de la posesión del bien, en caso no cumpliera con el pago
-        correspondiente, YONDA & GRUPO HUARACA podrá proceder con el recojo vehicular (dándole un plazo máximo de 7 días para su regularización) o
+        correspondiente, <strong>YONDA & GRUPO HUARACA</strong> podrá proceder con el recojo vehicular (dándole un plazo máximo de 7 días para su regularización) o
         con el pago correspondiente de la obligación, teniendo esta que ser cancelada por el cliente más un 10% del monto total (en caso de multas).
 
     </p>

@@ -18,7 +18,7 @@
     <p><strong>VIGESIMA: INTERVENCIÓN DEL CONYUGE</strong>
         De ser el caso, interviene en este Contrato, el/la cónyuge del <strong>CLIENTE/CONSTITUYENTE</strong> a fin de prestar su conformidad a
         los términos y condiciones del presente contrato, las condiciones particulares del crédito, garantías, letra de cambio y las
-        obligaciones que EL CLIENTE/CONSTITUYENTE asume frente a <strong>YONDA & GRUPO HUARACA</strong>, asumiendo la calidad de obligado solidario con
+        obligaciones que <strong>EL CLIENTE/CONSTITUYENTE</strong> asume frente a <strong>YONDA & GRUPO HUARACA</strong>, asumiendo la calidad de obligado solidario con
         el <strong>CLIENTE/EL CONSTITUYENTE</strong>.
 
     </p>
@@ -26,7 +26,10 @@
     <p>
 
         <strong>VIGESIMA PRIMERA: ACUERDO</strong>
-        Ambas partes contratantes tanto <strong>Yonda & Grupo Huaraca</strong> y el <strong>CLIENTE</strong>, encontrándose en el uso de todas sus facultades mentales y sin intimidación alguna se someterán a las cláusulas penales y obligaciones que se deriven de este contrato si en algún momento hubiera conflicto.
+        Ambas partes contratantes tanto <strong>Yonda & Grupo Huaraca</strong> y el <strong>CLIENTE</strong>, encontrándose en el
+        uso de todas sus facultades
+        mentales y sin intimidación alguna se someterán a las cláusulas penales y
+        obligaciones que se deriven de este contrato si en algún momento hubiera conflicto.
 
     </p>
 

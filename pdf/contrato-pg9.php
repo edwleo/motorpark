@@ -119,7 +119,7 @@
             </div>
 
             <ul>
-                <li>Las Pre – cancelaciones y Cancelaciones se realizarán exclusivamente previo acuerdo con <strong class="bold">YONDA & GRUPO HUARACA E.I.R.L.</strong><br><br></li>
+                <li>Las Pre – cancelaciones y Cancelaciones se realizarán exclusivamente previo acuerdo <br>con <strong class="bold">YONDA & GRUPO HUARACA E.I.R.L.</strong><br><br></li>
                 <li>Los fiadores solidarios y/o avalistas respaldan la operación de crédito, y cualquier otra obligación presente o futura, directa o indirecta que el cliente haya contraído o asuma con <strong class="bold">Yonda & Grupo Huaraca</strong> durante la vigencia del Préstamo. La vigencia de la fianza/aval será indefinida, y sólo quedará liberada cuando el cliente cumpla con todas las obligaciones garantizadas.<br><br></li>
                 <li><strong class="bold">Yonda & Grupo Huaraca</strong> sólo podrá modificar, unilateralmente, comisiones, gastos y otras estipulaciones contractuales distintas a las tasas de interés.<br><br></li>
                 <li>Ante el incumplimiento de pago según las condiciones pactadas (2 cuotas), se procederá a realizar el reporte a las Centrales de Riesgo de <strong class="bold">Yonda & Grupo Huaraca</strong> para la realización de la notificación de cobranza correspondiente, costo asumido por el CLIENTE, de persistir en el incumplimiento se procederá con el recojo del vehículo, teniendo como plazo máximo para la cancelación de lo adeudado 72 horas, caso contrario se dará por resuelto el contrato, pudiendo la unidad entrar en remate sin previo aviso al cliente.<br><br></li>
