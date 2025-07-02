@@ -17,7 +17,7 @@
         obteniendo por mi labor de.........................................................
     </p>
 
-    <p class="mb-5">UN ingreso mensual aproximador de............................................</p>
+    <p class="mb-5">UN ingreso mensual aproximador de.............................................</p>
     <p style="margin-bottom: 90px;">O temporario total de.....................................................................</p>
 
     <table class="firmas uppercase bold">
