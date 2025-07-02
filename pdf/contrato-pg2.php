@@ -1,6 +1,6 @@
 <div class="container">
 
-    <p style="margin-top: 80px;">
+    <p style="margin-top: 120px;">
         El mismo que, quedará en poder de<strong>EL CLIENTE</strong>, reservándose el derecho de propiedad del bien a <strong>YONDA & GRUPO HUARACA</strong> hasta cuando el
         CLIENTE haya cancelado todo el crédito o costo total del bien, aunque este haya sido entregado al <strong>CLIENTE</strong>, quien asume el riesgo tota
         de su perdida y deterioro desde el momento de la entrega, tal y como lo dispone el Artículo 1583° del Código Civil Peruano, así como

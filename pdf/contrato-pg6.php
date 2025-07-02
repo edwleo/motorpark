@@ -1,32 +1,32 @@
 <div class="container">
 
 
-    <p style="margin-top: 80px;">DECIMO NOVENA: El presente Contrato y sus Anexos se rigen por las leyes de la República del Perú (la "Ley Aplicable"), lo cual incluye, sin que dicha lista sea limitativa, a las siguientes normas, así como aquellas que las modifiquen o las sustituyan: </p>
+    <p style="margin-top: 120px;"><strong>DECIMO NOVENA:</strong> El presente Contrato y sus Anexos se rigen por las leyes de la República del Perú (la "Ley Aplicable"), lo cual incluye, sin que dicha lista sea limitativa, a las siguientes normas, así como aquellas que las modifiquen o las sustituyan: </p>
 
     <div class="leyes">
         <ul class="">
-            <li class="pt-1"> Ley de Títulos Valores, Ley N° 27287. </li>
-            <li class="pt-1">Circular N° G-0090-2001 de la SBS (Título valor emitido en forma incompleta) </li>
-            <li class="pt-1">
+            <li> Ley de Títulos Valores, Ley N° 27287.<br><br></li>
+            <li>Circular N° G-0090-2001 de la SBS (Título valor emitido en forma incompleta)<br><br></li>
+            <li>
                 Código Civil Peruano.
             </li>
         </ul>
     </div>
 
-    <p>Las Partes se someten a la jurisdicción de los jueces y tribunales del Distrito Judicial que corresponda a la oficina de YONDA & GRUPO HUARACA. </p>
+    <p>Las Partes se someten a la jurisdicción de los jueces y tribunales del Distrito Judicial que corresponda a la oficina de <strong>YONDA & GRUPO HUARACA</strong>. </p>
 
-    <p>VIGESIMA: INTERVENCIÓN DEL CONYUGE
-        De ser el caso, interviene en este Contrato, el/la cónyuge del CLIENTE/CONSTITUYENTE a fin de prestar su conformidad a
+    <p><strong>VIGESIMA: INTERVENCIÓN DEL CONYUGE</strong>
+        De ser el caso, interviene en este Contrato, el/la cónyuge del <strong>CLIENTE/CONSTITUYENTE</strong> a fin de prestar su conformidad a
         los términos y condiciones del presente contrato, las condiciones particulares del crédito, garantías, letra de cambio y las
-        obligaciones que EL CLIENTE/CONSTITUYENTE asume frente a YONDA & GRUPO HUARACA, asumiendo la calidad de obligado solidario con
-        el CLIENTE/EL CONSTITUYENTE.
+        obligaciones que EL CLIENTE/CONSTITUYENTE asume frente a <strong>YONDA & GRUPO HUARACA</strong>, asumiendo la calidad de obligado solidario con
+        el <strong>CLIENTE/EL CONSTITUYENTE</strong>.
 
     </p>
 
     <p>
 
-        VIGESIMA PRIMERA: ACUERDO
-        Ambas partes contratantes tanto Yonda & Grupo Huaraca y el CLIENTE, encontrándose en el uso de todas sus facultades mentales y sin intimidación alguna se someterán a las cláusulas penales y obligaciones que se deriven de este contrato si en algún momento hubiera conflicto.
+        <strong>VIGESIMA PRIMERA: ACUERDO</strong>
+        Ambas partes contratantes tanto <strong>Yonda & Grupo Huaraca</strong> y el <strong>CLIENTE</strong>, encontrándose en el uso de todas sus facultades mentales y sin intimidación alguna se someterán a las cláusulas penales y obligaciones que se deriven de este contrato si en algún momento hubiera conflicto.
 
     </p>
 
@@ -44,8 +44,8 @@
                 <td>FIRMA DEL AVAL</td>
             </tr>
             <tr>
-                <td>NOMBRE: ORELLANA RAMOS YONAL YOHAN</td>
-                <td>NOMBRE: PEREZ GALVEZ FIORELLA LILIANA</td>
+                <td>ORELLANA RAMOS YONAL YOHAN</td>
+                <td>PEREZ GALVEZ FIORELLA LILIANA</td>
             </tr>
             <tr>
                 <td>DNI:45455554</td>

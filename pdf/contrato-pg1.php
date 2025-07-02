@@ -1,7 +1,6 @@
 <div class="container">
-    <div class="container-title-contrato">
-        <p class="uppercase">CONTRATO DE CRÉDITO VEHICULAR CON RETENSION DE DOMINIO DE VEHICULO
-            N° 0001 – FC. 20 - SEDE CHINCHA
+    <div class="container-title-contrato" style="margin-top: 120px;">
+        <p class="uppercase bold">CONTRATO DE CRÉDITO VEHICULAR CON RETENSION DE DOMINIO DE VEHICULO N° 0001 – FC. 20 - SEDE CHINCHA
         </p>
     </div>
 
@@ -73,27 +72,27 @@
 
         <tbody class="bold uppercase">
 
-            <tr>
-                <td class="text-left border-right-none">MARCA: BAJAJ </td>
-                <td class="text-left border-right-none">N° MOTOR: AZXWRB48078</td>
+            <tr >
+                <td colspan="2"  class="text-left border-right-none">MARCA: BAJAJ </td>
+                <td   colspan="2" class="text-left border-right-none">N° MOTOR: AZXWRB48028</td>
             </tr>
 
             <tr>
-                <td class="text-left border-right-none">MODELO: AUTORIKSHA TORITO 4T</td>
-                <td class="text-left border-right-none">N° SERIE: MD2A45AX7RWB11976</td>
-
-            </tr>
-
-            <tr>
-                <td class="text-left border-right-none">COLOR: ROJO</td>
-                <td class="text-left border-right-none">AÑO DE MODELO: 2024</td>
-
+                <td  colspan="2" class="text-left border-right-none">MODELO: AUTORIKSHA TORITO 4T</td>
+                <td   colspan="2" class="text-left border-right-none">N° SERIE: MD2A45AX2RWB11926dfffffffffffffff</td>
 
             </tr>
 
             <tr>
-                <td class="text-left border-right-none">PLACA: EN TRAMITE </td>
-                <td class="text-left border-right-none"></td>
+                <td  colspan="2" class="text-left border-right-none">COLOR: ROJO</td>
+                <td   colspan="2" class="text-left border-right-none">AÑO DE MODELO: 2024</td>
+
+
+            </tr>
+
+            <tr>
+                <td   colspan="2" class="text-left border-right-none">PLACA: EN TRAMITE </td>
+                <td   colspan="2"class="text-left border-right-none"></td>
 
 
             </tr>
