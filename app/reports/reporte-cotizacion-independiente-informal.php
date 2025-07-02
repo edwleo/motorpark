@@ -6,7 +6,7 @@ use Spipu\Html2Pdf\Exception\ExceptionFormatter;
 
 try {
     ob_start();
-    require_once './content/data-reporte-cotizacion-2.html';
+    require_once './content/data-reporte-cotizacion-independiende-informal.html';
     $html = ob_get_clean();
 
     // Inicializo en español y habilito imágenes locales
