@@ -6,9 +6,19 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Cotización 3</title>
   <style>
+    @page {
+      margin: 10mm;
+    }
+
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: Arial, sans-serif;
+    }
+
     .header {
       text-align: center;
-      margin-bottom: 15px;
+      margin-bottom: 30px;
     }
 
     .header img {
@@ -18,11 +28,148 @@
     }
 
     .container {
-      width: 100%;
-      padding: 0 100px;
+      margin: 0 100px;
+      max-width: calc(100% - 200px);
       box-sizing: border-box;
+      overflow-wrap: break-word;
+      hyphens: auto;
     }
 
+    .container .fecha {
+      margin-bottom: 15px;
+      /* espacio entre fecha y título */
+    }
+
+    .container .titulo {
+      text-decoration: underline;
+      margin-bottom: 15px;
+    }
+
+    .container>div {
+      margin-bottom: 8px;
+      /* font-size: 10pt; */
+    }
+
+    .detalle {
+      margin-top: 10px;
+      text-align: justify;
+      line-height: 1.5;
+      /* font-size: 11pt; */
+    }
+
+    .detalle .info p {
+      margin: 2px 0;
+      line-height: 1.0;
+    }
+
+    .info {
+      margin-bottom: 10px;
+      /* espacio tras el bloque info */
+    }
+
+    .detalle p {
+      margin: 4px 0;
+    }
+
+    .vehiculo-detalle {
+      margin-left: 30px;
+    }
+
+    .vehiculo-detalle table {
+      width: 100%;
+      border-collapse: collapse;
+      border: 1px solid #000;
+    }
+
+    .vehiculo-detalle th,
+    .vehiculo-detalle td {
+      border: 1px solid #000;
+      padding: 2px 10px;
+    }
+
+    .condicion {
+      margin-top: 15px;
+      /* espacio entre la tabla y este bloque */
+      /* font-size: 11pt; */
+      text-align: justify;
+      line-height: 1.4;
+    }
+
+    .condicion::first-line {
+      font-weight: bold;
+      text-transform: uppercase;
+      margin-bottom: 4px;
+    }
+
+    .accesorios {
+      margin-top: 15px;
+    }
+
+    .accesorios p {
+      margin: 0 0 2px 0;
+      text-transform: uppercase;
+    }
+
+    .accesorios-list {
+      margin: 0;
+      padding-left: 0px;
+    }
+
+    .accesorios-list li {
+      margin-bottom: 4px;
+      /* espacio entre ítems */
+      list-style-type: disc;
+    }
+
+    .footer {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+    }
+
+    .footer .footer-text {
+      margin: 0 40px 4px auto;
+      /* desplaza el texto hacia la derecha */
+      font-size: 14pt;
+      text-align: right;
+      line-height: 1.5;
+      margin-bottom: 5px;
+      /* espacio sobre la imagen */
+    }
+
+    .firmas {
+      margin-top: 12px;
+    }
+
+    .firmas-table {
+      width: 100%;
+      border-collapse: separate;
+      border-spacing: 50px 0;
+      table-layout: fixed;
+    }
+
+    .firmas-table td {
+      vertical-align: bottom;
+      padding-top: 20px;
+      width: 50%;
+    }
+
+    /* Primera fila - firma vendedora a la izquierda */
+    .firma-vendedor {
+      text-align: left;
+    }
+
+    /* Primera fila - firma compradora a la derecha */
+    .firma-comprador {
+      text-align: right;
+      padding-left: 80px;
+    }
+
+    /* Segunda fila - solo ejecutivo de ventas */
+    .firma-ejecutivo {
+      text-align: left;
+    }
   </style>
 </head>
 
@@ -31,23 +178,130 @@
     <img src="../../images/cabecera-yonda.png" alt="Cabecera Yonda">
   </div>
   <div class="container">
-    <div>
+    <div class="fecha">
       Chincha, 01 de junio del 2025
     </div>
-    <div>
-      ACTA DE ENTREGA DE VEHICULO
+    <div class="titulo">
+      <strong>ACTA DE ENTREGA DE VEHÍCULO</strong>
     </div>
-    
     <div class="detalle">
-      <p><strong>YONDA Y GRUPO HUARACA E.I.R.L.</strong></p>
-      <p>RUC: 20609396866</p>
-      <p>Dirección: Carretera Panamericana km 201 - Chincha</p>
-      <p>Teléfonos: 927 676 338 / 971 027 612</p>
-      <p>Representante Legal: Sr. Yhon Kennidey Mendoza Huaraca (DNI N.º 40971062)</p>
-      <p>
-        Conste por la presente acta que en la fecha, la empresa antes mencionada hace entrega formal del vehículo que se detalla a continuación a la Sra. XXXXXXXXXXX, identificada con DNI N.º 71943085, domiciliada en URB. SOL DEL VALLE MZ J2 LT 04 – SUNAMPE – CHINCHA – ICA, con número de celular 904791735, a quien en adelante se le denominará 'la compradora'.
+
+      <div class="info">
+        <p><strong>YONDA Y GRUPO HUARACA E.I.R.L.</strong></p>
+        <p>RUC: 20609396866</p>
+        <p>Dirección: Carretera Panamericana km 201 - Chincha</p>
+        <p>Teléfonos: 927 676 338 / 971 027 612</p>
+        <p>Representante Legal: Sr. Yhon Kennidey Mendoza Huaraca (DNI N.º 40971062)</p>
+      </div>
+      <p class="descripcion">
+        Conste por la presente acta que en la fecha, la empresa antes mencionada hace entrega formal del vehículo que
+        se detalla a continuación a la Sra. XXXXXXXXXXX, identificada con DNI N.º 71943085, domiciliada en URB. SOL
+        DEL VALLE MZ J2 LT 04 - SUNAMPE - CHINCHA - ICA, con número de celular 904791735, a quien en adelante se le
+        denominará 'la compradora'.
       </p>
+
+      <div class="vehiculo-detalle">
+        <table>
+          <colgroup>
+            <col style="width: 30%;" />
+            <col style="width: 55%;" />
+          </colgroup>
+          <thead>
+            <tr>
+              <th colspan="2">DETALLE DEL VEHÍCULO ENTREGADO</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>Marca</strong></td>
+              <td></td>
+            </tr>
+            <tr>
+              <td><strong>Modelo</strong></td>
+              <td></td>
+            </tr>
+            <tr>
+              <td><strong>Número de Chasis</strong></td>
+              <td></td>
+            </tr>
+            <tr>
+              <td><strong>Número de Motor</strong></td>
+              <td></td>
+            </tr>
+            <tr>
+              <td><strong>Año de fabricación</strong></td>
+              <td></td>
+            </tr>
+            <tr>
+              <td><strong>Color</strong></td>
+              <td></td>
+            </tr>
+            <tr>
+              <td><strong>Año</strong></td>
+              <td></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="condicion">
+        CONDICIÓN DE ENTREGA:
+        <p>El vehículo es entregado en perfectas condiciones mecánicas, estéticas y operativas,
+          con todos sus accesorios completos y funcionando, no teniendo la compradora nada que
+          reclamar a posterioridad por concepto de estado físico o funcionamiento del mismo.</p>
+      </div>
+
+      <div class="accesorios">
+        <p>ACCESORIOS ENTREGADOS:</p>
+        <ul class="accesorios-list">
+          <li>1 llave de contacto</li>
+          <li>Juego de pisos</li>
+          <li>Manual de garantía y manual del usuario</li>
+          <li>Llanta de repuesto y llave de rueda</li>
+          <li>Pisos delanteros y posteriores</li>
+          <li>Placa vehicular: EN TRÁMITE</li>
+        </ul>
+      </div>
+
+      <div class="nota">
+        <p>NOTA:</p>
+        <p>La entrega de la tarjeta de propiedad y la placa vehicular definitiva se realizará en un plazo estimado de 25
+          a 30 días hábiles, contados a partir de la presente fecha.</p>
+        <p>Ambas partes manifiestan su total conformidad con los términos descritos en el presente documento, firmando
+          en señal de aceptación y recepción de lo indicado.</p>
+      </div>
+
+      <div class="firmas">
+        <table class="firmas-table">
+          <!-- Fila 1: firma vendedora (izq) y firma compradora (der) -->
+          <tr>
+            <td class="firma-vendedor">
+              ___________________________<br>
+              <strong>YONDA & GRUPO HUARACA</strong><br>
+              <strong>RUC: 20609396866</strong>
+            </td>
+            <td class="firma-comprador">
+              ___________________________<br>
+              <strong>XXXXXXXXXXXXXXXXXXXX</strong><br>
+              <strong>DNI: XXXXXXXX</strong>
+            </td>
+          </tr>
+          <!-- Fila 2: solo firma ejecutivo en la columna izquierda -->
+          <tr>
+            <td class="firma-ejecutivo">
+              ___________________________<br>
+              <strong>XXXXXXXXXXXXXXXXXXXX</strong><br>
+              <strong>Ejecutivo de ventas</strong>
+            </td>
+            <td><!-- vacío --></td>
+          </tr>
+        </table>
+      </div>
+
     </div>
+  </div>
+  <div class="footer">
+    <img src="../../images/footer-yonda.png" style="width:100%; display:block;" alt="Piecera Yonda">
   </div>
 </body>
 
